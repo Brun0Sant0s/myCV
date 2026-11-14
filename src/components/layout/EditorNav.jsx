@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { useLang } from "../../i18n/LanguageContext";
 
 // Navigation styled as the tab bar of a code editor: one .jsx file per section, the open tab is where you are.
+// `file` is the key of the tab name in the translations (nav.*).
 const SECTIONS = [
-    { file: "Home", ext: ".jsx", top: true },
-    { file: "About", ext: ".jsx", id: "aboutMeContent", target: "aboutMeContent" },
-    { file: "Experience", ext: ".jsx", id: "professionalExperienceText", target: "professionalExperienceText" },
-    { file: "Projects", ext: ".jsx", id: "projectsText", target: "projectsText" },
-    { file: "Certifications", ext: ".jsx", id: "certificationsText", target: "certificationsText" },
-    { file: "Contact", ext: ".jsx", id: "contactsText", target: "contactsText" },
+    { file: "home", ext: ".jsx", top: true },
+    { file: "about", ext: ".jsx", id: "aboutMeContent", target: "aboutMeContent" },
+    { file: "experience", ext: ".jsx", id: "professionalExperienceText", target: "professionalExperienceText" },
+    { file: "projects", ext: ".jsx", id: "projectsText", target: "projectsText" },
+    { file: "certifications", ext: ".jsx", id: "certificationsText", target: "certificationsText" },
+    { file: "contact", ext: ".jsx", id: "contactsText", target: "contactsText" },
 ];
 
 const ReactIcon = () => (
@@ -20,6 +22,7 @@ const ReactIcon = () => (
 );
 
 const EditorNav = () => {
+    const { t } = useLang();
     const [current, setCurrent] = useState(0);
     const tabsRef = useRef(null);
 
@@ -63,7 +66,7 @@ const EditorNav = () => {
 
     return (
         <nav
-            aria-label="Sections"
+            aria-label={t.nav.label}
             className="fixed z-40 left-1/2 -translate-x-1/2 bottom-[max(16px,env(safe-area-inset-bottom))] max-w-[calc(100vw-32px)] rounded-xl border border-white/20 bg-[#0a0a0c]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden"
         >
             <div ref={tabsRef} className="flex overflow-x-auto font-mono text-[12px] sm:text-[13px] [scrollbar-width:none]">
@@ -82,7 +85,7 @@ const EditorNav = () => {
                             {on && <span className="absolute top-0 left-0 right-0 h-[2px] bg-[#20C997]" />}
                             <ReactIcon />
                             <span>
-                                {s.file}
+                                {t.nav[s.file]}
                                 <span className="hidden sm:inline text-gray-600">{s.ext}</span>
                             </span>
                         </button>

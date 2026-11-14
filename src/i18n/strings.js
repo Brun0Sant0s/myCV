@@ -1,0 +1,203 @@
+// Every interface text of the site, in English and Portuguese (Portugal).
+// Project, timeline and certificate content lives in src/data, with its Portuguese version in ./data.js.
+
+const en = {
+    meta: { title: "Bruno Santos · Frontend Engineer" },
+    nav: {
+        label: "Sections",
+        home: "Home",
+        about: "About",
+        experience: "Experience",
+        projects: "Projects",
+        certifications: "Certifications",
+        contact: "Contact",
+        language: "Language",
+    },
+    hero: { hint: "Move the cursor" },
+    sections: {
+        experience: { words: ["Professional", "Experience"], subtitle: "Four years at the company ePharma, my own products and live shows, year by year." },
+        projects: { words: ["My", "Projects"], subtitle: "Products and client work I designed and built, from idea to launch." },
+        certifications: { words: ["My", "Certifications"], subtitle: "Courses I completed to keep growing as a developer." },
+        contacts: { words: ["My", "Contacts"], subtitle: "Email, phone or a quick message, whichever suits you." },
+    },
+    carousel: { previous: "Previous", next: "Next" },
+    about: {
+        tagline: "Frontend Engineer · Porto, Portugal",
+        bio: "Four years as a Frontend Engineer at the company ePharma, and my own products taken from idea to launch. I like to understand the problem before writing code: the user, the business and how every part of the product connects.",
+        downloadCv: "Download CV",
+        cv: "CV_BRUNO_EN.pdf",
+        skillsTitle: "Skills",
+        skills: [
+            "Frontend: HTML5, CSS3, JavaScript, TypeScript, React, Angular and jQuery",
+            "Mobile and backend: React Native with Expo, Node.js, Firebase, REST APIs, Java and SQL",
+            "Design and tools: Figma, UI/UX, Git and Agile/Scrum",
+            "Product: requirements, stakeholders, UX and end-to-end delivery",
+        ],
+        facts: [
+            { label: "Education", items: [{ v: "BSc Computer Engineering", n: "IPB · 2027" }] },
+            {
+                label: "Languages",
+                items: [
+                    { v: "Portuguese", n: "Native" },
+                    { v: "English", n: "Fluent" },
+                    { v: "Spanish", n: "Basic" },
+                ],
+            },
+            { label: "Sports", items: [{ v: "Gym" }, { v: "Running" }, { v: "Padel" }, { v: "Football" }] },
+            { label: "Also into", items: [{ v: "Films" }, { v: "Podcasts" }] },
+        ],
+        deckLabel: "About me",
+        cards: {
+            epharma: { title: "Years at ePharma", text: "Frontend Engineer at the company ePharma, in a Scrum team, from Figma to pixel-perfect." },
+            products: { title: "Own products", text: "SaveSpot, Kyuar and Mingle, taken from idea to launch." },
+            offscreen: { title: "Off screen", text: "Gym, running, padel, football, films and podcasts." },
+        },
+        card: "Card",
+        prevCard: "Previous card",
+        nextCard: "Next card",
+    },
+    experience: {
+        goTo: "Go to",
+        present: "Present",
+        months: {},
+    },
+    projects: {
+        features: "Features",
+        screens: "screens",
+        logo: "logo",
+        prevScreen: "Previous screen",
+        nextScreen: "Next screen",
+    },
+    certifications: {
+        viewCertificate: "View certificate",
+        allCourses: "All courses",
+        carouselLabel: "Certificates",
+        certificate: "certificate",
+        prevCertificate: "Previous certificate",
+        nextCertificate: "Next certificate",
+    },
+    contacts: {
+        title: "Let's talk",
+        tagline: "Frontend Engineer · Porto",
+        intro: "Every value is a link. Or fill in the props with your name, email and message, and run it to send.",
+        yourDetails: "// your details",
+        placeholders: { name: "your name", email: "you@email.com", message: "what are you working on?" },
+        runHint: "// Ctrl + Enter or Run to send",
+        running: "Running…",
+        run: "Run ▸",
+        status: {
+            success: "Message sent. I'll get back to you soon.",
+            incomplete: "Please fill in all fields.",
+            error: "The message could not be sent. Please email me directly.",
+        },
+        channelsTitle: "Channels",
+        channels: {
+            Email: ["Email", "best for projects and roles"],
+            Phone: ["Phone", "call or WhatsApp"],
+            LinkedIn: ["LinkedIn", "career and experience"],
+            GitHub: ["GitHub", "code and side projects"],
+        },
+    },
+};
+
+const pt = {
+    meta: { title: "Bruno Santos · Frontend Engineer" },
+    nav: {
+        label: "Secções",
+        home: "Início",
+        about: "Sobre",
+        experience: "Experiência",
+        projects: "Projetos",
+        certifications: "Certificações",
+        contact: "Contacto",
+        language: "Idioma",
+    },
+    hero: { hint: "Mexe o cursor" },
+    sections: {
+        experience: { words: ["Experiência", "Profissional"], subtitle: "Quatro anos na empresa ePharma, os meus produtos e os espetáculos ao vivo, ano a ano." },
+        projects: { words: ["Os Meus", "Projetos"], subtitle: "Produtos e trabalhos para clientes que desenhei e desenvolvi, da ideia ao lançamento." },
+        certifications: { words: ["As Minhas", "Certificações"], subtitle: "Cursos que concluí para continuar a crescer como programador." },
+        contacts: { words: ["Os Meus", "Contactos"], subtitle: "Email, telefone ou uma mensagem rápida, como preferires." },
+    },
+    carousel: { previous: "Anterior", next: "Seguinte" },
+    about: {
+        tagline: "Frontend Engineer · Porto, Portugal",
+        bio: "Quatro anos como Frontend Engineer na empresa ePharma e produtos próprios levados da ideia ao lançamento. Gosto de perceber o problema antes de escrever código: o utilizador, o negócio e a forma como cada parte do produto se liga.",
+        downloadCv: "Descarregar CV",
+        cv: "CV_BRUNO_PT.pdf",
+        skillsTitle: "Competências",
+        skills: [
+            "Frontend: HTML5, CSS3, JavaScript, TypeScript, React, Angular e jQuery",
+            "Mobile e backend: React Native com Expo, Node.js, Firebase, REST APIs, Java e SQL",
+            "Design e ferramentas: Figma, UI/UX, Git e Agile/Scrum",
+            "Produto: requisitos, stakeholders, UX e entrega de ponta a ponta",
+        ],
+        facts: [
+            { label: "Formação", items: [{ v: "Licenciatura em Engenharia Informática", n: "IPB · 2027" }] },
+            {
+                label: "Línguas",
+                items: [
+                    { v: "Português", n: "Nativo" },
+                    { v: "Inglês", n: "Fluente" },
+                    { v: "Espanhol", n: "Básico" },
+                ],
+            },
+            { label: "Desporto", items: [{ v: "Ginásio" }, { v: "Corrida" }, { v: "Padel" }, { v: "Futebol" }] },
+            { label: "Também gosto", items: [{ v: "Cinema" }, { v: "Podcasts" }] },
+        ],
+        deckLabel: "Sobre mim",
+        cards: {
+            epharma: { title: "Anos na ePharma", text: "Frontend Engineer na empresa ePharma, numa equipa Scrum, do Figma ao pixel-perfect." },
+            products: { title: "Produtos próprios", text: "SaveSpot, Kyuar e Mingle, levados da ideia ao lançamento." },
+            offscreen: { title: "Fora do ecrã", text: "Ginásio, corrida, padel, futebol, cinema e podcasts." },
+        },
+        card: "Cartão",
+        prevCard: "Cartão anterior",
+        nextCard: "Cartão seguinte",
+    },
+    experience: {
+        goTo: "Ir para",
+        present: "Presente",
+        months: { Jan: "Jan", Feb: "Fev", Mar: "Mar", Apr: "Abr", May: "Mai", Jun: "Jun", Jul: "Jul", Aug: "Ago", Sep: "Set", Oct: "Out", Nov: "Nov", Dec: "Dez" },
+    },
+    projects: {
+        features: "Funcionalidades",
+        screens: "ecrãs",
+        logo: "logótipo",
+        prevScreen: "Ecrã anterior",
+        nextScreen: "Ecrã seguinte",
+    },
+    certifications: {
+        viewCertificate: "Ver certificado",
+        allCourses: "Todos os cursos",
+        carouselLabel: "Certificados",
+        certificate: "certificado",
+        prevCertificate: "Certificado anterior",
+        nextCertificate: "Certificado seguinte",
+    },
+    contacts: {
+        title: "Vamos falar",
+        tagline: "Frontend Engineer · Porto",
+        intro: "Cada valor é um link. Ou preenche as props com o teu nome, email e mensagem, e corre o código para enviar.",
+        yourDetails: "// os teus dados",
+        placeholders: { name: "o teu nome", email: "tu@email.com", message: "em que estás a trabalhar?" },
+        runHint: "// Ctrl + Enter ou Run para enviar",
+        running: "A enviar…",
+        run: "Run ▸",
+        status: {
+            success: "Mensagem enviada. Respondo-te em breve.",
+            incomplete: "Preenche todos os campos.",
+            error: "Não foi possível enviar a mensagem. Envia-me um email diretamente.",
+        },
+        channelsTitle: "Canais",
+        channels: {
+            Email: ["Email", "o melhor para projetos e vagas"],
+            Phone: ["Telefone", "chamada ou WhatsApp"],
+            LinkedIn: ["LinkedIn", "carreira e experiência"],
+            GitHub: ["GitHub", "código e projetos pessoais"],
+        },
+    },
+};
+
+const strings = { en, pt };
+export default strings;

@@ -1,12 +1,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import HeroSpotlight from "./HeroSpotlight";
 import avatar from "../../assets/avatar-cut.webp";
+import { useLang } from "../../i18n/LanguageContext";
 
 // First screen: the name over the spotlight wall.
 // With a mouse, the cursor torch also reveals my avatar behind the name (see .hero-avatar in global.css).
 // On touch screens the whole avatar shows, dimmed, behind the name.
 // Scrolling pushes the two words apart and fades the avatar out.
 const Hero = () => {
+    const { t } = useLang();
     const { scrollY } = useScroll();
     const progress = useTransform(scrollY, (y) => Math.min(y / window.innerHeight, 1));
     const leftX = useTransform(progress, (p) => `${-p * 100}vw`);
@@ -38,7 +40,7 @@ const Hero = () => {
                 style={{ opacity: fade }}
                 className="hidden [@media(pointer:fine)]:block absolute bottom-24 inset-x-0 z-10 font-montserrat text-[11px] font-medium uppercase tracking-[0.25em] text-white/40"
             >
-                Move the cursor
+                {t.hero.hint}
             </motion.p>
         </section>
     );

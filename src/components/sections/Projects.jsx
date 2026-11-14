@@ -7,6 +7,8 @@ import { ACCENT, EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
+import { useLang } from "../../i18n/LanguageContext";
+import { localizeProject } from "../../i18n/data";
 
 // Every screenshot in the media folder, by file name ("kyuar-home" → its URL)
 const mediaFiles = import.meta.glob("../../assets/projects/media/*.jpg", { eager: true, import: "default" });
@@ -90,6 +92,7 @@ const Device = ({ project, it }) => {
 };
 
 const Slider = ({ project }) => {
+    const { t } = useLang();
     const items = project.media.items;
     const [[active, dir], setState] = useState([0, 0]);
     const reduceMotion = useReducedMotion();
@@ -110,7 +113,7 @@ const Slider = ({ project }) => {
         return (
             <button
                 type="button"
-                aria-label={`${s < 0 ? "Previous" : "Next"}: ${it.label}`}
+                aria-label={`${s < 0 ? t.carousel.previous : t.carousel.next}: ${it.label}`}
                 onClick={() => go(s)}
                 className={`absolute top-1/2 left-1/2 opacity-40 hover:opacity-70 transition-opacity duration-300 ${isPhone ? "h-[80%]" : "w-[80%]"}`}
                 style={{
@@ -131,7 +134,7 @@ const Slider = ({ project }) => {
             tabIndex={0}
             role="region"
             aria-roledescription="carousel"
-            aria-label={`${project.name} screens`}
+            aria-label={`${project.name} ${t.projects.screens}`}
             onKeyDown={(e) => {
                 if (e.key === "ArrowRight") go(1);
                 if (e.key === "ArrowLeft") go(-1);
@@ -174,8 +177,8 @@ const Slider = ({ project }) => {
                     onNext={() => go(1)}
                     onSelect={(i) => setState([i, i > active ? 1 : -1])}
                     dotLabel={(i) => `${items[i].group} ${items[i].label}`}
-                    prevLabel="Previous screen"
-                    nextLabel="Next screen"
+                    prevLabel={t.projects.prevScreen}
+                    nextLabel={t.projects.nextScreen}
                 />
             </div>
         </div>
@@ -201,7 +204,9 @@ const Feature = ({ text }) => {
     );
 };
 
-const Project = ({ project, index }) => {
+const Project = ({ project: source, index }) => {
+    const { lang, t } = useLang();
+    const project = localizeProject(source, lang);
     const reduceMotion = useReducedMotion();
     const mark = project.logo && projectMarks[project.logo];
     // Web projects get a wider stage so their screens stay readable
@@ -246,7 +251,7 @@ const Project = ({ project, index }) => {
                         <span
                             className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 shrink-0"
                         >
-                            <img src={mark} alt={`${project.name} logo`} className="max-w-full max-h-full object-contain" />
+                            <img src={mark} alt={`${t.projects.logo} ${project.name}`} className="max-w-full max-h-full object-contain" />
                         </span>
                     )}
                     <h3 className="mt-6 font-montserrat font-semibold text-3xl sm:text-4xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white leading-tight">{project.name}</h3>
@@ -286,7 +291,7 @@ const Project = ({ project, index }) => {
 
                 {/* Right: what it does */}
                 <motion.div {...reveal(0.15)}>
-                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">Features</p>
+                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{t.projects.features}</p>
                     <ul className="space-y-4">
                         {project.features.map((f) => (
                             <Feature key={f} text={f} />

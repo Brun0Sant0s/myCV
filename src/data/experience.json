@@ -31,7 +31,7 @@
       "date": "Aug 2021",
       "role": "epharma",
       "title": "Joined ePharma",
-      "text": "Started as Frontend Engineer, building responsive and accessible production interfaces with reusable components.",
+      "text": "Joined the company ePharma as a Frontend Engineer, building responsive and accessible production interfaces with reusable components.",
       "technologies": [
         "JavaScript",
         "HTML",
@@ -94,7 +94,7 @@
       "role": "freelance",
       "title": "SaveSpot",
       "status": "Live",
-      "text": "Booking app taken from concept to launch, published on the App Store and Google Play.",
+      "text": "Booking app taken from concept to launch.",
       "technologies": [
         "React Native",
         "Expo",
@@ -123,9 +123,9 @@
       "date": "2026",
       "role": "freelance",
       "title": "Mingle",
-      "status": "In development",
+      "status": "Final testing",
       "current": true,
-      "text": "Interactive platform for events of any kind, joined with a QR code. Roll turns every phone into an analogue film camera, with the photos revealed together at the end of the night. Plus Cheers for guest messages, Jukebox for song requests, Buzz for live quizzes and Pulse, LED wristbands synced to the music.",
+      "text": "Events platform joined with a QR code: an analogue-style photo roll revealed at the end of the night, guest messages, song requests, live quizzes and LED wristbands.",
       "technologies": [
         "React",
         "TypeScript",
@@ -157,7 +157,7 @@
       "date": "Aug 2025",
       "role": "pyro",
       "title": "Pyro website",
-      "status": "Coming soon",
+      "status": "Completed",
       "text": "Website and backoffice for the company: services, portfolio and three languages.",
       "technologies": [
         "React",
@@ -165,25 +165,21 @@
         "Node.js",
         "MySQL"
       ],
-      "logo": "pyro",
-      "link": "https://github.com/Brun0Sant0s/Pyro-SFX",
-      "linkLabel": "GitHub"
+      "logo": "pyro"
     },
     {
       "year": "2025",
       "date": "Nov 2025",
       "role": "freelance",
       "title": "engi.studio",
-      "status": "Coming soon",
+      "status": "Completed",
       "text": "Show control web app for a client: lighting, audio and video cues fired at the exact second, on a Raspberry Pi with GPS time.",
       "technologies": [
         "React",
         "Tailwind",
         "Python"
       ],
-      "logo": "engi",
-      "link": "https://engi.studio",
-      "linkLabel": "engi.studio"
+      "logo": "engi"
     },
     {
       "year": "2026",

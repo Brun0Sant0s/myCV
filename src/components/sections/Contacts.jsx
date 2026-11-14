@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import { motion, useReducedMotion } from "framer-motion";
 import { FiDownload } from "react-icons/fi";
 import { ACCENT, EASE } from "../../constants/theme";
+import { useLang } from "../../i18n/LanguageContext";
 
 // EmailJS account used by the contact form (public key, safe to ship in the browser)
 const PUBLIC_KEY = "Fm4CiN7G-6rOIWqQh";
@@ -17,10 +18,11 @@ const links = [
 ];
 
 
-const statusText = {
-    success: { text: "Message sent. I'll get back to you soon.", className: "text-[#20C997]" },
-    incomplete: { text: "Please fill in all fields.", className: "text-[#F5A524]" },
-    error: { text: "The message could not be sent. Please email me directly.", className: "text-red-400" },
+// Colour of each form status; the text comes from the translations (contacts.status)
+const statusClass = {
+    success: "text-[#20C997]",
+    incomplete: "text-[#F5A524]",
+    error: "text-red-400",
 };
 
 // Syntax colours of the editor (Material-style palette on the dark site)
@@ -53,6 +55,8 @@ const LinkProp = ({ n, name, l }) => (
 
 
 const Contacts = () => {
+    const { t } = useLang();
+    const c = t.contacts;
     const reduceMotion = useReducedMotion();
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState(null);
@@ -155,21 +159,21 @@ const Contacts = () => {
             <div className="mx-auto w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,600px)_minmax(0,0.8fr)] gap-y-12 lg:gap-x-16 items-center text-left">
                 {/* Left: invitation */}
                 <motion.div className="flex flex-col lg:items-end lg:text-right" {...reveal()}>
-                    <h3 className="font-montserrat font-semibold text-3xl sm:text-4xl leading-tight text-white">Let's talk</h3>
+                    <h3 className="font-montserrat font-semibold text-3xl sm:text-4xl leading-tight text-white">{c.title}</h3>
                     <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
-                        Frontend Engineer · Porto
+                        {c.tagline}
                     </p>
                     <p className="mt-5 max-w-sm font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">
-                        Every value is a link. Or fill in the props with your name, email and message, and run it to send.
+                        {c.intro}
                     </p>
                     <a
-                        href={`${import.meta.env.BASE_URL}documents/CV_BRUNO_EN.pdf`}
+                        href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
                     >
                         <FiDownload className="w-4 h-4" />
-                        Download CV
+                        {t.about.downloadCv}
                     </a>
                 </motion.div>
 
@@ -211,11 +215,11 @@ const Contacts = () => {
                         <LinkProp n={7} name="github" l={byLabel.GitHub} />
                         <Line n={8}>
                             {"      "}
-                            <span style={{ color: C.com }}>{"// your details"}</span>
+                            <span style={{ color: C.com }}>{c.yourDetails}</span>
                         </Line>
-                        {inputProp({ n: 9, name: "name", prop: "from", placeholder: "your name", autoComplete: "name", })}
-                        {inputProp({ n: 10, name: "email", prop: "replyTo", type: "email", placeholder: "you@email.com", autoComplete: "email", })}
-                        {inputProp({ n: 11, name: "message", prop: "message", placeholder: "what are you working on?", wide: true, })}
+                        {inputProp({ n: 9, name: "name", prop: "from", placeholder: c.placeholders.name, autoComplete: "name", })}
+                        {inputProp({ n: 10, name: "email", prop: "replyTo", type: "email", placeholder: c.placeholders.email, autoComplete: "email", })}
+                        {inputProp({ n: 11, name: "message", prop: "message", placeholder: c.placeholders.message, wide: true, })}
                         <Line n={12}>
                             {"    "}
                             <span style={{ color: C.pn }}>/&gt;</span>
@@ -233,9 +237,9 @@ const Contacts = () => {
                     <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t border-white/10 bg-white/[0.02]">
                         <span className="text-xs" style={{ color: status ? undefined : C.com }}>
                             {status ? (
-                                <span className={statusText[status].className}>{statusText[status].text}</span>
+                                <span className={statusClass[status]}>{c.status[status]}</span>
                             ) : (
-                                "// Ctrl + Enter or Run to send"
+                                c.runHint
                             )}
                         </span>
                         <button
@@ -243,21 +247,16 @@ const Contacts = () => {
                             disabled={sending}
                             className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85 disabled:opacity-50"
                         >
-                            {sending ? "Running…" : "Run ▸"}
+                            {sending ? c.running : c.run}
                         </button>
                     </div>
                 </motion.form>
 
                 {/* Right: channels */}
                 <motion.div {...reveal(0.15)}>
-                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">Channels</p>
+                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{c.channelsTitle}</p>
                     <ul className="space-y-4">
-                        {[
-                            ["Email", "best for projects and roles"],
-                            ["Phone", "call or WhatsApp"],
-                            ["LinkedIn", "career and experience"],
-                            ["GitHub", "code and side projects"],
-                        ].map(([k, t]) => (
+                        {Object.entries(c.channels).map(([k, [name, note]]) => (
                             <li key={k} className="relative pl-4 font-montserrat font-light text-sm text-gray-300 leading-relaxed">
                                 <span className="absolute left-0 top-[9px] w-[5px] h-[5px] rounded-full" style={{ background: ACCENT }} />
                                 <a
@@ -265,9 +264,9 @@ const Contacts = () => {
                                     {...(byLabel[k].external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                     className="font-semibold text-white hover:underline underline-offset-4"
                                 >
-                                    {k}
+                                    {name}
                                 </a>
-                                : {t}
+                                : {note}
                             </li>
                         ))}
                     </ul>

@@ -224,7 +224,7 @@
     "id": "pyro",
     "name": "Pyro Entertainment & SFX",
     "year": "2025",
-    "status": "Coming soon",
+    "status": "Completed",
     "subtitle": "Client website with a backoffice",
     "description": "Website for a pyrotechnics and special effects company, the one I work with on live shows. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
     "features": [
@@ -242,12 +242,6 @@
     ],
     "logo": "pyro",
     "brandColor": "#E11D2E",
-    "links": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/Brun0Sant0s/Pyro-SFX"
-      }
-    ],
     "media": {
       "items": [
         {
@@ -287,7 +281,7 @@
     "id": "engi",
     "name": "engi.studio",
     "year": "2025",
-    "status": "Coming soon",
+    "status": "Completed",
     "subtitle": "Client web app for show control",
     "description": "A control panel built for engi.studio, a live show engineering company. Each unit runs on a Raspberry Pi with GPS time and fires lighting, audio and video cues at the exact second.",
     "features": [
@@ -305,12 +299,6 @@
     ],
     "logo": "engi",
     "brandColor": "#0AFD87",
-    "links": [
-      {
-        "label": "engi.studio",
-        "url": "https://engi.studio"
-      }
-    ],
     "media": {
       "items": [
         {
@@ -431,9 +419,9 @@
     "id": "mingle",
     "name": "Mingle",
     "year": "2026",
-    "status": "In development",
+    "status": "Final testing",
     "subtitle": "Interactive platform for events",
-    "description": "An interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard.",
+    "description": "An interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard. Everything is built; only the LED wristbands are left to test at a real event.",
     "features": [
       "Pulse: an LED wristband on every guest that lights up the room to the beat of the music and reacts to the games",
       "Roll: each guest's phone becomes a film camera, photos show live on the TV and are revealed together at the end",

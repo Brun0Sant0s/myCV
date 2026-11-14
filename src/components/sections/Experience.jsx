@@ -6,6 +6,8 @@ import { projectMarks } from "../../assets/projects";
 import { EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
+import { useLang } from "../../i18n/LanguageContext";
+import { localizeEvent, localizeRole } from "../../i18n/data";
 const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 
 // Chronological value of an event: "Aug 2021" → 2021.58; year-only dates go after dated ones in that year
@@ -58,15 +60,17 @@ const monthOf = (ev) => {
 // Option C: the date leads in large type, a thin rule, then the text.
 const DATE_COL = 56;
 
-const TimelineItem = ({ ev, color }) => {
-    const month = monthOf(ev);
+const TimelineItem = ({ ev: source, color }) => {
+    const { lang, t } = useLang();
+    const ev = localizeEvent(source, lang);
+    const month = monthOf(source);
     const mark = ev.logo && projectMarks[ev.logo];
     return (
         <div className="grid text-left" style={{ gridTemplateColumns: `${DATE_COL}px 1fr`, columnGap: 16 }}>
             <div className="pt-0.5">
                 {month && (
                     <p className="font-syncopate text-lg leading-none" style={{ color }}>
-                        {month}
+                        {t.experience.months[month] || month}
                     </p>
                 )}
             </div>
@@ -133,7 +137,7 @@ const LANE_PAD = 28; // space under the tallest moment of a lane
 const NAV_SPACE = 84;
 const CONTROLS_H = NAV_SPACE + 16 + 24 + 36 + 12;
 
-const useLaneLayout = (boxRef) => {
+const useLaneLayout = (boxRef, lang) => {
     const [heights, setHeights] = useState(() => roles.map(() => 240));
     const [fit, setFit] = useState(1);
 
@@ -154,7 +158,7 @@ const useLaneLayout = (boxRef) => {
         document.fonts?.ready.then(measure);
         window.addEventListener("resize", measure);
         return () => window.removeEventListener("resize", measure);
-    }, [boxRef]);
+    }, [boxRef, lang]);
 
     return { heights, fit };
 };
@@ -166,6 +170,7 @@ const laneTops = (heights) => heights.map((_, i) => HEADER_H + heights.slice(0, 
 
 // Year label above its column(s); it fills in white while one of its columns is active.
 const YearHeader = ({ year, active, onSelect }) => {
+    const { t } = useLang();
     const from = firstSlotOf(year);
     const span = slots.filter((s) => s.year === year).length;
     const dist = useTransform(active, (a) => {
@@ -182,7 +187,7 @@ const YearHeader = ({ year, active, onSelect }) => {
         <motion.button
             type="button"
             onClick={() => onSelect(from)}
-            aria-label={`Go to ${year}`}
+            aria-label={`${t.experience.goTo} ${year}`}
             className="absolute top-0 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-full"
             style={{ left: from * COL_W, width: COL_W, height: HEADER_H, x }}
         >
@@ -255,10 +260,11 @@ const OUTRO_VH = 10;
 const SCROLL_VH = INTRO_VH + (N - 1) * STEP_VH + OUTRO_VH;
 
 const SwimlaneTimeline = () => {
+    const { lang, t } = useLang();
     const wrapRef = useRef(null);
     const reduceMotion = useReducedMotion();
     const boxRef = useRef(null);
-    const { heights, fit } = useLaneLayout(boxRef);
+    const { heights, fit } = useLaneLayout(boxRef, lang);
     const tops = laneTops(heights);
     const [current, setCurrent] = useState(0);
 
@@ -329,7 +335,7 @@ const SwimlaneTimeline = () => {
                         className="absolute top-0 left-0 bottom-0 z-20 pointer-events-none"
                         style={{ width: LABEL_W + 320, background: "linear-gradient(90deg, #000 70%, rgba(0,0,0,0))" }}
                     >
-                        {roles.map((role, i) => (
+                        {roles.map((r, i) => localizeRole(r, lang)).map((role, i) => (
                             <div
                                 key={role.id}
                                 className="absolute left-10 flex items-start gap-4"
@@ -370,7 +376,9 @@ const SwimlaneTimeline = () => {
                     onPrev={() => scrollToIndex(Math.max(0, current - 1))}
                     onNext={() => scrollToIndex(Math.min(N - 1, current + 1))}
                     onSelect={scrollToIndex}
-                    dotLabel={(i) => `Go to ${slots[i].year}${slots[i].sub ? ` (${slots[i].sub + 1})` : ""}`}
+                    prevLabel={t.carousel.previous}
+                    nextLabel={t.carousel.next}
+                    dotLabel={(i) => `${t.experience.goTo} ${slots[i].year}${slots[i].sub ? ` (${slots[i].sub + 1})` : ""}`}
                 />
             </motion.div>
         </div>
@@ -380,13 +388,14 @@ const SwimlaneTimeline = () => {
 /* ---------- Mobile / tablet: vertical, chronological ---------- */
 
 const VerticalTimeline = () => {
+    const { lang } = useLang();
     const reduceMotion = useReducedMotion();
 
     return (
         <div className="w-full flex flex-col items-center px-5 sm:px-8 py-16 text-left">
             {/* Legend */}
             <div className="w-full max-w-xl flex flex-wrap gap-x-6 gap-y-2 mb-12 font-montserrat text-xs">
-                {roles.map((r) => (
+                {roles.map((r) => localizeRole(r, lang)).map((r) => (
                     <span key={r.id} className="inline-flex items-center gap-2" style={{ color: r.color }}>
                         <span className="w-2 h-2 rounded-full" style={{ background: r.color }} />
                         {r.label}
@@ -396,7 +405,7 @@ const VerticalTimeline = () => {
 
             <ol className="relative w-full max-w-xl border-l border-white/10 flex flex-col gap-10">
                 {events.map((ev, i) => {
-                    const role = roleById[ev.role];
+                    const role = localizeRole(roleById[ev.role], lang);
                     const newYear = i === 0 || events[i - 1].year !== ev.year;
                     return (
                         <motion.li

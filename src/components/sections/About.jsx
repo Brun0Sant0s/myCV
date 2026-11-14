@@ -8,32 +8,11 @@ import { ACCENT, EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
+import { useLang } from "../../i18n/LanguageContext";
 
 // Core stack shown as icons, like the technologies on each project
 const STACK = ["React", "TypeScript", "JavaScript", "Expo", "Angular", "Node.js", "Firebase", "HTML", "CSS"];
 
-// Written like the project features: "Name: explanation"
-const skills = [
-    "Frontend: HTML5, CSS3, JavaScript, TypeScript, React, Angular and jQuery",
-    "Mobile and backend: React Native with Expo, Node.js, Firebase, REST APIs, Java and SQL",
-    "Design and tools: Figma, UI/UX, Git and Agile/Scrum",
-    "Product: requirements, stakeholders, UX and end-to-end delivery",
-];
-
-// Each row: a label and a list of items, each item with an optional note (level, place, year)
-const facts = [
-    { label: "Education", items: [{ v: "BSc Computer Engineering", n: "IPB · 2027" }] },
-    {
-        label: "Languages",
-        items: [
-            { v: "Portuguese", n: "Native" },
-            { v: "English", n: "Fluent" },
-            { v: "Spanish", n: "Basic" },
-        ],
-    },
-    { label: "Sports", items: [{ v: "Gym" }, { v: "Running" }, { v: "Padel" }, { v: "Football" }] },
-    { label: "Also into", items: [{ v: "Films" }, { v: "Podcasts" }] },
-];
 
 const Point = ({ text }) => {
     const i = text.indexOf(":");
@@ -80,20 +59,20 @@ const CARDS = [
     },
     {
         id: "epharma",
-        render: () => (
+        render: (t) => (
             <CardShell>
                 <div className="flex flex-wrap gap-2">
                     {["JavaScript", "JQuery", "Angular", "HTML", "CSS", "Java"].map((t) => (
                         <TechBadge key={t} name={t} size="lg" />
                     ))}
                 </div>
-                <CardText big="4" title="Years at ePharma" text="Production frontend in a Scrum team, from Figma to pixel-perfect." />
+                <CardText big="4" {...t.about.cards.epharma} />
             </CardShell>
         ),
     },
     {
         id: "products",
-        render: () => (
+        render: (t) => (
             <CardShell>
                 <div className="flex gap-2.5">
                     {[
@@ -106,13 +85,13 @@ const CARDS = [
                         </span>
                     ))}
                 </div>
-                <CardText big="3" title="Own products" text="SaveSpot, Kyuar and Mingle, taken from idea to launch. One is live on the App Store." />
+                <CardText big="3" {...t.about.cards.products} />
             </CardShell>
         ),
     },
     {
         id: "offscreen",
-        render: () => (
+        render: (t) => (
             <CardShell>
                 <div className="flex flex-wrap gap-2">
                     {[GiWeightLiftingUp, GiRunningShoe, GiTennisRacket, GiSoccerBall, FiFilm, FiMic].map((Icon, i) => (
@@ -121,7 +100,7 @@ const CARDS = [
                         </span>
                     ))}
                 </div>
-                <CardText big="∞" title="Off screen" text="Gym, running, padel, football, films and podcasts." />
+                <CardText big="∞" {...t.about.cards.offscreen} />
             </CardShell>
         ),
     },
@@ -130,6 +109,7 @@ const CARDS = [
 const CARD_W = 270;
 
 const Deck = () => {
+    const { t } = useLang();
     const reduceMotion = useReducedMotion();
     const [active, setActive] = useState(0);
     const n = CARDS.length;
@@ -152,7 +132,7 @@ const Deck = () => {
             tabIndex={0}
             role="region"
             aria-roledescription="carousel"
-            aria-label="About me"
+            aria-label={t.about.deckLabel}
             onKeyDown={(e) => {
                 if (e.key === "ArrowRight") go(1);
                 if (e.key === "ArrowLeft") go(-1);
@@ -179,7 +159,7 @@ const Deck = () => {
                             }}
                             aria-hidden={!front}
                         >
-                            {c.render()}
+                            {c.render(t)}
                         </motion.div>
                     );
                 })}
@@ -191,9 +171,9 @@ const Deck = () => {
                 onPrev={() => go(-1)}
                 onNext={() => go(1)}
                 onSelect={setActive}
-                dotLabel={(i) => `Card ${i + 1}`}
-                prevLabel="Previous card"
-                nextLabel="Next card"
+                dotLabel={(i) => `${t.about.card} ${i + 1}`}
+                prevLabel={t.about.prevCard}
+                nextLabel={t.about.nextCard}
             />
         </div>
     );
@@ -201,6 +181,7 @@ const Deck = () => {
 
 // Same layout as each project: who on the left, the photo on the centre stage, the details on the right.
 const About = () => {
+    const { t } = useLang();
     const reduceMotion = useReducedMotion();
     const reveal = (delay = 0) =>
         reduceMotion
@@ -220,12 +201,10 @@ const About = () => {
                     <motion.div className="text-left lg:text-right flex flex-col lg:items-end" {...reveal(0.05)}>
                         <h3 className="font-montserrat font-semibold text-3xl sm:text-4xl text-white leading-tight">Bruno Santos</h3>
                         <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
-                            Frontend Engineer · Porto, Portugal
+                            {t.about.tagline}
                         </p>
                         <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">
-                            Four years of production frontend at ePharma, and my own products taken from idea to launch, one of them
-                            live on the App Store and Google Play. I like to understand the problem before writing code: the user,
-                            the business and how every part of the product connects.
+                            {t.about.bio}
                         </p>
                         <div className="mt-6 flex flex-wrap lg:justify-end items-center gap-1.5">
                             {STACK.map((t) => (
@@ -233,13 +212,13 @@ const About = () => {
                             ))}
                         </div>
                         <a
-                            href={`${import.meta.env.BASE_URL}documents/CV_BRUNO_EN.pdf`}
+                            href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
                         >
                             <FiDownload className="w-4 h-4" />
-                            Download CV
+                            {t.about.downloadCv}
                         </a>
                     </motion.div>
 
@@ -250,14 +229,14 @@ const About = () => {
 
                     {/* Right: skills and details */}
                     <motion.div {...reveal(0.15)}>
-                        <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">Skills</p>
+                        <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{t.about.skillsTitle}</p>
                         <ul className="space-y-4">
-                            {skills.map((s) => (
+                            {t.about.skills.map((s) => (
                                 <Point key={s} text={s} />
                             ))}
                         </ul>
                         <dl className="mt-10 border-t border-white/10">
-                            {facts.map((f) => (
+                            {t.about.facts.map((f) => (
                                 <div key={f.label} className="grid grid-cols-[110px_1fr] gap-4 py-4 border-b border-white/10 items-start">
                                     <dt className="pt-[2px] font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                                         {f.label}

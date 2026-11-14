@@ -10,6 +10,8 @@ import uiuxImg from "../../assets/certifications/uiux.png";
 import { ACCENT, EASE } from "../../constants/theme";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
+import { useLang } from "../../i18n/LanguageContext";
+import { localizeCertification } from "../../i18n/data";
 
 const images = {
     angular: angularImg,
@@ -21,21 +23,25 @@ const images = {
 
 const num = (i) => String(i + 1).padStart(2, "0");
 
-const Certificate = ({ cert, className = "", style }) => (
+const Certificate = ({ cert, className = "", style }) => {
+    const { t } = useLang();
+    return (
     <img
         src={images[cert.imageKey]}
-        alt={`${cert.title} certificate`}
+        alt={`${cert.title}: ${t.certifications.certificate}`}
         draggable={false}
         className={`block max-w-full max-h-full w-auto h-auto rounded-lg border border-white/20 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.6)] select-none ${className}`}
         style={style}
     />
-);
+    );
+};
 
 const Certifications = () => {
+    const { lang, t } = useLang();
     const reduceMotion = useReducedMotion();
     const [[active, dir], setState] = useState([0, 0]);
     const n = certifications.length;
-    const cert = certifications[active];
+    const cert = localizeCertification(certifications[active], lang);
     const prev = certifications[(active - 1 + n) % n];
     const next = certifications[(active + 1) % n];
     const go = (step) => setState(([a]) => [(a + step + n) % n, step]);
@@ -57,7 +63,7 @@ const Certifications = () => {
     const side = (c, s) => (
         <button
             type="button"
-            aria-label={`${s < 0 ? "Previous" : "Next"}: ${c.title}`}
+            aria-label={`${s < 0 ? t.carousel.previous : t.carousel.next}: ${c.title}`}
             onClick={() => go(s)}
             className="absolute top-1/2 left-1/2 w-[78%] h-[78%] flex items-center justify-center opacity-35 hover:opacity-60 transition-opacity duration-300"
             style={{ transform: `translate(calc(-50% + ${s * 24}%), -50%) rotate(${s * 5}deg)` }}
@@ -100,7 +106,7 @@ const Certifications = () => {
                                 rel="noopener noreferrer"
                                 className="mt-7 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-montserrat text-sm text-black transition-colors duration-300 hover:bg-white/85"
                             >
-                                View certificate
+                                {t.certifications.viewCertificate}
                                 <FiArrowUpRight className="w-4 h-4" />
                             </a>
                         </motion.div>
@@ -114,7 +120,7 @@ const Certifications = () => {
                         tabIndex={0}
                         role="region"
                         aria-roledescription="carousel"
-                        aria-label="Certificates"
+                        aria-label={t.certifications.carouselLabel}
                         onKeyDown={(e) => {
                             if (e.key === "ArrowRight") go(1);
                             if (e.key === "ArrowLeft") go(-1);
@@ -150,14 +156,14 @@ const Certifications = () => {
                         onNext={() => go(1)}
                         onSelect={pick}
                         dotLabel={(i) => certifications[i].title}
-                        prevLabel="Previous certificate"
-                        nextLabel="Next certificate"
+                        prevLabel={t.certifications.prevCertificate}
+                        nextLabel={t.certifications.nextCertificate}
                     />
                 </motion.div>
 
                 {/* Right: every course */}
                 <motion.div {...reveal(0.15)}>
-                    <p className="mb-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">All courses</p>
+                    <p className="mb-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{t.certifications.allCourses}</p>
                     <ul className="border-t border-white/10" role="tablist">
                         {certifications.map((c, i) => {
                             const on = i === active;
