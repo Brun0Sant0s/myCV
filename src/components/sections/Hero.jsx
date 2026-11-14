@@ -5,8 +5,9 @@ import { useLang } from "../../i18n/LanguageContext";
 
 // First screen: the name over the spotlight wall.
 // With a mouse, the cursor torch also reveals my avatar behind the name (see .hero-avatar in global.css).
-// On touch screens the whole avatar shows, dimmed, behind the name.
+// On touch screens the whole avatar shows, dimmed, and the name sits above my head instead of over my face.
 // Scrolling pushes the two words apart and fades the avatar out.
+const touchTop = "[@media(pointer:coarse)]:justify-start [@media(pointer:coarse)]:pt-[14vh] [@media(pointer:coarse)]:sm:pt-[8vh]";
 const Hero = () => {
     const { t } = useLang();
     const { scrollY } = useScroll();
@@ -16,7 +17,7 @@ const Hero = () => {
     const fade = useTransform(progress, (p) => Math.max(0, 1 - p * 1.5));
 
     return (
-        <section id="aboutMeText" className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white">
+        <section id="aboutMeText" className={`relative w-full h-screen flex flex-col items-center justify-center text-center text-white ${touchTop}`}>
             <HeroSpotlight />
 
             <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none" style={{ opacity: fade }}>
