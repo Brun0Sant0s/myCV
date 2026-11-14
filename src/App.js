@@ -1,20 +1,20 @@
-import TerminalNav from "./components/TerminalNav";
-import Hero from "./components/Hero";
-import SectionTitle from "./components/SectionTitle";
-import AboutMeContent from "./components/aboutMe";
-import ProfessionalExperienceContent from "./components/profissionalExperience";
-import ProjectsContent from "./components/projects";
-import CertificationsContent from "./components/certifications";
-import ContactsContent from "./components/contacts";
+import EditorNav from "./components/layout/EditorNav";
+import SectionTitle from "./components/layout/SectionTitle";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Experience from "./components/sections/Experience";
+import Projects from "./components/sections/Projects";
+import Certifications from "./components/sections/Certifications";
+import Contacts from "./components/sections/Contacts";
 
 // The page, top to bottom. Each section is introduced by a big two-word title.
-// Section ids are used by the tab bar (TerminalNav) to scroll and to highlight the current tab.
+// Section ids are used by the tab bar (EditorNav) to scroll and to highlight the current tab.
 const App = () => (
     <div className="bg-black overflow-x-clip">
-        <TerminalNav />
+        <EditorNav />
 
         <Hero />
-        <AboutMeContent />
+        <About />
 
         <SectionTitle
             id="professionalExperienceText"
@@ -23,7 +23,7 @@ const App = () => (
             subtitle="Four years at ePharma, my own products and live shows, year by year."
             contentId="professionalExperienceContent"
         />
-        <ProfessionalExperienceContent />
+        <Experience />
 
         <SectionTitle
             id="projectsText"
@@ -32,7 +32,7 @@ const App = () => (
             subtitle="Products and client work I designed and built, from idea to launch."
             contentId="projectsContent"
         />
-        <ProjectsContent />
+        <Projects />
 
         <SectionTitle
             id="certificationsText"
@@ -41,7 +41,7 @@ const App = () => (
             subtitle="Courses I completed to keep growing as a developer."
             contentId="certificationsContent"
         />
-        <CertificationsContent />
+        <Certifications />
 
         <SectionTitle
             id="contactsText"
@@ -50,7 +50,7 @@ const App = () => (
             subtitle="Email, phone or a quick message, whichever suits you."
             contentId="contactsContent"
         />
-        <ContactsContent />
+        <Contacts />
     </div>
 );
 

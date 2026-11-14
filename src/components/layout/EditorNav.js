@@ -19,7 +19,7 @@ const ReactIcon = () => (
     </svg>
 );
 
-const TerminalNav = () => {
+const EditorNav = () => {
     const [current, setCurrent] = useState(0);
     const tabsRef = useRef(null);
 
@@ -93,4 +93,4 @@ const TerminalNav = () => {
     );
 };
 
-export default TerminalNav;
+export default EditorNav;

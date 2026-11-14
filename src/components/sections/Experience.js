@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform, useReducedMotion, useMotionValueEvent } from "framer-motion";
-import { FiArrowUpRight, FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import data from "../json/experience.json";
-import { projectMarks } from "../assets/projects";
-import TechBadge from "./TechBadge";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { FiArrowUpRight } from "react-icons/fi";
+import data from "../../data/experience.json";
+import { projectMarks } from "../../assets/projects";
+import { EASE } from "../../constants/theme";
+import TechBadge from "../ui/TechBadge";
+import CarouselControls from "../ui/CarouselControls";
 const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 
 // Chronological value of an event: "Aug 2021" → 2021.58; year-only dates go after dated ones in that year
@@ -364,36 +364,14 @@ const SwimlaneTimeline = () => {
                 </div>
 
                 {/* Arrows and dots, as in Projects and Certifications */}
-                <div className="flex items-center justify-center gap-4">
-                    <button
-                        type="button"
-                        onClick={() => scrollToIndex(Math.max(0, current - 1))}
-                        aria-label="Previous"
-                        className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                    >
-                        <FiArrowLeft className="w-4 h-4" />
-                    </button>
-                    <div className="flex items-center gap-1.5">
-                        {slots.map((slot, i) => (
-                            <button
-                                key={`${slot.year}-${slot.sub}`}
-                                type="button"
-                                aria-label={`Go to ${slot.year}${slot.sub ? ` (${slot.sub + 1})` : ""}`}
-                                onClick={() => scrollToIndex(i)}
-                                className="h-1 rounded-full bg-white transition-all duration-300"
-                                style={{ width: i === current ? 22 : 8, opacity: i === current ? 1 : 0.2 }}
-                            />
-                        ))}
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => scrollToIndex(Math.min(N - 1, current + 1))}
-                        aria-label="Next"
-                        className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                    >
-                        <FiArrowRight className="w-4 h-4" />
-                    </button>
-                </div>
+                <CarouselControls
+                    count={N}
+                    active={current}
+                    onPrev={() => scrollToIndex(Math.max(0, current - 1))}
+                    onNext={() => scrollToIndex(Math.min(N - 1, current + 1))}
+                    onSelect={scrollToIndex}
+                    dotLabel={(i) => `Go to ${slots[i].year}${slots[i].sub ? ` (${slots[i].sub + 1})` : ""}`}
+                />
             </motion.div>
         </div>
     );
@@ -452,7 +430,7 @@ const VerticalTimeline = () => {
     );
 };
 
-const ProfessionalExperienceContent = () => {
+const Experience = () => {
     const isDesktop = useIsDesktop();
 
     return (
@@ -462,4 +440,4 @@ const ProfessionalExperienceContent = () => {
     );
 };
 
-export default ProfessionalExperienceContent;
+export default Experience;

@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { motion, useReducedMotion } from "framer-motion";
 import { FiDownload } from "react-icons/fi";
+import { ACCENT, EASE } from "../../constants/theme";
 
-// EmailJS configs
+// EmailJS account used by the contact form (public key, safe to ship in the browser)
 const PUBLIC_KEY = "Fm4CiN7G-6rOIWqQh";
 const SERVICE_ID = "bruno_santos";
 const TEMPLATE_ID = "template_zbxwdle";
-
-const EASE = [0.22, 1, 0.36, 1];
-const ACCENT = "#20C997";
 
 const links = [
     { label: "Email", value: "bruno.santos.career@gmail.com", href: "mailto:bruno.santos.career@gmail.com" },
@@ -54,7 +52,7 @@ const LinkProp = ({ n, name, l }) => (
 );
 
 
-const ContactsContent = () => {
+const Contacts = () => {
     const reduceMotion = useReducedMotion();
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState(null);
@@ -62,7 +60,7 @@ const ContactsContent = () => {
     const [sending, setSending] = useState(false);
 
     useEffect(() => {
-        emailjs.init(PUBLIC_KEY);
+        emailjs.init({ publicKey: PUBLIC_KEY });
     }, []);
 
     useEffect(() => {
@@ -106,7 +104,7 @@ const ContactsContent = () => {
                 setErrors({ name: "", email: "", message: "" });
             })
             .catch((err) => {
-                console.error("Erro ao enviar email:", err);
+                console.error("Contact form: email not sent", err);
                 setStatus("error");
             })
             .finally(() => setSending(false));
@@ -279,4 +277,4 @@ const ContactsContent = () => {
     );
 };
 
-export default ContactsContent;
+export default Contacts;

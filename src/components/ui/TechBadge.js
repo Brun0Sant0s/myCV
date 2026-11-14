@@ -13,12 +13,12 @@ import {
     SiRaspberrypi,
     SiGooglemaps,
 } from "react-icons/si";
-import jsLogo from "../assets/icons/js.svg";
-import htmlLogo from "../assets/icons/html.svg";
-import cssLogo from "../assets/icons/css.svg";
-import jqueryLogo from "../assets/icons/jquery.svg";
-import javaLogo from "../assets/icons/java.svg";
-import angularLogo from "../assets/icons/angular.svg";
+import jsLogo from "../../assets/icons/js.svg";
+import htmlLogo from "../../assets/icons/html.svg";
+import cssLogo from "../../assets/icons/css.svg";
+import jqueryLogo from "../../assets/icons/jquery.svg";
+import javaLogo from "../../assets/icons/java.svg";
+import angularLogo from "../../assets/icons/angular.svg";
 
 // Strings are SVG files; objects are react-icons components (always shown in their brand colour).
 const techIcons = {

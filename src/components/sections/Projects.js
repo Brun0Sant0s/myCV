@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { FiArrowUpRight, FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import projects from "../json/projects.json";
-import { projectMarks } from "../assets/projects";
-import TechBadge from "./TechBadge";
+import { FiArrowUpRight } from "react-icons/fi";
+import projects from "../../data/projects.json";
+import { projectMarks } from "../../assets/projects";
+import { ACCENT, EASE } from "../../constants/theme";
+import TechBadge from "../ui/TechBadge";
+import CarouselControls from "../ui/CarouselControls";
 
-// Every screenshot in the media folder, by file name ("kyuar-desktop" → its URL)
-const mediaContext = require.context("../assets/projects/media", false, /\.jpg$/);
+// Every screenshot in the media folder, by file name ("kyuar-home" → its URL)
+const mediaContext = require.context("../../assets/projects/media", false, /\.jpg$/);
 const media = Object.fromEntries(mediaContext.keys().map((k) => [k.replace("./", "").replace(".jpg", ""), mediaContext(k)]));
-
-const EASE = [0.22, 1, 0.36, 1];
-
-// Same green as the "My projects" lane in the experience timeline
-const ACCENT = "#20C997";
 
 
 /* ---------- Media: one slider; desktop screens in a browser window, mobile screens in an iPhone ---------- */
@@ -173,36 +170,16 @@ const Slider = ({ project }) => {
 
             {/* Caption, arrows and dots */}
             <div className="flex flex-col items-center gap-3">
-                <div className="flex items-center gap-4">
-                    <button
-                        type="button"
-                        onClick={() => go(-1)}
-                        aria-label="Previous screen"
-                        className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                    >
-                        <FiArrowLeft className="w-4 h-4" />
-                    </button>
-                    <div className="flex items-center gap-1.5">
-                        {items.map((it, i) => (
-                            <button
-                                key={it.src}
-                                type="button"
-                                aria-label={`${it.group} ${it.label}`}
-                                onClick={() => setState([i, i > active ? 1 : -1])}
-                                className="h-1 rounded-full bg-white transition-all duration-300"
-                                style={{ width: i === active ? 22 : 8, opacity: i === active ? 1 : 0.2 }}
-                            />
-                        ))}
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => go(1)}
-                        aria-label="Next screen"
-                        className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                    >
-                        <FiArrowRight className="w-4 h-4" />
-                    </button>
-                </div>
+                <CarouselControls
+                    count={items.length}
+                    active={active}
+                    onPrev={() => go(-1)}
+                    onNext={() => go(1)}
+                    onSelect={(i) => setState([i, i > active ? 1 : -1])}
+                    dotLabel={(i) => `${items[i].group} ${items[i].label}`}
+                    prevLabel="Previous screen"
+                    nextLabel="Next screen"
+                />
             </div>
         </div>
     );
@@ -324,7 +301,7 @@ const Project = ({ project, index }) => {
     );
 };
 
-const ProjectsContent = () => (
+const Projects = () => (
     <div id="projectsContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-12 sm:py-20">
         <div className="mx-auto w-full max-w-[1400px]">
             {projects.map((project, index) => (
@@ -334,4 +311,4 @@ const ProjectsContent = () => (
     </div>
 );
 
-export default ProjectsContent;
+export default Projects;

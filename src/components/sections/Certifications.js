@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { FiArrowUpRight, FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import certifications from "../json/certifications.json";
-import angularImg from "../assets/certifications/angular.png";
-import reactNativeImg from "../assets/certifications/react-native.png";
-import frontEndImg from "../assets/certifications/frontend.png";
-import cybersecurityImg from "../assets/certifications/cybersecurity.png";
-import uiuxImg from "../assets/certifications/uiux.png";
-
-const EASE = [0.22, 1, 0.36, 1];
-const ACCENT = "#20C997";
+import { FiArrowUpRight } from "react-icons/fi";
+import certifications from "../../data/certifications.json";
+import angularImg from "../../assets/certifications/angular.png";
+import reactNativeImg from "../../assets/certifications/react-native.png";
+import frontEndImg from "../../assets/certifications/frontend.png";
+import cybersecurityImg from "../../assets/certifications/cybersecurity.png";
+import uiuxImg from "../../assets/certifications/uiux.png";
+import { ACCENT, EASE } from "../../constants/theme";
+import CarouselControls from "../ui/CarouselControls";
 
 const images = {
     angular: angularImg,
@@ -31,7 +30,7 @@ const Certificate = ({ cert, className = "", style }) => (
     />
 );
 
-const CertificationsContent = () => {
+const Certifications = () => {
     const reduceMotion = useReducedMotion();
     const [[active, dir], setState] = useState([0, 0]);
     const n = certifications.length;
@@ -141,36 +140,16 @@ const CertificationsContent = () => {
                         </AnimatePresence>
                     </div>
 
-                    <div className="flex items-center justify-center gap-4">
-                        <button
-                            type="button"
-                            onClick={() => go(-1)}
-                            aria-label="Previous certificate"
-                            className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                        >
-                            <FiArrowLeft className="w-4 h-4" />
-                        </button>
-                        <div className="flex items-center gap-1.5">
-                            {certifications.map((c, i) => (
-                                <button
-                                    key={c.id}
-                                    type="button"
-                                    aria-label={c.title}
-                                    onClick={() => pick(i)}
-                                    className="h-1 rounded-full bg-white transition-all duration-300"
-                                    style={{ width: i === active ? 22 : 8, opacity: i === active ? 1 : 0.2 }}
-                                />
-                            ))}
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => go(1)}
-                            aria-label="Next certificate"
-                            className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                        >
-                            <FiArrowRight className="w-4 h-4" />
-                        </button>
-                    </div>
+                    <CarouselControls
+                        count={certifications.length}
+                        active={active}
+                        onPrev={() => go(-1)}
+                        onNext={() => go(1)}
+                        onSelect={pick}
+                        dotLabel={(i) => certifications[i].title}
+                        prevLabel="Previous certificate"
+                        nextLabel="Next certificate"
+                    />
                 </motion.div>
 
                 {/* Right: every course */}
@@ -205,4 +184,4 @@ const CertificationsContent = () => {
     );
 };
 
-export default CertificationsContent;
+export default Certifications;

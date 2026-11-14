@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { FiDownload, FiArrowLeft, FiArrowRight, FiFilm, FiMic } from "react-icons/fi";
+import { FiDownload, FiFilm, FiMic } from "react-icons/fi";
 import { GiWeightLiftingUp, GiRunningShoe, GiTennisRacket, GiSoccerBall } from "react-icons/gi";
-import profilePic from "../assets/profilePic.jpg";
-import { projectMarks } from "../assets/projects";
-import TechBadge from "./TechBadge";
-
-const EASE = [0.22, 1, 0.36, 1];
-const ACCENT = "#20C997";
+import profilePic from "../../assets/profilePic.jpg";
+import { projectMarks } from "../../assets/projects";
+import { ACCENT, EASE } from "../../constants/theme";
+import TechBadge from "../ui/TechBadge";
+import CarouselControls from "../ui/CarouselControls";
 
 // Core stack shown as icons, like the technologies on each project
 const STACK = ["React", "TypeScript", "JavaScript", "Expo", "Angular", "Node.js", "Firebase", "HTML", "CSS"];
@@ -182,42 +181,22 @@ const Deck = () => {
                 })}
             </div>
 
-            <div className="flex items-center justify-center gap-4">
-                <button
-                    type="button"
-                    onClick={() => go(-1)}
-                    aria-label="Previous card"
-                    className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                >
-                    <FiArrowLeft className="w-4 h-4" />
-                </button>
-                <div className="flex items-center gap-1.5">
-                    {CARDS.map((c, i) => (
-                        <button
-                            key={c.id}
-                            type="button"
-                            aria-label={`Card ${i + 1}`}
-                            onClick={() => setActive(i)}
-                            className="h-1 rounded-full bg-white transition-all duration-300"
-                            style={{ width: i === active ? 22 : 8, opacity: i === active ? 1 : 0.2 }}
-                        />
-                    ))}
-                </div>
-                <button
-                    type="button"
-                    onClick={() => go(1)}
-                    aria-label="Next card"
-                    className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40"
-                >
-                    <FiArrowRight className="w-4 h-4" />
-                </button>
-            </div>
+            <CarouselControls
+                count={CARDS.length}
+                active={active}
+                onPrev={() => go(-1)}
+                onNext={() => go(1)}
+                onSelect={setActive}
+                dotLabel={(i) => `Card ${i + 1}`}
+                prevLabel="Previous card"
+                nextLabel="Next card"
+            />
         </div>
     );
 };
 
 // Same layout as each project: who on the left, the photo on the centre stage, the details on the right.
-const AboutMeContent = () => {
+const About = () => {
     const reduceMotion = useReducedMotion();
     const reveal = (delay = 0) =>
         reduceMotion
@@ -301,4 +280,4 @@ const AboutMeContent = () => {
     );
 };
 
-export default AboutMeContent;
+export default About;
