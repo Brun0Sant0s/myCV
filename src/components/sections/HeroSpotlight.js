@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 // A hidden wall of the stack written as code behind the name.
 // The cursor works like a torch and reveals it; on touch screens the light drifts slowly on its own.
+// The torch position is written on the hero section (--x, --y), so other layers can use the same light.
 const TECH = ["React", "TypeScript", "React Native", "Expo", "Firebase", "Node.js", "Angular", "JavaScript", "HTML5", "CSS3", "Tailwind", "Figma", "Git", "REST", "jQuery", "Java"];
 
 const WALL = Array.from({ length: 1600 }, (_, i) => {
@@ -17,8 +18,8 @@ const HeroSpotlight = () => {
         const host = el?.parentElement;
         if (!el || !host) return undefined;
         const set = (x, y) => {
-            el.style.setProperty("--x", `${x}px`);
-            el.style.setProperty("--y", `${y}px`);
+            host.style.setProperty("--x", `${x}px`);
+            host.style.setProperty("--y", `${y}px`);
         };
         const r0 = host.getBoundingClientRect();
         set(r0.width / 2, r0.height / 2);

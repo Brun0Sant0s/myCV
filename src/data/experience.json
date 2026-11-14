@@ -45,7 +45,7 @@
       "date": "Dec 2023",
       "role": "epharma",
       "title": "Angular at ePharma",
-      "text": "Moved to an Angular project: authentication, form validation and REST APIs, from Figma to pixel-perfect in a Scrum team.",
+      "text": "Moved to an Angular project.",
       "technologies": [
         "Angular",
         "Java"
@@ -70,7 +70,7 @@
       "date": "Aug 2025",
       "role": "epharma",
       "title": "Left ePharma",
-      "text": "After four years, I moved on to focus full-time on my own products.",
+      "text": "After four years, I left ePharma.",
       "technologies": [],
       "icon": "leave"
     },
@@ -125,7 +125,7 @@
       "title": "Mingle",
       "status": "In development",
       "current": true,
-      "text": "Platform for weddings and events: QR Code access to photos and videos, AI album, guest messages, song requests, quizzes and LED wristbands synced to the music.",
+      "text": "Platform for weddings and events, joined with a QR code. Roll turns every phone into an analogue film camera, with the photos revealed together at the end of the night. Plus Cheers for guest messages, Jukebox for song requests, Buzz for a live quiz about the couple and Pulse, LED wristbands synced to the music.",
       "technologies": [
         "React",
         "TypeScript",
@@ -158,7 +158,7 @@
       "role": "pyro",
       "title": "Pyro website",
       "status": "Coming soon",
-      "text": "Website and backoffice for the company: services, portfolio and three languages, kept up to date by the team without code.",
+      "text": "Website and backoffice for the company: services, portfolio and three languages.",
       "technologies": [
         "React",
         "Tailwind",
