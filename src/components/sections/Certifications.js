@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import certifications from "../../data/certifications.json";
@@ -9,6 +9,7 @@ import cybersecurityImg from "../../assets/certifications/cybersecurity.png";
 import uiuxImg from "../../assets/certifications/uiux.png";
 import { ACCENT, EASE } from "../../constants/theme";
 import CarouselControls from "../ui/CarouselControls";
+import useAutoplay from "../../hooks/useAutoplay";
 
 const images = {
     angular: angularImg,
@@ -39,6 +40,8 @@ const Certifications = () => {
     const next = certifications[(active + 1) % n];
     const go = (step) => setState(([a]) => [(a + step + n) % n, step]);
     const pick = (i) => setState([i, i > active ? 1 : -1]);
+    const stageRef = useRef(null);
+    useAutoplay(stageRef, () => go(1), active);
 
     const reveal = (delay = 0) =>
         reduceMotion
@@ -105,7 +108,7 @@ const Certifications = () => {
                 </motion.div>
 
                 {/* Centre: the stage */}
-                <motion.div className="min-w-0 flex flex-col gap-6" {...reveal(0.1)}>
+                <motion.div ref={stageRef} className="min-w-0 flex flex-col gap-6" {...reveal(0.1)}>
                     <div
                         className="relative h-[300px] sm:h-[420px] outline-none"
                         tabIndex={0}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import projects from "../../data/projects.json";
@@ -6,6 +6,7 @@ import { projectMarks } from "../../assets/projects";
 import { ACCENT, EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
+import useAutoplay from "../../hooks/useAutoplay";
 
 // Every screenshot in the media folder, by file name ("kyuar-home" → its URL)
 const mediaContext = require.context("../../assets/projects/media", false, /\.jpg$/);
@@ -95,33 +96,28 @@ const Slider = ({ project }) => {
     const n = items.length;
     const item = items[active];
     const go = (step) => setState(([a]) => [(a + step + n) % n, step]);
+    const ref = useRef(null);
+    useAutoplay(ref, () => go(1), active);
     const prev = items[(active - 1 + n) % n];
     const next = items[(active + 1) % n];
 
     const isPhone = item.kind === "phone";
 
-    // Neighbours peek behind the active screen: phones fan out to the sides,
-    // browser windows sit just behind it, slightly tilted.
+    // Three screens at once: the active one in front, its neighbours fanned out and tilted
+    // to each side. Phones move by a fixed distance, browser windows by a share of their width.
     const side = (it, s) => {
         if (n < 2 || it.kind !== item.kind) return null;
-        const label = `${s < 0 ? "Previous" : "Next"}: ${it.label}`;
-        return isPhone ? (
+        return (
             <button
                 type="button"
-                aria-label={label}
+                aria-label={`${s < 0 ? "Previous" : "Next"}: ${it.label}`}
                 onClick={() => go(s)}
-                className="absolute top-1/2 h-[80%] opacity-40 hover:opacity-70 transition-opacity duration-300"
-                style={{ left: "50%", transform: `translate(calc(-50% + ${s * 150}px), -50%) rotate(${s * 7}deg)` }}
-            >
-                <Device project={project} it={it} />
-            </button>
-        ) : (
-            <button
-                type="button"
-                aria-label={label}
-                onClick={() => go(s)}
-                className="absolute inset-0 flex items-center opacity-30 hover:opacity-55 transition-opacity duration-300"
-                style={{ transform: `translateX(${s * 7}%) rotate(${s * 2.5}deg) scale(0.88)` }}
+                className={`absolute top-1/2 left-1/2 opacity-40 hover:opacity-70 transition-opacity duration-300 ${isPhone ? "h-[80%]" : "w-[80%]"}`}
+                style={{
+                    transform: isPhone
+                        ? `translate(calc(-50% + ${s * 150}px), -50%) rotate(${s * 7}deg)`
+                        : `translate(calc(-50% + ${s * 30}%), -50%) rotate(${s * 4}deg) scale(0.82)`,
+                }}
             >
                 <Device project={project} it={it} />
             </button>
@@ -130,6 +126,7 @@ const Slider = ({ project }) => {
 
     return (
         <div
+            ref={ref}
             className="flex flex-col gap-5 outline-none"
             tabIndex={0}
             role="region"
@@ -141,7 +138,7 @@ const Slider = ({ project }) => {
             }}
         >
             <div
-                className={`relative flex items-center justify-center ${isPhone ? "h-[460px] sm:h-[540px]" : "w-full aspect-[16/11.2]"}`}
+                className={`relative flex items-center justify-center ${isPhone ? "h-[460px] sm:h-[540px]" : "w-full aspect-[16/9.5]"}`}
             >
                 {side(prev, -1)}
                 {side(next, 1)}
@@ -161,7 +158,7 @@ const Slider = ({ project }) => {
                             else if (info.offset.x > 60) go(-1);
                         }}
                     >
-                        <div className={isPhone ? "h-[96%]" : "w-full"}>
+                        <div className={isPhone ? "h-[96%]" : "w-[80%]"}>
                             <Device project={project} it={item} />
                         </div>
                     </motion.div>
@@ -210,7 +207,7 @@ const Project = ({ project, index }) => {
     // Web projects get a wider stage so their screens stay readable
     const isWeb = project.media.items[0]?.kind === "browser";
     const columns = isWeb
-        ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,640px)_minmax(0,1fr)] lg:gap-x-16"
+        ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-x-16"
         : "lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] lg:gap-x-28";
     const reveal = (delay = 0) =>
         reduceMotion
@@ -252,7 +249,7 @@ const Project = ({ project, index }) => {
                             <img src={mark} alt={`${project.name} logo`} className="max-w-full max-h-full object-contain" />
                         </span>
                     )}
-                    <h3 className="mt-6 font-montserrat font-semibold text-3xl sm:text-4xl text-white leading-tight">{project.name}</h3>
+                    <h3 className="mt-6 font-montserrat font-semibold text-3xl sm:text-4xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white leading-tight">{project.name}</h3>
                     <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                         {project.subtitle}
                     </p>

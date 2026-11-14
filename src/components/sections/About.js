@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FiDownload, FiFilm, FiMic } from "react-icons/fi";
 import { GiWeightLiftingUp, GiRunningShoe, GiTennisRacket, GiSoccerBall } from "react-icons/gi";
@@ -7,6 +7,7 @@ import { projectMarks } from "../../assets/projects";
 import { ACCENT, EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
+import useAutoplay from "../../hooks/useAutoplay";
 
 // Core stack shown as icons, like the technologies on each project
 const STACK = ["React", "TypeScript", "JavaScript", "Expo", "Angular", "Node.js", "Firebase", "HTML", "CSS"];
@@ -133,6 +134,8 @@ const Deck = () => {
     const [active, setActive] = useState(0);
     const n = CARDS.length;
     const go = (s) => setActive((a) => (a + s + n) % n);
+    const ref = useRef(null);
+    useAutoplay(ref, () => go(1), active);
 
     const place = (i) => {
         const d = (i - active + n) % n;
@@ -144,6 +147,7 @@ const Deck = () => {
 
     return (
         <div
+            ref={ref}
             className="flex flex-col gap-6 outline-none"
             tabIndex={0}
             role="region"
