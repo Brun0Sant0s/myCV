@@ -79,7 +79,7 @@
       "date": "2021",
       "role": "freelance",
       "title": "Started freelancing",
-      "text": "Landing pages and websites for clients, including a site with a backoffice for a pyrotechnics company.",
+      "text": "Started building my own products to sell and turn into a business, alongside landing pages and websites for clients.",
       "technologies": [
         "React",
         "TypeScript",
@@ -94,7 +94,7 @@
       "role": "freelance",
       "title": "SaveSpot",
       "status": "Live",
-      "text": "Booking app taken from concept to launch.",
+      "text": "Booking app for barbers, salons, clinics and studios, taken from concept to launch.",
       "technologies": [
         "React Native",
         "Expo",
@@ -109,7 +109,7 @@
       "role": "freelance",
       "title": "Kyuar",
       "status": "Pilot",
-      "text": "Restaurant management platform: QR Code ordering, backoffice, invoicing, reservations and team management.",
+      "text": "Restaurant management platform: QR Code ordering, backoffice, invoicing, reservations, and stock and staff management.",
       "technologies": [
         "React",
         "Firebase"

@@ -94,7 +94,7 @@
     "features": [
       "QR ordering: scan the table code, browse the menu, add notes and send the order, with nothing to install",
       "Staff app: live orders by status, tables by zone, payments by QR code and reservations",
-      "Manager tools: edit the menu and availability, manage the team and follow daily revenue"
+      "Manager tools: edit the menu, stock and availability, manage staff and follow daily revenue"
     ],
     "technologies": [
       "React",

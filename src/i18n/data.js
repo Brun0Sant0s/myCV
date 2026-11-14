@@ -29,10 +29,10 @@ const EVENTS = {
     "Left ePharma": { title: "Saída da ePharma", text: "Ao fim de quatro anos, saí da ePharma." },
     "Started freelancing": {
         title: "Início como freelancer",
-        text: "Landing pages e websites para clientes, incluindo um site com backoffice para uma empresa de pirotecnia.",
+        text: "Comecei a criar produtos próprios para vender e rentabilizar, a par de landing pages e websites para clientes.",
     },
-    SaveSpot: { text: "App de marcações levada do conceito ao lançamento." },
-    Kyuar: { text: "Plataforma de gestão para restaurantes: pedidos por QR Code, backoffice, faturação, reservas e gestão de equipa." },
+    SaveSpot: { text: "App de marcações para barbeiros, salões, clínicas e estúdios, levada do conceito ao lançamento." },
+    Kyuar: { text: "Plataforma de gestão para restaurantes: pedidos por QR Code, backoffice, faturação, reservas e gestão de stock e de funcionários." },
     Mingle: {
         text: "Plataforma para eventos com entrada por QR code: um rolo de fotos em estilo analógico revelado no fim da noite, mensagens dos convidados, pedidos de músicas, quizzes ao vivo e pulseiras LED.",
     },
@@ -68,7 +68,7 @@ const PROJECTS = {
         features: [
             "Pedidos por QR: ler o código da mesa, ver o menu, juntar notas e enviar o pedido, sem nada para instalar",
             "App da equipa: pedidos em tempo real por estado, mesas por zona, pagamentos por QR code e reservas",
-            "Ferramentas do gerente: editar o menu e a disponibilidade, gerir a equipa e acompanhar a faturação do dia",
+            "Ferramentas do gerente: editar o menu, o stock e a disponibilidade, gerir os funcionários e acompanhar a faturação do dia",
         ],
     },
     pyro: {
