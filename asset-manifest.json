@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/myCV/static/css/main.26388241.css",
-    "main.js": "/myCV/static/js/main.cbf9d912.js",
+    "main.js": "/myCV/static/js/main.69c2f293.js",
     "static/media/uiux.png": "/myCV/static/media/uiux.9fb166e2bf47e94c408f.png",
     "static/media/cybersecurity.png": "/myCV/static/media/cybersecurity.450c8a9fcc17fa4dac93.png",
     "static/media/frontend.png": "/myCV/static/media/frontend.0ff0b0bb6026c68acf77.png",
@@ -23,7 +23,6 @@
     "static/media/engi-networks.jpg": "/myCV/static/media/engi-networks.7d538899df3dc75b41d0.jpg",
     "static/media/ouruber-home.jpg": "/myCV/static/media/ouruber-home.23ee5dadb7350c5af972.jpg",
     "static/media/mark-pyro.png": "/myCV/static/media/mark-pyro.92ca1b2e98cd2ad1acfc.png",
-    "static/media/pyro-home.jpg": "/myCV/static/media/pyro-home.98bcf5182176ff62719d.jpg",
     "static/media/ouruber-trips.jpg": "/myCV/static/media/ouruber-trips.d915bd61c0a29d38d08e.jpg",
     "static/media/pyro-splash.jpg": "/myCV/static/media/pyro-splash.76cd1f4433ffbdb48169.jpg",
     "static/media/mingle-guest-hub.jpg": "/myCV/static/media/mingle-guest-hub.25b902850588b0a51005.jpg",
@@ -64,10 +63,10 @@
     "static/media/html.svg": "/myCV/static/media/html.f318c8b1d5945fa9adc827ae94849cb1.svg",
     "static/media/js.svg": "/myCV/static/media/js.a4370a88cda4f608d472b463536604b0.svg",
     "main.26388241.css.map": "/myCV/static/css/main.26388241.css.map",
-    "main.cbf9d912.js.map": "/myCV/static/js/main.cbf9d912.js.map"
+    "main.69c2f293.js.map": "/myCV/static/js/main.69c2f293.js.map"
   },
   "entrypoints": [
     "static/css/main.26388241.css",
-    "static/js/main.cbf9d912.js"
+    "static/js/main.69c2f293.js"
   ]
 }
