@@ -1,42 +1,205 @@
-[
-
-  {
-    "year": "2021",
-    "month": "August",
-    "text": "I joined ePharma as a Front-End Web Developer, where I work primarily with technologies such as JavaScript, jQuery, HTML, and CSS. My role involves developing and maintaining user interfaces, ensuring responsive design, and contributing to the overall user experience with clean, efficient, and maintainable code.",
-    "technologies": [
-      { "name": "JavaScript", "logo": "/icons/js.svg" },
-      { "name": "HTML", "logo": "/icons/html.svg" },
-      { "name": "CSS", "logo": "/icons/css.svg" },
-      { "name": "JQuery", "logo": "/icons/jquery.svg" }
-    ]
-  },
-  {
-    "year": "2022",
-    "month": "June",
-    "text": "In 2022, I added basic Java to my tech stack, which already included JavaScript, jQuery, HTML and CSS.",
-    "technologies": [
-      { "name": "Java", "logo": "/icons/java.svg" }
-    ]
-  },
-  {
-    "year": "2023",
-    "month": "December",
-    "text": "I transitioned to another project using Angular, where I applied the Scrum methodology through Azure DevOps and used Git for version control.",
-    "technologies": [
-      { "name": "Angular", "logo": "/icons/angular.svg" }
-    ]
-  },
-  {
-    "year": "2024",
-    "month": "June",
-    "text": "I returned to the initial project, working with a tech stack that includes JavaScript, jQuery, Java (basic), HTML and CSS . I also use Wrike for task and time management within a Scrum-based workflow, and continued using Git for version control.",
-    "technologies": [
-      { "name": "JavaScript", "logo": "/icons/js.svg" },
-      { "name": "HTML", "logo": "/icons/html.svg" },
-      { "name": "CSS", "logo": "/icons/css.svg" },
-      { "name": "JQuery", "logo": "/icons/jquery.svg" },
-      { "name": "Java", "logo": "/icons/java.svg" }
-    ]
-  }
-]
+{
+  "roles": [
+    {
+      "id": "epharma",
+      "label": "ePharma",
+      "role": "Frontend Engineer",
+      "company": "ePharma",
+      "period": "Aug 2021 – Aug 2025",
+      "color": "#00BFFF"
+    },
+    {
+      "id": "freelance",
+      "label": "My projects",
+      "role": "Frontend & Product Developer",
+      "company": "Freelance",
+      "period": "2021 – Present",
+      "color": "#20C997"
+    },
+    {
+      "id": "pyro",
+      "label": "Pyrotechnics",
+      "role": "Pyrotechnics & SFX Technician",
+      "company": "Pyro Entertainment & SFX",
+      "period": "2024 – Present",
+      "color": "#F5A524"
+    }
+  ],
+  "events": [
+    {
+      "year": "2021",
+      "date": "Aug 2021",
+      "role": "epharma",
+      "title": "Joined ePharma",
+      "text": "Started as Frontend Engineer, building responsive and accessible production interfaces with reusable components.",
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "JQuery"
+      ],
+      "icon": "join"
+    },
+    {
+      "year": "2023",
+      "date": "Dec 2023",
+      "role": "epharma",
+      "title": "Angular at ePharma",
+      "text": "Moved to an Angular project: authentication, form validation and REST APIs, from Figma to pixel-perfect in a Scrum team.",
+      "technologies": [
+        "Angular",
+        "Java"
+      ],
+      "icon": "switch"
+    },
+    {
+      "year": "2024",
+      "date": "Jun 2024",
+      "role": "epharma",
+      "title": "Back to the original project",
+      "text": "Returned to the original product, working with JavaScript, jQuery and Java and managing work in Wrike within Scrum.",
+      "technologies": [
+        "JavaScript",
+        "JQuery",
+        "Java"
+      ],
+      "icon": "return"
+    },
+    {
+      "year": "2025",
+      "date": "Aug 2025",
+      "role": "epharma",
+      "title": "Left ePharma",
+      "text": "After four years, I moved on to focus full-time on my own products.",
+      "technologies": [],
+      "icon": "leave"
+    },
+    {
+      "year": "2021",
+      "date": "2021",
+      "role": "freelance",
+      "title": "Started freelancing",
+      "text": "Landing pages and websites for clients, including a site with a backoffice for a pyrotechnics company.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Firebase"
+      ],
+      "icon": "code"
+    },
+    {
+      "year": "2022",
+      "date": "2022",
+      "role": "freelance",
+      "title": "SaveSpot",
+      "status": "Live",
+      "text": "Booking app taken from concept to launch, published on the App Store and Google Play.",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "Firebase"
+      ],
+      "icon": "calendar",
+      "logo": "savespot"
+    },
+    {
+      "year": "2024",
+      "date": "2024",
+      "role": "freelance",
+      "title": "Kyuar",
+      "status": "Pilot",
+      "text": "Restaurant management platform: QR Code ordering, backoffice, invoicing, reservations and team management.",
+      "technologies": [
+        "React",
+        "Firebase"
+      ],
+      "logo": "kyuar",
+      "link": "https://kyuar.pt",
+      "linkLabel": "kyuar.pt"
+    },
+    {
+      "year": "2026",
+      "date": "2026",
+      "role": "freelance",
+      "title": "Mingle",
+      "status": "In development",
+      "current": true,
+      "text": "Platform for weddings and events: QR Code access to photos and videos, AI album, guest messages, song requests, quizzes and LED wristbands synced to the music.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Firebase"
+      ],
+      "logo": "mingle",
+      "link": "https://mingle.pt",
+      "linkLabel": "mingle.pt"
+    },
+    {
+      "year": "2024",
+      "date": "2024 – Present",
+      "role": "pyro",
+      "title": "Live shows & SFX",
+      "text": "Part of the crew on large live shows, where timing is to the second and safety rules are strict.",
+      "technologies": [],
+      "tags": [
+        "Creamfields",
+        "Estádio do Dragão",
+        "Supertaça",
+        "Portugal national team",
+        "Paredes de Coura"
+      ],
+      "current": true,
+      "icon": "fireworks"
+    },
+    {
+      "year": "2025",
+      "date": "Aug 2025",
+      "role": "pyro",
+      "title": "Pyro website",
+      "status": "Coming soon",
+      "text": "Website and backoffice for the company: services, portfolio and three languages, kept up to date by the team without code.",
+      "technologies": [
+        "React",
+        "Tailwind",
+        "Node.js",
+        "MySQL"
+      ],
+      "logo": "pyro",
+      "link": "https://github.com/Brun0Sant0s/Pyro-SFX",
+      "linkLabel": "GitHub"
+    },
+    {
+      "year": "2025",
+      "date": "Nov 2025",
+      "role": "freelance",
+      "title": "engi.studio",
+      "status": "Coming soon",
+      "text": "Show control web app for a client: lighting, audio and video cues fired at the exact second, on a Raspberry Pi with GPS time.",
+      "technologies": [
+        "React",
+        "Tailwind",
+        "Python"
+      ],
+      "logo": "engi",
+      "link": "https://engi.studio",
+      "linkLabel": "engi.studio"
+    },
+    {
+      "year": "2026",
+      "date": "Jan 2026",
+      "role": "freelance",
+      "title": "OurUber",
+      "status": "Completed",
+      "text": "Ride-hailing app I built end to end, with client and driver modes, live rides on a map and driver ratings.",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "Firebase"
+      ],
+      "logo": "ouruber",
+      "link": "https://github.com/Brun0Sant0s/OurUber",
+      "linkLabel": "GitHub"
+    }
+  ]
+}

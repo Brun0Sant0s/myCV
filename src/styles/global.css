@@ -1,9 +1,22 @@
 /* src/styles/global.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Hide the text cursor (caret) when clicking on regular text; keep it in form fields */
+*,
+*::before,
+*::after {
+    caret-color: transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+    caret-color: auto;
 }
 
 ::-webkit-scrollbar {
@@ -25,78 +38,3 @@ html {
     background: #bbb;
     box-shadow: 0 0 5px #bbb;
 }
-
-
-
-
-
-.button-gradient-border {
-    position: relative;
-    display: inline-block;
-    /*
-    width: 100%; !* Define a largura total *!
-    */
-    padding: 12px 24px;
-    border-radius: 10px; /* Mantém a borda arredondada */
-    border: 0px solid transparent;
-    background-color: transparent;
-    color: white;
-    text-align: center;
-    transition: 0.3s;
-    overflow: hidden;
-    margin-top:20px;
-}
-
-/* Criando a borda gradiente */
-.button-gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 10px; /* Borda arredondada */
-    padding: 2px;
-    background: linear-gradient(to right, #00BFFF, #20C997); /* Gradiente aplicado à borda */
-    mask: linear-gradient(white, white) content-box, linear-gradient(white, white);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    pointer-events: none; /* Evita interferência na interação do botão */
-}
-
-/* Efeito Hover */
-.button-gradient-border:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-
-.contact-gradient {
-    position: relative;
-    /* Removido display: inline-block */
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: 0px solid transparent;
-    background-color: transparent;
-    color: white;
-    text-align: center;
-    transition: 0.3s;
-    overflow: hidden;
-    /* Removido margin-top */
-}
-
-/* Criando a borda gradiente */
-.contact-gradient::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 10px;
-    padding: 2px;
-    background: linear-gradient(to right, #00BFFF, #20C997);
-    mask: linear-gradient(white, white) content-box, linear-gradient(white, white);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-/* Efeito Hover */
-.contact-gradient:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-

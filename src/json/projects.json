@@ -1,0 +1,523 @@
+[
+  {
+    "id": "savespot",
+    "name": "SaveSpot",
+    "year": "2022",
+    "status": "Live",
+    "subtitle": "Booking app for beauty businesses",
+    "description": "A booking app for barbers, salons, clinics and studios. Businesses manage their whole day from the phone, and clients find a place and book in a few taps, for free.",
+    "features": [
+      "Single agenda: bookings from the app, a web page, Instagram and WhatsApp land in the same calendar, with no double bookings",
+      "Team and clients: roles and schedules per person, client history, notes and contact import",
+      "Reminders and stats: push reminders before each visit and a monthly view of bookings and revenue"
+    ],
+    "technologies": [
+      "React Native",
+      "Expo",
+      "Firebase"
+    ],
+    "logo": "savespot",
+    "brandColor": "#1FB6C9",
+    "links": [
+      {
+        "label": "App Store",
+        "url": "https://apps.apple.com/pt/app/savespot-agenda-digital/id6745148743"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "savespot-splash",
+          "group": "SaveSpot",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#1b1c1e"
+        },
+        {
+          "src": "savespot-agenda",
+          "group": "Business app",
+          "label": "Agenda",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 486,
+          "h": 1110
+        },
+        {
+          "src": "savespot-clients",
+          "group": "Business app",
+          "label": "Clients",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 510,
+          "h": 1165
+        },
+        {
+          "src": "savespot-services",
+          "group": "Business app",
+          "label": "Services",
+          "kind": "phone",
+          "bar": "#1b1c1e",
+          "w": 454,
+          "h": 983
+        },
+        {
+          "src": "savespot-home",
+          "group": "Client app",
+          "label": "Home",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 494,
+          "h": 1129
+        },
+        {
+          "src": "savespot-place",
+          "group": "Client app",
+          "label": "Place",
+          "kind": "phone",
+          "bar": "#1b1c1e",
+          "w": 454,
+          "h": 983
+        }
+      ]
+    }
+  },
+  {
+    "id": "kyuar",
+    "name": "Kyuar",
+    "year": "2024",
+    "status": "Pilot",
+    "subtitle": "QR ordering for bars and restaurants",
+    "description": "A QR ordering platform for bars and restaurants. Customers order and pay from the table without waiting, and the staff run the whole service from their own app.",
+    "features": [
+      "QR ordering: scan the table code, browse the menu, add notes and send the order, with nothing to install",
+      "Staff app: live orders by status, tables by zone, payments by QR code and reservations",
+      "Manager tools: edit the menu and availability, manage the team and follow daily revenue"
+    ],
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Tailwind",
+      "Node.js",
+      "Firebase"
+    ],
+    "logo": "kyuar",
+    "brandColor": "#F97316",
+    "links": [
+      {
+        "label": "kyuar.pt",
+        "url": "https://kyuar.pt"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "kyuar-splash",
+          "group": "Kyuar",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "kyuar-client-scan",
+          "group": "Customer",
+          "label": "Scan the table",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-client-menu",
+          "group": "Customer",
+          "label": "Menu",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-client-item",
+          "group": "Customer",
+          "label": "Item",
+          "kind": "phone",
+          "bar": "#080808",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-client-cart",
+          "group": "Customer",
+          "label": "Cart",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-client-orders",
+          "group": "Customer",
+          "label": "Today's orders",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "kyuar-staff-tables",
+          "group": "Staff",
+          "label": "Tables",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-staff-orders",
+          "group": "Staff",
+          "label": "Orders",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-staff-new-order",
+          "group": "Staff",
+          "label": "New order",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-staff-payments",
+          "group": "Staff",
+          "label": "Payments",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-staff-reservations",
+          "group": "Staff",
+          "label": "Reservations",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "kyuar-staff-menu",
+          "group": "Manager",
+          "label": "Menu",
+          "kind": "phone",
+          "bar": "#0a0a0a",
+          "w": 462,
+          "h": 1000
+        }
+      ]
+    }
+  },
+  {
+    "id": "pyro",
+    "name": "Pyro Entertainment & SFX",
+    "year": "2025",
+    "status": "Coming soon",
+    "subtitle": "Client website with a backoffice",
+    "description": "Website for a pyrotechnics and special effects company, the one I work with on live shows. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
+    "features": [
+      "Services in three levels: from pyrotechnics or special effects down to each effect, with its own gallery and highlights",
+      "Backoffice: the team edits services, effects, photos and highlights behind a login with secure sessions",
+      "Portfolio: past shows filtered by type, from New Year's Eve in Porto to stage flames and CO2",
+      "Three languages: Portuguese, English and Spanish, picked from the browser"
+    ],
+    "technologies": [
+      "React",
+      "Tailwind",
+      "Node.js",
+      "Express",
+      "MySQL"
+    ],
+    "logo": "pyro",
+    "brandColor": "#E11D2E",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Brun0Sant0s/Pyro-SFX"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "pyro-splash",
+          "group": "Pyro Entertainment & SFX",
+          "label": "Launch",
+          "kind": "browser"
+        },
+        {
+          "src": "pyro-service",
+          "group": "Website",
+          "label": "Service",
+          "kind": "browser"
+        },
+        {
+          "src": "pyro-home",
+          "group": "Website",
+          "label": "Home",
+          "kind": "browser"
+        },
+        {
+          "src": "pyro-portfolio",
+          "group": "Website",
+          "label": "Portfolio",
+          "kind": "browser"
+        },
+        {
+          "src": "pyro-about",
+          "group": "Website",
+          "label": "About",
+          "kind": "browser"
+        },
+        {
+          "src": "pyro-backoffice",
+          "group": "Backoffice",
+          "label": "Editor",
+          "kind": "browser"
+        }
+      ]
+    }
+  },
+  {
+    "id": "engi",
+    "name": "engi.studio",
+    "year": "2025",
+    "status": "Coming soon",
+    "subtitle": "Client web app for show control",
+    "description": "A control panel built for engi.studio, a live show engineering company. Each unit runs on a Raspberry Pi with GPS time and fires lighting, audio and video cues at the exact second.",
+    "features": [
+      "Dashboard: GPS fix, satellites and signal quality, system tests and the next cues at a glance",
+      "Events: every cue in a list or a week, month and year calendar, filtered by Art-Net, MIDI, OSC or Reaper",
+      "Setups: Art-Net universes and Reaper streams for each unit, with IP, port and mode",
+      "Clocks and network: GPS or local time as the reference, network interfaces and a ping test"
+    ],
+    "technologies": [
+      "React",
+      "Tailwind",
+      "Python",
+      "FastAPI",
+      "Raspberry Pi"
+    ],
+    "logo": "engi",
+    "brandColor": "#0AFD87",
+    "links": [
+      {
+        "label": "engi.studio",
+        "url": "https://engi.studio"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "engi-splash",
+          "group": "engi.studio",
+          "label": "Launch",
+          "kind": "browser"
+        },
+        {
+          "src": "engi-dashboard",
+          "group": "Control panel",
+          "label": "Dashboard",
+          "kind": "browser"
+        },
+        {
+          "src": "engi-events",
+          "group": "Control panel",
+          "label": "Events",
+          "kind": "browser"
+        },
+        {
+          "src": "engi-calendar",
+          "group": "Control panel",
+          "label": "Calendar",
+          "kind": "browser"
+        },
+        {
+          "src": "engi-setups",
+          "group": "Control panel",
+          "label": "Setups",
+          "kind": "browser"
+        },
+        {
+          "src": "engi-networks",
+          "group": "Control panel",
+          "label": "Networks",
+          "kind": "browser"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ouruber",
+    "name": "OurUber",
+    "year": "2026",
+    "status": "Completed",
+    "subtitle": "Ride-hailing app for clients and drivers",
+    "description": "A ride-hailing app I designed and built end to end, where the same account can request rides or drive. Each ride goes from request to rating in real time, with a map, pickup time and a short window to accept the driver's offer.",
+    "features": [
+      "Request: origin and destination picked on the map, with the address filled in from the location",
+      "Driver mode: open requests nearby with the pickup time, and one tap to offer the ride",
+      "Live ride: the client has three minutes to accept the offer, then follows each step until both confirm the end",
+      "Trips and ratings: history by state, 1 to 5 star ratings and each driver's average on the profile"
+    ],
+    "technologies": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Firebase",
+      "Google Maps"
+    ],
+    "logo": "ouruber",
+    "brandColor": "#4CAF50",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Brun0Sant0s/OurUber"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "ouruber-splash",
+          "group": "OurUber",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "ouruber-home",
+          "group": "Client",
+          "label": "Request",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "ouruber-proposal",
+          "group": "Client",
+          "label": "Driver offer",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "ouruber-driver",
+          "group": "Driver",
+          "label": "Open requests",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "ouruber-trips",
+          "group": "Client",
+          "label": "Trips",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
+        {
+          "src": "ouruber-profile",
+          "group": "Account",
+          "label": "Profile",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        }
+      ]
+    }
+  },
+  {
+    "id": "mingle",
+    "name": "Mingle",
+    "year": "2026",
+    "status": "In development",
+    "subtitle": "Interactive platform for weddings and events",
+    "description": "An interactive platform for weddings and events. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard.",
+    "features": [
+      "Pulse: an LED wristband on every guest that lights up the room to the beat of the music and reacts to the games",
+      "Roll: each guest's phone becomes a film camera, photos show live on the TV and are revealed together at the end",
+      "Cheers: guests leave a written or recorded message with a photo, kept in a book for the couple",
+      "Jukebox: guests request songs from their phone and the DJ sees the list on a screen",
+      "Buzz: a live quiz about the couple, with the question on the TV, answers on the phone and a podium"
+    ],
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Firebase",
+      "Node.js",
+      "Python",
+      "Vercel"
+    ],
+    "logo": "mingle",
+    "brandColor": "#8A9A5B",
+    "links": [
+      {
+        "label": "mingle.pt",
+        "url": "https://mingle.pt"
+      }
+    ],
+    "media": {
+      "items": [
+        {
+          "src": "mingle-splash",
+          "group": "Mingle",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#e5e5d9"
+        },
+        {
+          "src": "mingle-guest-hub",
+          "group": "Guest",
+          "label": "Home",
+          "kind": "phone",
+          "bar": "#1e150f",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-roll",
+          "group": "Guest",
+          "label": "Roll",
+          "kind": "phone",
+          "bar": "#13160d",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-cheers",
+          "group": "Guest",
+          "label": "Cheers",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-jukebox",
+          "group": "Guest",
+          "label": "Jukebox",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-buzz",
+          "group": "Guest",
+          "label": "Buzz",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        }
+      ]
+    }
+  }
+]

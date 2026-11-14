@@ -6,7 +6,8 @@ module.exports = {
     extend: {
       fontFamily: {
         montserrat:["Montserrat", "sans-serif"],
-        syncopate:["Syncopate", "sans-serif"]
+        syncopate:["Syncopate", "sans-serif"],
+        mono:["JetBrains Mono", "Consolas", "monospace"]
       },
     },
   },
