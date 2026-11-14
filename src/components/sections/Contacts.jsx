@@ -163,7 +163,7 @@ const Contacts = () => {
                         Every value is a link. Or fill in the props with your name, email and message, and run it to send.
                     </p>
                     <a
-                        href={`${process.env.PUBLIC_URL}/documents/CV_BRUNO_EN.pdf`}
+                        href={`${import.meta.env.BASE_URL}documents/CV_BRUNO_EN.pdf`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"

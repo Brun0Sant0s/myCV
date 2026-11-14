@@ -233,7 +233,7 @@ const About = () => {
                             ))}
                         </div>
                         <a
-                            href={`${process.env.PUBLIC_URL}/documents/CV_BRUNO_EN.pdf`}
+                            href={`${import.meta.env.BASE_URL}documents/CV_BRUNO_EN.pdf`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"

@@ -9,8 +9,8 @@ import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
 
 // Every screenshot in the media folder, by file name ("kyuar-home" → its URL)
-const mediaContext = require.context("../../assets/projects/media", false, /\.jpg$/);
-const media = Object.fromEntries(mediaContext.keys().map((k) => [k.replace("./", "").replace(".jpg", ""), mediaContext(k)]));
+const mediaFiles = import.meta.glob("../../assets/projects/media/*.jpg", { eager: true, import: "default" });
+const media = Object.fromEntries(Object.entries(mediaFiles).map(([path, url]) => [path.split("/").pop().replace(".jpg", ""), url]));
 
 
 /* ---------- Media: one slider; desktop screens in a browser window, mobile screens in an iPhone ---------- */

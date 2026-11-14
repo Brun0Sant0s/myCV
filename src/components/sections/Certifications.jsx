@@ -95,7 +95,7 @@ const Certifications = () => {
                             <h3 className="mt-3 font-montserrat font-semibold text-3xl sm:text-4xl text-white leading-tight">{cert.title}</h3>
                             <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{cert.description}</p>
                             <a
-                                href={`${process.env.PUBLIC_URL}${cert.downloadLink}`}
+                                href={`${import.meta.env.BASE_URL}${cert.downloadLink.replace(/^\//, "")}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="mt-7 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-montserrat text-sm text-black transition-colors duration-300 hover:bg-white/85"
