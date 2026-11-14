@@ -1,16 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "../../i18n/LanguageContext";
 
-// Navigation styled as the tab bar of a code editor: one .jsx file per section, the open tab is where you are.
-// `file` is the key of the tab name in the translations (nav.*).
+// Navigation styled as a code editor, fixed at the bottom of the screen.
+// Large screens: the tab bar, one .jsx file per section (the open tab is where you are),
+// followed by the language as a JSX prop: <Site lang="pt" />.
+// Small screens: only the open file shows; tapping it opens the file explorer with every section.
+// `file` is the key of the section name in the translations (nav.*).
 const SECTIONS = [
-    { file: "home", ext: ".jsx", top: true },
-    { file: "about", ext: ".jsx", id: "aboutMeContent", target: "aboutMeContent" },
-    { file: "experience", ext: ".jsx", id: "professionalExperienceText", target: "professionalExperienceText" },
-    { file: "projects", ext: ".jsx", id: "projectsText", target: "projectsText" },
-    { file: "certifications", ext: ".jsx", id: "certificationsText", target: "certificationsText" },
-    { file: "contact", ext: ".jsx", id: "contactsText", target: "contactsText" },
+    { file: "home", top: true },
+    { file: "about", id: "aboutMeContent" },
+    { file: "experience", id: "professionalExperienceText" },
+    { file: "projects", id: "projectsText" },
+    { file: "certifications", id: "certificationsText" },
+    { file: "contact", id: "contactsText" },
 ];
+
+// Syntax colours, same palette as the contact form
+const C = { tag: "#f07178", attr: "#ffcb6b", str: "#c3e88d", pn: "#89ddff" };
 
 const ReactIcon = () => (
     <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill="none" stroke="#61DAFB" strokeWidth="1.4" aria-hidden="true">
@@ -21,11 +27,9 @@ const ReactIcon = () => (
     </svg>
 );
 
-const EditorNav = () => {
-    const { t } = useLang();
+// Which section is on screen: the last one whose top has passed 45% of the window
+const useCurrentSection = () => {
     const [current, setCurrent] = useState(0);
-    const tabsRef = useRef(null);
-
     useEffect(() => {
         let frame = null;
         const update = () => {
@@ -51,25 +55,56 @@ const EditorNav = () => {
             if (frame) cancelAnimationFrame(frame);
         };
     }, []);
+    return current;
+};
 
-    // Keep the open tab visible on narrow screens
-    useEffect(() => {
-        const tab = tabsRef.current?.children[current];
-        tab?.scrollIntoView({ block: "nearest", inline: "nearest" });
-    }, [current]);
+const goTo = (i) => {
+    const s = SECTIONS[i];
+    if (s.top) window.scrollTo({ top: 0, behavior: "smooth" });
+    else document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
+};
 
-    const goTo = (i) => {
-        const s = SECTIONS[i];
-        if (s.top) window.scrollTo({ top: 0, behavior: "smooth" });
-        else document.getElementById(s.target)?.scrollIntoView({ behavior: "smooth" });
-    };
+const Divider = () => <span className="w-px my-1.5 bg-white/[0.18] shrink-0" aria-hidden="true" />;
 
-    return (
-        <nav
-            aria-label={t.nav.label}
-            className="fixed z-40 left-1/2 -translate-x-1/2 bottom-[max(16px,env(safe-area-inset-bottom))] max-w-[calc(100vw-32px)] rounded-xl border border-white/20 bg-[#0a0a0c]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden"
+// The language as a JSX prop; clicking the value swaps English and Portuguese.
+// `short` keeps only the value, for small screens.
+const LangProp = ({ short = false }) => {
+    const { lang, setLang, t } = useLang();
+    const value = (
+        <button
+            type="button"
+            onClick={() => setLang(lang === "en" ? "pt" : "en")}
+            aria-label={`${t.nav.language}: ${lang === "en" ? "English" : "Português"}`}
+            className="rounded px-0.5 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#20C997]"
+            style={{ color: C.str }}
         >
-            <div ref={tabsRef} className="flex overflow-x-auto font-mono text-[12px] sm:text-[13px] [scrollbar-width:none]">
+            "{lang}"
+        </button>
+    );
+    if (short) return <span className="flex items-center px-3">{value}</span>;
+    return (
+        <span className="flex items-center px-3 whitespace-nowrap">
+            <span style={{ color: C.pn }}>&lt;</span>
+            <span style={{ color: C.tag }}>Site</span>
+            <span className="ml-1.5" style={{ color: C.attr }}>lang</span>
+            <span style={{ color: C.pn }}>=</span>
+            {value}
+            <span className="ml-1.5" style={{ color: C.pn }}>/&gt;</span>
+        </span>
+    );
+};
+
+const panel =
+    "fixed z-40 left-1/2 -translate-x-1/2 max-w-[calc(100vw-32px)] rounded-xl border border-white/20 bg-[#0a0a0c]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)] font-mono";
+const shell = `${panel} bottom-[max(16px,env(safe-area-inset-bottom))]`;
+
+/* ---------- Large screens: the tab bar ---------- */
+
+const TabBar = ({ current }) => {
+    const { t } = useLang();
+    return (
+        <div className={`${shell} hidden lg:flex overflow-hidden text-[13px]`}>
+            <nav aria-label={t.nav.label} className="flex">
                 {SECTIONS.map((s, i) => {
                     const on = i === current;
                     return (
@@ -78,7 +113,7 @@ const EditorNav = () => {
                             type="button"
                             onClick={() => goTo(i)}
                             aria-current={on ? "page" : undefined}
-                            className={`relative flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2.5 whitespace-nowrap border-r border-white/[0.08] last:border-r-0 transition-colors ${
+                            className={`relative flex items-center gap-2 px-3.5 py-2.5 whitespace-nowrap border-r border-white/[0.08] transition-colors ${
                                 on ? "bg-white/[0.07] text-white" : "text-gray-500 hover:text-gray-200 hover:bg-white/[0.03]"
                             }`}
                         >
@@ -86,13 +121,103 @@ const EditorNav = () => {
                             <ReactIcon />
                             <span>
                                 {t.nav[s.file]}
-                                <span className="hidden sm:inline text-gray-600">{s.ext}</span>
+                                <span className="hidden xl:inline text-gray-600">.jsx</span>
                             </span>
                         </button>
                     );
                 })}
+            </nav>
+            <Divider />
+            <LangProp />
+        </div>
+    );
+};
+
+/* ---------- Small screens: the open file and the explorer ---------- */
+
+const Explorer = ({ current }) => {
+    const { t } = useLang();
+    const [open, setOpen] = useState(false);
+    const boxRef = useRef(null);
+
+    // Close on Escape or a tap outside
+    useEffect(() => {
+        if (!open) return undefined;
+        const onKey = (e) => e.key === "Escape" && setOpen(false);
+        const onDown = (e) => !boxRef.current?.contains(e.target) && setOpen(false);
+        document.addEventListener("keydown", onKey);
+        document.addEventListener("pointerdown", onDown);
+        return () => {
+            document.removeEventListener("keydown", onKey);
+            document.removeEventListener("pointerdown", onDown);
+        };
+    }, [open]);
+
+    return (
+        <div ref={boxRef} className="lg:hidden">
+            {open && (
+                <div
+                    id="nav-explorer"
+                    className={`${panel} bottom-[calc(max(16px,env(safe-area-inset-bottom))+52px)] w-[min(320px,calc(100vw-32px))] py-2 text-[13px] text-gray-400`}
+                >
+                    <p className="px-4 py-1.5 text-gray-600">▾ src / sections</p>
+                    <nav aria-label={t.nav.label}>
+                        {SECTIONS.map((s, i) => {
+                            const on = i === current;
+                            return (
+                                <button
+                                    key={s.file}
+                                    type="button"
+                                    onClick={() => {
+                                        setOpen(false);
+                                        goTo(i);
+                                    }}
+                                    aria-current={on ? "page" : undefined}
+                                    className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-left ${
+                                        on ? "bg-white/[0.06] text-white" : "hover:bg-white/[0.03] hover:text-gray-200"
+                                    }`}
+                                >
+                                    <ReactIcon />
+                                    {t.nav[s.file]}.jsx
+                                </button>
+                            );
+                        })}
+                    </nav>
+                </div>
+            )}
+
+            <div className={`${shell} flex overflow-hidden text-[13px]`}>
+                <button
+                    type="button"
+                    onClick={() => setOpen((o) => !o)}
+                    aria-expanded={open}
+                    aria-controls="nav-explorer"
+                    className="relative flex items-center gap-2 px-4 py-2.5 whitespace-nowrap text-white"
+                >
+                    <span className="absolute top-0 left-0 right-0 h-[2px] bg-[#20C997]" />
+                    <ReactIcon />
+                    <span>
+                        {t.nav[SECTIONS[current].file]}
+                        <span className="text-gray-600">.jsx</span>
+                    </span>
+                    <span className="text-gray-500" aria-hidden="true">
+                        {open ? "▾" : "▴"}
+                    </span>
+                </button>
+                <Divider />
+                <LangProp short />
             </div>
-        </nav>
+        </div>
+    );
+};
+
+const EditorNav = () => {
+    const current = useCurrentSection();
+    return (
+        <>
+            <TabBar current={current} />
+            <Explorer current={current} />
+        </>
     );
 };
 

@@ -28,8 +28,8 @@ textarea,
 @media (pointer: fine) {
     .hero-avatar {
         opacity: 1;
-        -webkit-mask-image: radial-gradient(260px circle at var(--x, -1000px) var(--y, -1000px), #000 30%, transparent 75%);
-        mask-image: radial-gradient(260px circle at var(--x, -1000px) var(--y, -1000px), #000 30%, transparent 75%);
+        -webkit-mask-image: radial-gradient(400px circle at var(--x, -1000px) var(--y, -1000px), #000 35%, transparent 75%);
+        mask-image: radial-gradient(400px circle at var(--x, -1000px) var(--y, -1000px), #000 35%, transparent 75%);
     }
 }
 

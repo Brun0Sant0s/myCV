@@ -1,5 +1,4 @@
 import EditorNav from "./components/layout/EditorNav";
-import LanguageSwitch from "./components/layout/LanguageSwitch";
 import SectionTitle from "./components/layout/SectionTitle";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
@@ -18,7 +17,6 @@ const App = () => {
     return (
         <div className="bg-black overflow-x-clip">
             <EditorNav />
-            <LanguageSwitch />
 
             <Hero />
             <About />
