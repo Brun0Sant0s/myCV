@@ -19,6 +19,20 @@ textarea,
     caret-color: auto;
 }
 
+/* Hero avatar: on touch screens it shows whole and dimmed behind the name.
+   With a mouse it hides in the dark and only the cursor torch (--x, --y on the hero) reveals it. */
+.hero-avatar {
+    opacity: 0.32;
+}
+
+@media (pointer: fine) {
+    .hero-avatar {
+        opacity: 1;
+        -webkit-mask-image: radial-gradient(260px circle at var(--x, -1000px) var(--y, -1000px), #000 30%, transparent 75%);
+        mask-image: radial-gradient(260px circle at var(--x, -1000px) var(--y, -1000px), #000 30%, transparent 75%);
+    }
+}
+
 ::-webkit-scrollbar {
     width: 3px;
     height: 3px;

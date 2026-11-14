@@ -2,10 +2,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import HeroSpotlight from "./HeroSpotlight";
 import avatar from "../../assets/avatar-cut.webp";
 
-// The torch only lights a circle around the cursor, so the avatar stays hidden in the dark elsewhere.
-const torch = "radial-gradient(260px circle at var(--x, 50%) var(--y, 40%), #000 30%, transparent 75%)";
-
-// First screen: the name over the spotlight wall. The torch also reveals my avatar behind the name.
+// First screen: the name over the spotlight wall.
+// With a mouse, the cursor torch also reveals my avatar behind the name (see .hero-avatar in global.css).
+// On touch screens the whole avatar shows, dimmed, behind the name.
 // Scrolling pushes the two words apart and fades the avatar out.
 const Hero = () => {
     const { scrollY } = useScroll();
@@ -18,17 +17,15 @@ const Hero = () => {
         <section id="aboutMeText" className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white">
             <HeroSpotlight />
 
-            <motion.div
-                aria-hidden="true"
-                className="absolute inset-0 overflow-hidden pointer-events-none select-none"
-                style={{ opacity: fade, WebkitMaskImage: torch, maskImage: torch }}
-            >
-                <img
-                    src={avatar}
-                    alt=""
-                    draggable={false}
-                    className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[80%] lg:h-[92%] w-auto max-w-none"
-                />
+            <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none" style={{ opacity: fade }}>
+                <div className="hero-avatar absolute inset-0 overflow-hidden">
+                    <img
+                        src={avatar}
+                        alt=""
+                        draggable={false}
+                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[80%] lg:h-[92%] w-auto max-w-none"
+                    />
+                </div>
             </motion.div>
 
             <h1 className="relative z-10 flex flex-col items-center font-syncopate font-normal text-[7vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[8rem]">
