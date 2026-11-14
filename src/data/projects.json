@@ -263,12 +263,6 @@
           "kind": "browser"
         },
         {
-          "src": "pyro-home",
-          "group": "Website",
-          "label": "Home",
-          "kind": "browser"
-        },
-        {
           "src": "pyro-portfolio",
           "group": "Website",
           "label": "Portfolio",
