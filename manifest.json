@@ -3,9 +3,14 @@
   "name": "Bruno Santos · Frontend Engineer",
   "icons": [
     {
-      "src": "logo_bruno.png",
+      "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "any"
+      "sizes": "192x192"
+    },
+    {
+      "src": "avatar.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
