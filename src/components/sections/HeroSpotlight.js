@@ -21,19 +21,25 @@ const HeroSpotlight = () => {
             host.style.setProperty("--x", `${x}px`);
             host.style.setProperty("--y", `${y}px`);
         };
-        const r0 = host.getBoundingClientRect();
-        set(r0.width / 2, r0.height / 2);
+        // With a mouse the light starts off and only follows the cursor while it is over the hero.
+        const off = () => set(-1000, -1000);
+        const fine = window.matchMedia("(pointer: fine)").matches;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (fine) off();
+        else {
+            const r0 = host.getBoundingClientRect();
+            set(r0.width / 2, r0.height / 2);
+        }
 
         const onMove = (e) => {
             const r = host.getBoundingClientRect();
             set(e.clientX - r.left, e.clientY - r.top);
         };
         host.addEventListener("pointermove", onMove);
+        if (fine) host.addEventListener("pointerleave", off);
 
         // No mouse (phones, tablets): let the light wander gently, unless the user prefers less motion.
         let raf;
-        const fine = window.matchMedia("(pointer: fine)").matches;
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (!fine && !reduce) {
             const start = performance.now();
             const loop = (t) => {
@@ -46,6 +52,7 @@ const HeroSpotlight = () => {
         }
         return () => {
             host.removeEventListener("pointermove", onMove);
+            host.removeEventListener("pointerleave", off);
             if (raf) cancelAnimationFrame(raf);
         };
     }, []);

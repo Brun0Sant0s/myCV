@@ -125,7 +125,7 @@
       "title": "Mingle",
       "status": "In development",
       "current": true,
-      "text": "Platform for weddings and events, joined with a QR code. Roll turns every phone into an analogue film camera, with the photos revealed together at the end of the night. Plus Cheers for guest messages, Jukebox for song requests, Buzz for a live quiz about the couple and Pulse, LED wristbands synced to the music.",
+      "text": "Interactive platform for events of any kind, joined with a QR code. Roll turns every phone into an analogue film camera, with the photos revealed together at the end of the night. Plus Cheers for guest messages, Jukebox for song requests, Buzz for live quizzes and Pulse, LED wristbands synced to the music.",
       "technologies": [
         "React",
         "TypeScript",
