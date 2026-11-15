@@ -73,7 +73,7 @@ const PROJECTS = {
     pyro: {
         subtitle: "Website para cliente com backoffice",
         description:
-            "A Pyro Entertainment & SFX é uma empresa de pirotecnia e efeitos especiais, a mesma com quem trabalho nos espetáculos ao vivo, e este é o website que fiz para ela. Os visitantes vão de um serviço até cada efeito, e a equipa mantém tudo atualizado num backoffice, sem mexer em código.",
+            "A Pyro Entertainment & SFX é uma empresa de pirotecnia e efeitos especiais, e este é o website que fiz para ela. Os visitantes vão de um serviço até cada efeito, e a equipa mantém tudo atualizado num backoffice, sem mexer em código.",
         features: [
             "Serviços em três níveis: da pirotecnia ou dos efeitos especiais até cada efeito, com galeria e destaques próprios",
             "Backoffice: a equipa edita serviços, efeitos, fotos e destaques depois de iniciar sessão, com sessões seguras",
