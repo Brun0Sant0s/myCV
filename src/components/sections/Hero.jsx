@@ -5,11 +5,9 @@ import avatar from "../../assets/avatar-cut.webp";
 import { ACCENT } from "../../constants/theme";
 import { useLang } from "../../i18n/LanguageContext";
 
-// First screen: the name over the spotlight wall, what I do and the two next steps.
-// With a mouse, the cursor torch also reveals my avatar behind the name (see .hero-avatar in global.css).
-// On touch screens the whole avatar shows, dimmed, and the name sits above my head instead of over my face.
+// First screen: my avatar, dimmed, with the name above my head, what I do and the two next steps.
+// A light drifts slowly over a wall of the stack written as code (HeroSpotlight). Same on every screen.
 // Scrolling pushes the two words apart and fades the rest out.
-const touchTop = "[@media(pointer:coarse)]:justify-start [@media(pointer:coarse)]:pt-[14vh] [@media(pointer:coarse)]:sm:pt-[8vh]";
 
 const Hero = () => {
     const { t } = useLang();
@@ -20,7 +18,7 @@ const Hero = () => {
     const fade = useTransform(progress, (p) => Math.max(0, 1 - p * 1.5));
 
     return (
-        <section id="aboutMeText" className={`relative w-full h-screen flex flex-col items-center justify-center text-center text-white ${touchTop}`}>
+        <section id="aboutMeText" className="relative w-full h-screen flex flex-col items-center justify-start pt-[14vh] sm:pt-[8vh] text-center text-white">
             <HeroSpotlight />
 
             <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none" style={{ opacity: fade }}>
@@ -30,7 +28,7 @@ const Hero = () => {
                         alt=""
                         draggable={false}
                         fetchPriority="high"
-                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[80%] lg:h-[92%] w-auto max-w-none"
+                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] lg:h-[60%] 2xl:h-[57%] [@media(max-height:640px)]:h-[50%] w-auto max-w-none"
                     />
                 </div>
             </motion.div>
@@ -51,10 +49,6 @@ const Hero = () => {
                 style={{ opacity: fade }}
                 className="absolute inset-x-0 bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
             >
-                {/* Only where there is a mouse: phones get a light that wanders on its own */}
-                <p className="hidden [@media(pointer:fine)]:block font-montserrat text-[11px] font-medium uppercase tracking-[0.25em] text-white/50">
-                    {t.hero.hint}
-                </p>
                 <div className="flex flex-wrap justify-center gap-3">
                     <a
                         href="#projectsText"

@@ -14,7 +14,6 @@ const en = {
         language: "Language",
     },
     hero: {
-        hint: "Move the cursor",
         role: "Frontend Engineer · Porto, Portugal",
         projects: "See my projects",
     },
@@ -120,7 +119,6 @@ const pt = {
         language: "Idioma",
     },
     hero: {
-        hint: "Mexe o cursor",
         role: "Frontend Engineer · Porto, Portugal",
         projects: "Ver os meus projetos",
     },

@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 
-// A hidden wall of the stack written as code behind the name.
-// The cursor works like a torch and reveals it; on touch screens the light drifts slowly on its own.
-// The torch position is written on the hero section (--x, --y), so other layers can use the same light.
+// A hidden wall of the stack written as code behind the name, revealed by a light that drifts slowly on its own.
+// The light position is written on the hero section (--x, --y).
 const TECH = [
     "React",
     "TypeScript",
@@ -38,40 +37,21 @@ const HeroSpotlight = () => {
             host.style.setProperty("--x", `${x}px`);
             host.style.setProperty("--y", `${y}px`);
         };
-        // With a mouse the light starts off and only follows the cursor while it is over the hero.
-        const off = () => set(-1000, -1000);
-        const fine = window.matchMedia("(pointer: fine)").matches;
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (fine) off();
-        else {
-            const r0 = host.getBoundingClientRect();
-            set(r0.width / 2, r0.height / 2);
-        }
+        const r0 = host.getBoundingClientRect();
+        set(r0.width / 2, r0.height / 2);
 
-        const onMove = (e) => {
-            const r = host.getBoundingClientRect();
-            set(e.clientX - r.left, e.clientY - r.top);
-        };
-        host.addEventListener("pointermove", onMove);
-        if (fine) host.addEventListener("pointerleave", off);
-
-        // No mouse (phones, tablets): let the light wander gently, unless the user prefers less motion.
+        // The light wanders gently on its own; it stays in the middle if the visitor prefers less motion.
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
         let raf;
-        if (!fine && !reduce) {
-            const start = performance.now();
-            const loop = (t) => {
-                const r = host.getBoundingClientRect();
-                const s = (t - start) / 1000;
-                set(r.width * (0.5 + 0.32 * Math.sin(s * 0.5)), r.height * (0.5 + 0.28 * Math.sin(s * 0.37 + 1)));
-                raf = requestAnimationFrame(loop);
-            };
+        const start = performance.now();
+        const loop = (t) => {
+            const r = host.getBoundingClientRect();
+            const sec = (t - start) / 1000;
+            set(r.width * (0.5 + 0.32 * Math.sin(sec * 0.5)), r.height * (0.5 + 0.28 * Math.sin(sec * 0.37 + 1)));
             raf = requestAnimationFrame(loop);
-        }
-        return () => {
-            host.removeEventListener("pointermove", onMove);
-            host.removeEventListener("pointerleave", off);
-            if (raf) cancelAnimationFrame(raf);
         };
+        raf = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(raf);
     }, []);
 
     const mask = "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), #000 0%, transparent 72%)";
