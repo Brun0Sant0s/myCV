@@ -9,7 +9,7 @@ const en = {
         about: "About",
         experience: "Experience",
         projects: "Projects",
-        certifications: "Certifications",
+        certifications: "Certificates",
         contact: "Contact",
         language: "Language",
     },
@@ -20,7 +20,7 @@ const en = {
     sections: {
         experience: { words: ["Professional", "Experience"], subtitle: "Four years at the company ePharma, my own products and live shows, year by year." },
         projects: { words: ["My", "Projects"], subtitle: "Products and client work I designed and built, from idea to launch." },
-        certifications: { words: ["My", "Certifications"], subtitle: "Courses I completed to keep growing as a developer." },
+        certifications: { words: ["My", "Certificates"], subtitle: "Courses I completed to keep growing as a developer." },
         contacts: { words: ["My", "Contacts"], subtitle: "Email, phone or a quick message, whichever suits you." },
     },
     carousel: { previous: "Previous", next: "Next" },

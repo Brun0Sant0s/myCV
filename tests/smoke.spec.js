@@ -24,7 +24,7 @@ test("desktop: loads in English and every tab reaches its section", async ({ pag
     await expect(page.getByRole("link", { name: "See my projects" })).toBeVisible();
 
     const nav = page.getByRole("navigation", { name: "Sections" });
-    for (const tab of ["About", "Experience", "Projects", "Certifications", "Contact"]) {
+    for (const tab of ["About", "Experience", "Projects", "Certificates", "Contact"]) {
         const button = nav.getByRole("button", { name: new RegExp(tab) });
         await button.click();
         await expect(button).toHaveAttribute("aria-current", "page", { timeout: 10_000 });
