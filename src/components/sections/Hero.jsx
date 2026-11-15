@@ -10,6 +10,9 @@ import { useLang } from "../../i18n/LanguageContext";
 // A light drifts slowly over a wall of the stack written as code (HeroSpotlight).
 // Scrolling pushes the two words apart and fades the rest out.
 
+// Size and place of the avatar (and of its black outline underneath)
+const AVATAR = "absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] max-lg:[@media(max-height:640px)]:h-[50%] lg:h-[92%] w-auto max-w-none";
+
 const Hero = () => {
     const { t } = useLang();
     const { scrollY } = useScroll();
@@ -25,15 +28,11 @@ const Hero = () => {
         >
             <HeroSpotlight />
 
-            <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none" style={{ opacity: fade }}>
-                <div className="hero-avatar absolute inset-0 overflow-hidden">
-                    <img
-                        src={avatar}
-                        alt=""
-                        draggable={false}
-                        fetchPriority="high"
-                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] max-lg:[@media(max-height:640px)]:h-[50%] lg:h-[92%] w-auto max-w-none"
-                    />
+            <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none overflow-hidden" style={{ opacity: fade }}>
+                {/* A solid black copy of my outline hides the code wall behind me, so the code only shows on the background */}
+                <img src={avatar} alt="" draggable={false} className={`${AVATAR} brightness-0`} />
+                <div className="hero-avatar absolute inset-0">
+                    <img src={avatar} alt="" draggable={false} fetchPriority="high" className={AVATAR} />
                 </div>
             </motion.div>
 
