@@ -16,7 +16,9 @@ const SectionTitle = ({ id, words: [first, second], number, subtitle, contentId 
         if (!title) return 1;
         const vh = window.innerHeight;
         const content = document.getElementById(contentId);
-        const exit = content ? clamp((y - content.offsetTop + vh) / content.offsetHeight) : 0;
+        // The words only leave once the section has reached the middle of the screen,
+        // so a title brought to the centre (from the tab bar) is shown whole.
+        const exit = content ? clamp((y + vh / 2 - content.offsetTop) / (vh / 2)) : 0;
         if (exit > 0) return 1 + exit;
         return clamp((y - title.offsetTop + vh) / title.offsetHeight);
     });

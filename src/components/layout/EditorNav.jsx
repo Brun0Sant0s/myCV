@@ -9,10 +9,10 @@ import { useLang } from "../../i18n/LanguageContext";
 const SECTIONS = [
     { file: "home", top: true },
     { file: "about", id: "aboutMeContent" },
-    { file: "experience", id: "professionalExperienceText" },
-    { file: "projects", id: "projectsText" },
+    { file: "experience", id: "professionalExperienceText", title: true },
+    { file: "projects", id: "projectsText", title: true },
     { file: "certifications", id: "certificationsContent" },
-    { file: "contact", id: "contactsText" },
+    { file: "contact", id: "contactsText", title: true },
 ];
 
 // Syntax colours, same palette as the contact form
@@ -61,7 +61,8 @@ const useCurrentSection = () => {
 const goTo = (i) => {
     const s = SECTIONS[i];
     if (s.top) window.scrollTo({ top: 0, behavior: "smooth" });
-    else document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
+    // Big section titles land in the middle of the screen, the rest at the top
+    else document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: s.title ? "center" : "start" });
 };
 
 const Divider = () => <span className="w-px my-1.5 bg-white/[0.18] shrink-0" aria-hidden="true" />;

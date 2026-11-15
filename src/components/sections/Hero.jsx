@@ -60,7 +60,7 @@ const Hero = () => {
                         href="#projectsText"
                         onClick={(e) => {
                             e.preventDefault();
-                            document.getElementById("projectsText")?.scrollIntoView({ behavior: "smooth" });
+                            document.getElementById("projectsText")?.scrollIntoView({ behavior: "smooth", block: "center" });
                         }}
                         className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
                     >
