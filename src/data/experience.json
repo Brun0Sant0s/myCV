@@ -134,7 +134,7 @@
       "title": "Pyro website",
       "status": "Completed",
       "text": "Website and backoffice for the company: services, portfolio and three languages.",
-      "technologies": ["React", "Tailwind", "Node.js", "MySQL"],
+      "technologies": ["React", "Tailwind", "Firebase"],
       "logo": "pyro"
     },
     {

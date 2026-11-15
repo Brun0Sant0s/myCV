@@ -296,7 +296,7 @@
       "Portfolio: past shows filtered by type, from New Year's Eve in Porto to stage flames and CO2",
       "Three languages: Portuguese, English and Spanish, picked from the browser"
     ],
-    "technologies": ["React", "Tailwind", "Node.js", "Express", "MySQL"],
+    "technologies": ["React", "Tailwind", "Firebase"],
     "logo": "pyro",
     "brandColor": "#E11D2E",
     "media": {
