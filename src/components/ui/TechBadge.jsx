@@ -51,10 +51,7 @@ const TechBadge = ({ name, size = "sm" }) => {
     const box = size === "lg" ? "w-8 h-8" : "w-7 h-7";
     const glyph = size === "lg" ? "w-4 h-4" : "w-3.5 h-3.5";
     return (
-        <span
-            title={label}
-            className={`group/tech relative flex items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] ${box}`}
-        >
+        <span title={label} className={`group/tech relative flex items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] ${box}`}>
             {typeof icon === "string" ? (
                 <img src={icon} alt={label} className={`${glyph} object-contain`} />
             ) : (

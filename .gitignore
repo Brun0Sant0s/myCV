@@ -21,3 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# editor
+/.idea
+.vscode
+
+# test output
+/tests-results
+/playwright-report

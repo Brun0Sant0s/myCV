@@ -1,85 +1,80 @@
 [
   {
-    "id": "savespot",
-    "name": "SaveSpot",
-    "year": "2022",
-    "status": "Live",
-    "subtitle": "Booking app for beauty businesses",
-    "description": "A booking app for barbers, salons, clinics and studios. Businesses manage their whole day from the phone, and clients find a place and book in a few taps, for free.",
+    "id": "mingle",
+    "name": "Mingle",
+    "year": "2026",
+    "status": "Final testing",
+    "subtitle": "Interactive platform for events",
+    "description": "An interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard. Everything is built; only the LED wristbands are left to test at a real event.",
     "features": [
-      "Single agenda: bookings from the app, a web page, Instagram and WhatsApp land in the same calendar, with no double bookings",
-      "Team and clients: roles and schedules per person, client history, notes and contact import",
-      "Reminders and stats: push reminders before each visit and a monthly view of bookings and revenue"
+      "Pulse: an LED wristband on every guest that lights up the room to the beat of the music and reacts to the games",
+      "Roll: each guest's phone becomes a film camera, photos show live on the TV and are revealed together at the end",
+      "Cheers: guests leave a written or recorded message with a photo, kept in a book for the hosts",
+      "Jukebox: guests request songs from their phone and the DJ sees the list on a screen",
+      "Buzz: a live quiz, with the question on the TV, answers on the phone and a podium"
     ],
-    "technologies": [
-      "React Native",
-      "Expo",
-      "Firebase"
-    ],
-    "logo": "savespot",
-    "brandColor": "#1FB6C9",
+    "technologies": ["React", "TypeScript", "Firebase", "Node.js", "Python", "Vercel"],
+    "logo": "mingle",
+    "brandColor": "#8A9A5B",
     "links": [
       {
-        "label": "App Store",
-        "url": "https://apps.apple.com/pt/app/savespot-agenda-digital/id6745148743"
+        "label": "mingle.pt",
+        "url": "https://mingle.pt"
       }
     ],
     "media": {
       "items": [
         {
-          "src": "savespot-splash",
-          "group": "SaveSpot",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#1b1c1e"
-        },
-        {
-          "src": "savespot-agenda",
-          "group": "Business app",
-          "label": "Agenda",
-          "kind": "phone",
-          "statusBar": true,
-          "bar": "#1b1c1e",
-          "w": 486,
-          "h": 1110
-        },
-        {
-          "src": "savespot-clients",
-          "group": "Business app",
-          "label": "Clients",
-          "kind": "phone",
-          "statusBar": true,
-          "bar": "#1b1c1e",
-          "w": 510,
-          "h": 1165
-        },
-        {
-          "src": "savespot-services",
-          "group": "Business app",
-          "label": "Services",
-          "kind": "phone",
-          "bar": "#1b1c1e",
-          "w": 454,
-          "h": 983
-        },
-        {
-          "src": "savespot-home",
-          "group": "Client app",
+          "src": "mingle-guest-hub",
+          "group": "Guest",
           "label": "Home",
           "kind": "phone",
-          "statusBar": true,
-          "bar": "#1b1c1e",
-          "w": 494,
-          "h": 1129
+          "bar": "#1e150f",
+          "w": 462,
+          "h": 1000
         },
         {
-          "src": "savespot-place",
-          "group": "Client app",
-          "label": "Place",
+          "src": "mingle-guest-roll",
+          "group": "Guest",
+          "label": "Roll",
           "kind": "phone",
-          "bar": "#1b1c1e",
-          "w": 454,
-          "h": 983
+          "bar": "#13160d",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-cheers",
+          "group": "Guest",
+          "label": "Cheers",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-jukebox",
+          "group": "Guest",
+          "label": "Jukebox",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-guest-buzz",
+          "group": "Guest",
+          "label": "Buzz",
+          "kind": "phone",
+          "bar": "#e5e5d9",
+          "w": 462,
+          "h": 1000
+        },
+        {
+          "src": "mingle-splash",
+          "group": "Mingle",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#e5e5d9"
         }
       ]
     }
@@ -96,13 +91,7 @@
       "Staff app: live orders by status, tables by zone, payments by QR code and reservations",
       "Manager tools: edit the menu, stock and availability, manage staff and follow daily revenue"
     ],
-    "technologies": [
-      "React",
-      "TypeScript",
-      "Tailwind",
-      "Node.js",
-      "Firebase"
-    ],
+    "technologies": ["React", "TypeScript", "Tailwind", "Node.js", "Firebase"],
     "logo": "kyuar",
     "brandColor": "#F97316",
     "links": [
@@ -113,13 +102,6 @@
     ],
     "media": {
       "items": [
-        {
-          "src": "kyuar-splash",
-          "group": "Kyuar",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#0a0a0a"
-        },
         {
           "src": "kyuar-client-scan",
           "group": "Customer",
@@ -216,6 +198,87 @@
           "bar": "#0a0a0a",
           "w": 462,
           "h": 1000
+        },
+        {
+          "src": "kyuar-splash",
+          "group": "Kyuar",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        }
+      ]
+    }
+  },
+  {
+    "id": "savespot",
+    "name": "SaveSpot",
+    "year": "2022",
+    "subtitle": "Booking app for beauty businesses",
+    "description": "A booking app for barbers, salons, clinics and studios. Businesses manage their whole day from the phone, and clients find a place and book in a few taps, for free.",
+    "features": [
+      "Single agenda: bookings from the app, a web page, Instagram and WhatsApp land in the same calendar, with no double bookings",
+      "Team and clients: roles and schedules per person, client history, notes and contact import",
+      "Reminders and stats: push reminders before each visit and a monthly view of bookings and revenue"
+    ],
+    "technologies": ["React Native", "Expo", "Firebase"],
+    "logo": "savespot",
+    "brandColor": "#1FB6C9",
+    "media": {
+      "items": [
+        {
+          "src": "savespot-agenda",
+          "group": "Business app",
+          "label": "Agenda",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 486,
+          "h": 1110
+        },
+        {
+          "src": "savespot-clients",
+          "group": "Business app",
+          "label": "Clients",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 510,
+          "h": 1165
+        },
+        {
+          "src": "savespot-services",
+          "group": "Business app",
+          "label": "Services",
+          "kind": "phone",
+          "bar": "#1b1c1e",
+          "w": 454,
+          "h": 983
+        },
+        {
+          "src": "savespot-home",
+          "group": "Client app",
+          "label": "Home",
+          "kind": "phone",
+          "statusBar": true,
+          "bar": "#1b1c1e",
+          "w": 494,
+          "h": 1129
+        },
+        {
+          "src": "savespot-place",
+          "group": "Client app",
+          "label": "Place",
+          "kind": "phone",
+          "bar": "#1b1c1e",
+          "w": 454,
+          "h": 983
+        },
+        {
+          "src": "savespot-splash",
+          "group": "SaveSpot",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#1b1c1e"
         }
       ]
     }
@@ -233,23 +296,11 @@
       "Portfolio: past shows filtered by type, from New Year's Eve in Porto to stage flames and CO2",
       "Three languages: Portuguese, English and Spanish, picked from the browser"
     ],
-    "technologies": [
-      "React",
-      "Tailwind",
-      "Node.js",
-      "Express",
-      "MySQL"
-    ],
+    "technologies": ["React", "Tailwind", "Node.js", "Express", "MySQL"],
     "logo": "pyro",
     "brandColor": "#E11D2E",
     "media": {
       "items": [
-        {
-          "src": "pyro-splash",
-          "group": "Pyro Entertainment & SFX",
-          "label": "Launch",
-          "kind": "browser"
-        },
         {
           "src": "pyro-service",
           "group": "Website",
@@ -273,6 +324,12 @@
           "group": "Backoffice",
           "label": "Editor",
           "kind": "browser"
+        },
+        {
+          "src": "pyro-splash",
+          "group": "Pyro Entertainment & SFX",
+          "label": "Launch",
+          "kind": "browser"
         }
       ]
     }
@@ -290,23 +347,11 @@
       "Setups: Art-Net universes and Reaper streams for each unit, with IP, port and mode",
       "Clocks and network: GPS or local time as the reference, network interfaces and a ping test"
     ],
-    "technologies": [
-      "React",
-      "Tailwind",
-      "Python",
-      "FastAPI",
-      "Raspberry Pi"
-    ],
+    "technologies": ["React", "Tailwind", "Python", "FastAPI", "Raspberry Pi"],
     "logo": "engi",
     "brandColor": "#0AFD87",
     "media": {
       "items": [
-        {
-          "src": "engi-splash",
-          "group": "engi.studio",
-          "label": "Launch",
-          "kind": "browser"
-        },
         {
           "src": "engi-dashboard",
           "group": "Control panel",
@@ -336,6 +381,12 @@
           "group": "Control panel",
           "label": "Networks",
           "kind": "browser"
+        },
+        {
+          "src": "engi-splash",
+          "group": "engi.studio",
+          "label": "Launch",
+          "kind": "browser"
         }
       ]
     }
@@ -353,13 +404,7 @@
       "Live ride: the client has three minutes to accept the offer, then follows each step until both confirm the end",
       "Trips and ratings: history by state, 1 to 5 star ratings and each driver's average on the profile"
     ],
-    "technologies": [
-      "React Native",
-      "Expo",
-      "TypeScript",
-      "Firebase",
-      "Google Maps"
-    ],
+    "technologies": ["React Native", "Expo", "TypeScript", "Firebase", "Google Maps"],
     "logo": "ouruber",
     "brandColor": "#4CAF50",
     "links": [
@@ -370,13 +415,6 @@
     ],
     "media": {
       "items": [
-        {
-          "src": "ouruber-splash",
-          "group": "OurUber",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#0a0a0a"
-        },
         {
           "src": "ouruber-home",
           "group": "Client",
@@ -411,93 +449,13 @@
           "label": "Profile",
           "kind": "phone",
           "bar": "#0a0a0a"
-        }
-      ]
-    }
-  },
-  {
-    "id": "mingle",
-    "name": "Mingle",
-    "year": "2026",
-    "status": "Final testing",
-    "subtitle": "Interactive platform for events",
-    "description": "An interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard. Everything is built; only the LED wristbands are left to test at a real event.",
-    "features": [
-      "Pulse: an LED wristband on every guest that lights up the room to the beat of the music and reacts to the games",
-      "Roll: each guest's phone becomes a film camera, photos show live on the TV and are revealed together at the end",
-      "Cheers: guests leave a written or recorded message with a photo, kept in a book for the hosts",
-      "Jukebox: guests request songs from their phone and the DJ sees the list on a screen",
-      "Buzz: a live quiz, with the question on the TV, answers on the phone and a podium"
-    ],
-    "technologies": [
-      "React",
-      "TypeScript",
-      "Firebase",
-      "Node.js",
-      "Python",
-      "Vercel"
-    ],
-    "logo": "mingle",
-    "brandColor": "#8A9A5B",
-    "links": [
-      {
-        "label": "mingle.pt",
-        "url": "https://mingle.pt"
-      }
-    ],
-    "media": {
-      "items": [
+        },
         {
-          "src": "mingle-splash",
-          "group": "Mingle",
+          "src": "ouruber-splash",
+          "group": "OurUber",
           "label": "Launch",
           "kind": "phone",
-          "bar": "#e5e5d9"
-        },
-        {
-          "src": "mingle-guest-hub",
-          "group": "Guest",
-          "label": "Home",
-          "kind": "phone",
-          "bar": "#1e150f",
-          "w": 462,
-          "h": 1000
-        },
-        {
-          "src": "mingle-guest-roll",
-          "group": "Guest",
-          "label": "Roll",
-          "kind": "phone",
-          "bar": "#13160d",
-          "w": 462,
-          "h": 1000
-        },
-        {
-          "src": "mingle-guest-cheers",
-          "group": "Guest",
-          "label": "Cheers",
-          "kind": "phone",
-          "bar": "#e5e5d9",
-          "w": 462,
-          "h": 1000
-        },
-        {
-          "src": "mingle-guest-jukebox",
-          "group": "Guest",
-          "label": "Jukebox",
-          "kind": "phone",
-          "bar": "#e5e5d9",
-          "w": 462,
-          "h": 1000
-        },
-        {
-          "src": "mingle-guest-buzz",
-          "group": "Guest",
-          "label": "Buzz",
-          "kind": "phone",
-          "bar": "#e5e5d9",
-          "w": 462,
-          "h": 1000
+          "bar": "#0a0a0a"
         }
       ]
     }

@@ -3,7 +3,24 @@ import { useEffect, useRef } from "react";
 // A hidden wall of the stack written as code behind the name.
 // The cursor works like a torch and reveals it; on touch screens the light drifts slowly on its own.
 // The torch position is written on the hero section (--x, --y), so other layers can use the same light.
-const TECH = ["React", "TypeScript", "React Native", "Expo", "Firebase", "Node.js", "Angular", "JavaScript", "HTML5", "CSS3", "Tailwind", "Figma", "Git", "REST", "jQuery", "Java"];
+const TECH = [
+    "React",
+    "TypeScript",
+    "React Native",
+    "Expo",
+    "Firebase",
+    "Node.js",
+    "Angular",
+    "JavaScript",
+    "HTML5",
+    "CSS3",
+    "Tailwind",
+    "Figma",
+    "Git",
+    "REST",
+    "jQuery",
+    "Java",
+];
 
 const WALL = Array.from({ length: 1600 }, (_, i) => {
     const t = TECH[(i * 7) % TECH.length];
@@ -66,13 +83,7 @@ const HeroSpotlight = () => {
             className="absolute inset-0 overflow-hidden pointer-events-none select-none font-mono text-[13px] leading-[1.9] text-white/[0.12] p-6 text-left"
             style={{ wordSpacing: 10, WebkitMaskImage: mask, maskImage: mask }}
         >
-            {WALL.map((w, i) =>
-                w.tag ? (
-                    <span key={i} className="text-[#20C997]/60">{`<${w.t}/> `}</span>
-                ) : (
-                    <span key={i}>{`${w.t} `}</span>
-                )
-            )}
+            {WALL.map((w, i) => (w.tag ? <span key={i} className="text-[#20C997]/60">{`<${w.t}/> `}</span> : <span key={i}>{`${w.t} `}</span>))}
         </div>
     );
 };

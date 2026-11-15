@@ -1,7 +1,6 @@
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
-const arrowClass =
-    "w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40";
+const arrowClass = "w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/40";
 
 // Previous arrow, one dot per item (the active one is longer), next arrow.
 // Used by the About cards, the timeline, the project screens and the certificates.

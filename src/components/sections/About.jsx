@@ -5,6 +5,7 @@ import { GiWeightLiftingUp, GiRunningShoe, GiTennisRacket, GiSoccerBall } from "
 import profilePic from "../../assets/profilePic.jpg";
 import { projectMarks } from "../../assets/projects";
 import { ACCENT, EASE } from "../../constants/theme";
+import useReveal from "../../hooks/useReveal";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
@@ -13,11 +14,10 @@ import { useLang } from "../../i18n/LanguageContext";
 // Core stack shown as icons, like the technologies on each project
 const STACK = ["React", "TypeScript", "JavaScript", "Expo", "Angular", "Node.js", "Firebase", "HTML", "CSS"];
 
-
 const Point = ({ text }) => {
     const i = text.indexOf(":");
     return (
-        <li className="relative pl-4 font-montserrat font-light text-sm text-gray-300 leading-relaxed">
+        <li className="relative pl-4 font-montserrat font-light text-sm lg:text-[15px] text-gray-300 leading-relaxed">
             <span className="absolute left-0 top-[9px] w-[5px] h-[5px] rounded-full" style={{ background: ACCENT }} />
             <span className="font-semibold text-white">{text.slice(0, i)}</span>
             {text.slice(i)}
@@ -53,6 +53,8 @@ const CARDS = [
                 src={profilePic}
                 alt="Bruno Santos"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
                 className="block w-full h-full rounded-[28px] object-cover object-top select-none shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
             />
         ),
@@ -75,13 +77,9 @@ const CARDS = [
         render: (t) => (
             <CardShell>
                 <div className="flex gap-2.5">
-                    {[
-                        ["savespot", "#1FB6C9"],
-                        ["kyuar", "#F97316"],
-                        ["mingle", "#8A9A5B"],
-                    ].map(([k, c]) => (
+                    {["savespot", "kyuar", "mingle"].map((k) => (
                         <span key={k} className="flex items-center justify-center w-14 h-14">
-                            <img src={projectMarks[k]} alt={k} className="max-w-full max-h-full object-contain" />
+                            <img src={projectMarks[k]} alt={k} loading="lazy" className="max-w-full max-h-full object-contain" />
                         </span>
                     ))}
                 </div>
@@ -182,16 +180,7 @@ const Deck = () => {
 // Same layout as each project: who on the left, the photo on the centre stage, the details on the right.
 const About = () => {
     const { t } = useLang();
-    const reduceMotion = useReducedMotion();
-    const reveal = (delay = 0) =>
-        reduceMotion
-            ? {}
-            : {
-                  initial: { opacity: 0, y: 32 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.2 },
-                  transition: { duration: 0.7, ease: EASE, delay },
-              };
+    const reveal = useReveal();
 
     return (
         <div id="aboutMeContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-16 sm:py-24">
@@ -203,9 +192,7 @@ const About = () => {
                         <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                             {t.about.tagline}
                         </p>
-                        <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">
-                            {t.about.bio}
-                        </p>
+                        <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{t.about.bio}</p>
                         <div className="mt-6 flex flex-wrap lg:justify-end items-center gap-1.5">
                             {STACK.map((t) => (
                                 <TechBadge key={t} name={t} size="lg" />
@@ -229,7 +216,7 @@ const About = () => {
 
                     {/* Right: skills and details */}
                     <motion.div {...reveal(0.15)}>
-                        <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{t.about.skillsTitle}</p>
+                        <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{t.about.skillsTitle}</p>
                         <ul className="space-y-4">
                             {t.about.skills.map((s) => (
                                 <Point key={s} text={s} />
@@ -246,7 +233,7 @@ const About = () => {
                                             f.items.map((it) => (
                                                 <span key={it.v} className="flex justify-between gap-4 font-montserrat text-sm text-white">
                                                     {it.v}
-                                                    <span className="font-light text-gray-500 whitespace-nowrap">{it.n}</span>
+                                                    <span className="font-light text-gray-400 whitespace-nowrap">{it.n}</span>
                                                 </span>
                                             ))
                                         ) : (

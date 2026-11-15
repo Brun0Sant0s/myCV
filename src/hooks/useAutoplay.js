@@ -14,7 +14,9 @@ const useAutoplay = (ref, advance, step, delay = 5000) => {
 
     // Always call the latest advance without restarting the timer when it changes identity
     const advanceRef = useRef(advance);
-    advanceRef.current = advance;
+    useEffect(() => {
+        advanceRef.current = advance;
+    });
 
     useEffect(() => {
         const el = ref.current;

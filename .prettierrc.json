@@ -1,0 +1,7 @@
+{
+  "tabWidth": 4,
+  "printWidth": 160,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "overrides": [{ "files": ["*.json", "*.md"], "options": { "tabWidth": 2 } }]
+}

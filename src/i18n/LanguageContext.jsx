@@ -41,4 +41,5 @@ export const LanguageProvider = ({ children }) => {
 };
 
 // { lang, setLang, t }: t holds every interface text in the current language
+// eslint-disable-next-line react-refresh/only-export-components -- the hook belongs next to its provider
 export const useLang = () => useContext(LanguageContext);

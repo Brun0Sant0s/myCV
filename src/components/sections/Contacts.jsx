@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { FiDownload } from "react-icons/fi";
-import { ACCENT, EASE } from "../../constants/theme";
+import { ACCENT } from "../../constants/theme";
+import useReveal from "../../hooks/useReveal";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { useLang } from "../../i18n/LanguageContext";
 
 // EmailJS account used by the contact form (public key, safe to ship in the browser)
@@ -16,7 +18,6 @@ const links = [
     { label: "LinkedIn", value: "bruno-santos-a8560221a", href: "https://www.linkedin.com/in/bruno-santos-a8560221a/", external: true },
     { label: "GitHub", value: "brun0sant0s", href: "https://github.com/Brun0Sant0s", external: true },
 ];
-
 
 // Colour of each form status; the text comes from the translations (contacts.status)
 const statusClass = {
@@ -53,11 +54,11 @@ const LinkProp = ({ n, name, l }) => (
     </Line>
 );
 
-
 const Contacts = () => {
     const { t } = useLang();
     const c = t.contacts;
-    const reduceMotion = useReducedMotion();
+    const reveal = useReveal({ y: 24, amount: 0.3 });
+    const hasMouse = useMediaQuery("(pointer: fine)");
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState(null);
     const [errors, setErrors] = useState({ name: "", email: "", message: "" });
@@ -114,16 +115,6 @@ const Contacts = () => {
             .finally(() => setSending(false));
     };
 
-    const reveal = (delay = 0) =>
-        reduceMotion
-            ? {}
-            : {
-                  initial: { opacity: 0, y: 24 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.3 },
-                  transition: { duration: 0.7, ease: EASE, delay },
-              };
-
     // A prop whose value is an input the visitor fills in
     const inputProp = ({ n, name, prop, type = "text", placeholder, autoComplete, wide }) => (
         <Line n={n}>
@@ -140,8 +131,8 @@ const Contacts = () => {
                 placeholder={placeholder}
                 value={formData[name]}
                 onChange={handleChange}
-                className={`bg-transparent outline-none border-b border-dashed placeholder-[#5d636b] font-mono text-[11px] sm:text-[13px] ${
-                    wide ? "w-[170px] sm:w-[280px]" : "w-[130px] sm:w-[210px]"
+                className={`bg-transparent outline-none border-b border-dashed placeholder-[#5d636b] font-mono text-base sm:text-[13px] ${
+                    wide ? "w-[165px] sm:w-[280px]" : "w-[150px] sm:w-[210px]"
                 } ${errors[name] ? "border-red-400/80" : "border-white/20 focus:border-[#c3e88d]"}`}
                 style={{ color: C.str }}
             />
@@ -163,9 +154,7 @@ const Contacts = () => {
                     <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                         {c.tagline}
                     </p>
-                    <p className="mt-5 max-w-sm font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">
-                        {c.intro}
-                    </p>
+                    <p className="mt-5 max-w-sm font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{c.intro}</p>
                     <a
                         href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
                         target="_blank"
@@ -217,9 +206,9 @@ const Contacts = () => {
                             {"      "}
                             <span style={{ color: C.com }}>{c.yourDetails}</span>
                         </Line>
-                        {inputProp({ n: 9, name: "name", prop: "from", placeholder: c.placeholders.name, autoComplete: "name", })}
-                        {inputProp({ n: 10, name: "email", prop: "replyTo", type: "email", placeholder: c.placeholders.email, autoComplete: "email", })}
-                        {inputProp({ n: 11, name: "message", prop: "message", placeholder: c.placeholders.message, wide: true, })}
+                        {inputProp({ n: 9, name: "name", prop: "from", placeholder: c.placeholders.name, autoComplete: "name" })}
+                        {inputProp({ n: 10, name: "email", prop: "replyTo", type: "email", placeholder: c.placeholders.email, autoComplete: "email" })}
+                        {inputProp({ n: 11, name: "message", prop: "message", placeholder: c.placeholders.message, wide: true })}
                         <Line n={12}>
                             {"    "}
                             <span style={{ color: C.pn }}>/&gt;</span>
@@ -236,11 +225,7 @@ const Contacts = () => {
                     {/* Run bar */}
                     <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t border-white/10 bg-white/[0.02]">
                         <span className="text-xs" style={{ color: status ? undefined : C.com }}>
-                            {status ? (
-                                <span className={statusClass[status]}>{c.status[status]}</span>
-                            ) : (
-                                c.runHint
-                            )}
+                            {status ? <span className={statusClass[status]}>{c.status[status]}</span> : hasMouse ? c.runHint : c.runHintTouch}
                         </span>
                         <button
                             type="submit"
@@ -254,10 +239,10 @@ const Contacts = () => {
 
                 {/* Right: channels */}
                 <motion.div {...reveal(0.15)}>
-                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">{c.channelsTitle}</p>
+                    <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{c.channelsTitle}</p>
                     <ul className="space-y-4">
                         {Object.entries(c.channels).map(([k, [name, note]]) => (
-                            <li key={k} className="relative pl-4 font-montserrat font-light text-sm text-gray-300 leading-relaxed">
+                            <li key={k} className="relative pl-4 font-montserrat font-light text-sm lg:text-[15px] text-gray-300 leading-relaxed">
                                 <span className="absolute left-0 top-[9px] w-[5px] h-[5px] rounded-full" style={{ background: ACCENT }} />
                                 <a
                                     href={byLabel[k].href}

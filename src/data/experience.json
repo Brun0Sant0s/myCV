@@ -27,45 +27,37 @@
   ],
   "events": [
     {
+      "id": "epharma-join",
       "year": "2021",
       "date": "Aug 2021",
       "role": "epharma",
       "title": "Joined ePharma",
       "text": "Joined the company ePharma as a Frontend Engineer, building responsive and accessible production interfaces with reusable components.",
-      "technologies": [
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "JQuery"
-      ],
+      "technologies": ["JavaScript", "HTML", "CSS", "JQuery"],
       "icon": "join"
     },
     {
+      "id": "epharma-angular",
       "year": "2023",
       "date": "Dec 2023",
       "role": "epharma",
       "title": "Angular at ePharma",
       "text": "Moved to an Angular project.",
-      "technologies": [
-        "Angular",
-        "Java"
-      ],
+      "technologies": ["Angular", "Java"],
       "icon": "switch"
     },
     {
+      "id": "epharma-return",
       "year": "2024",
       "date": "Jun 2024",
       "role": "epharma",
       "title": "Back to the original project",
       "text": "Returned to the original product, working with JavaScript, jQuery and Java and managing work in Wrike within Scrum.",
-      "technologies": [
-        "JavaScript",
-        "JQuery",
-        "Java"
-      ],
+      "technologies": ["JavaScript", "JQuery", "Java"],
       "icon": "return"
     },
     {
+      "id": "epharma-leave",
       "year": "2025",
       "date": "Aug 2025",
       "role": "epharma",
@@ -75,50 +67,41 @@
       "icon": "leave"
     },
     {
+      "id": "freelance-start",
       "year": "2021",
       "date": "2021",
       "role": "freelance",
       "title": "Started freelancing",
       "text": "Started building my own products to sell and turn into a business, alongside landing pages and websites for clients.",
-      "technologies": [
-        "React",
-        "TypeScript",
-        "Node.js",
-        "Firebase"
-      ],
+      "technologies": ["React", "TypeScript", "Node.js", "Firebase"],
       "icon": "code"
     },
     {
+      "id": "savespot",
       "year": "2022",
       "date": "2022",
       "role": "freelance",
       "title": "SaveSpot",
-      "status": "Live",
       "text": "Booking app for barbers, salons, clinics and studios, taken from concept to launch.",
-      "technologies": [
-        "React Native",
-        "Expo",
-        "Firebase"
-      ],
+      "technologies": ["React Native", "Expo", "Firebase"],
       "icon": "calendar",
       "logo": "savespot"
     },
     {
+      "id": "kyuar",
       "year": "2024",
       "date": "2024",
       "role": "freelance",
       "title": "Kyuar",
       "status": "Pilot",
       "text": "Restaurant management platform: QR Code ordering, backoffice, invoicing, reservations, and stock and staff management.",
-      "technologies": [
-        "React",
-        "Firebase"
-      ],
+      "technologies": ["React", "Firebase"],
       "logo": "kyuar",
       "link": "https://kyuar.pt",
       "linkLabel": "kyuar.pt"
     },
     {
+      "id": "mingle",
       "year": "2026",
       "date": "2026",
       "role": "freelance",
@@ -126,73 +109,54 @@
       "status": "Final testing",
       "current": true,
       "text": "Events platform joined with a QR code: an analogue-style photo roll revealed at the end of the night, guest messages, song requests, live quizzes and LED wristbands.",
-      "technologies": [
-        "React",
-        "TypeScript",
-        "Firebase"
-      ],
+      "technologies": ["React", "TypeScript", "Firebase"],
       "logo": "mingle",
       "link": "https://mingle.pt",
       "linkLabel": "mingle.pt"
     },
     {
+      "id": "pyro-shows",
       "year": "2024",
       "date": "2024 – Present",
       "role": "pyro",
       "title": "Live shows & SFX",
       "text": "Part of the crew on large live shows, where timing is to the second and safety rules are strict.",
       "technologies": [],
-      "tags": [
-        "Creamfields",
-        "Estádio do Dragão",
-        "Supertaça",
-        "Portugal national team",
-        "Paredes de Coura"
-      ],
+      "tags": ["Creamfields", "Estádio do Dragão", "Supertaça", "Portugal national team", "Paredes de Coura"],
       "current": true,
       "icon": "fireworks"
     },
     {
+      "id": "pyro-website",
       "year": "2025",
       "date": "Aug 2025",
       "role": "pyro",
       "title": "Pyro website",
       "status": "Completed",
       "text": "Website and backoffice for the company: services, portfolio and three languages.",
-      "technologies": [
-        "React",
-        "Tailwind",
-        "Node.js",
-        "MySQL"
-      ],
+      "technologies": ["React", "Tailwind", "Node.js", "MySQL"],
       "logo": "pyro"
     },
     {
+      "id": "engi",
       "year": "2025",
       "date": "Nov 2025",
       "role": "freelance",
       "title": "engi.studio",
       "status": "Completed",
       "text": "Show control web app for a client: lighting, audio and video cues fired at the exact second, on a Raspberry Pi with GPS time.",
-      "technologies": [
-        "React",
-        "Tailwind",
-        "Python"
-      ],
+      "technologies": ["React", "Tailwind", "Python"],
       "logo": "engi"
     },
     {
+      "id": "ouruber",
       "year": "2026",
       "date": "Jan 2026",
       "role": "freelance",
       "title": "OurUber",
       "status": "Completed",
       "text": "Ride-hailing app I built end to end, with client and driver modes, live rides on a map and driver ratings.",
-      "technologies": [
-        "React Native",
-        "Expo",
-        "Firebase"
-      ],
+      "technologies": ["React Native", "Expo", "Firebase"],
       "logo": "ouruber",
       "link": "https://github.com/Brun0Sant0s/OurUber",
       "linkLabel": "GitHub"

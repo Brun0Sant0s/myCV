@@ -11,7 +11,7 @@ const SECTIONS = [
     { file: "about", id: "aboutMeContent" },
     { file: "experience", id: "professionalExperienceText" },
     { file: "projects", id: "projectsText" },
-    { file: "certifications", id: "certificationsText" },
+    { file: "certifications", id: "certificationsContent" },
     { file: "contact", id: "contactsText" },
 ];
 
@@ -86,10 +86,14 @@ const LangProp = ({ short = false }) => {
         <span className="flex items-center px-3 whitespace-nowrap">
             <span style={{ color: C.pn }}>&lt;</span>
             <span style={{ color: C.tag }}>Site</span>
-            <span className="ml-1.5" style={{ color: C.attr }}>lang</span>
+            <span className="ml-1.5" style={{ color: C.attr }}>
+                lang
+            </span>
             <span style={{ color: C.pn }}>=</span>
             {value}
-            <span className="ml-1.5" style={{ color: C.pn }}>/&gt;</span>
+            <span className="ml-1.5" style={{ color: C.pn }}>
+                /&gt;
+            </span>
         </span>
     );
 };
@@ -114,14 +118,14 @@ const TabBar = ({ current }) => {
                             onClick={() => goTo(i)}
                             aria-current={on ? "page" : undefined}
                             className={`relative flex items-center gap-2 px-3.5 py-2.5 whitespace-nowrap border-r border-white/[0.08] transition-colors ${
-                                on ? "bg-white/[0.07] text-white" : "text-gray-500 hover:text-gray-200 hover:bg-white/[0.03]"
+                                on ? "bg-white/[0.07] text-white" : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.03]"
                             }`}
                         >
                             {on && <span className="absolute top-0 left-0 right-0 h-[2px] bg-[#20C997]" />}
                             <ReactIcon />
                             <span>
                                 {t.nav[s.file]}
-                                <span className="hidden xl:inline text-gray-600">.jsx</span>
+                                <span className="hidden xl:inline text-gray-500">.jsx</span>
                             </span>
                         </button>
                     );
@@ -160,7 +164,7 @@ const Explorer = ({ current }) => {
                     id="nav-explorer"
                     className={`${panel} bottom-[calc(max(16px,env(safe-area-inset-bottom))+52px)] w-[min(320px,calc(100vw-32px))] py-2 text-[13px] text-gray-400`}
                 >
-                    <p className="px-4 py-1.5 text-gray-600">▾ src / sections</p>
+                    <p className="px-4 py-1.5 text-gray-500">▾ src / sections</p>
                     <nav aria-label={t.nav.label}>
                         {SECTIONS.map((s, i) => {
                             const on = i === current;
@@ -198,7 +202,7 @@ const Explorer = ({ current }) => {
                     <ReactIcon />
                     <span>
                         {t.nav[SECTIONS[current].file]}
-                        <span className="text-gray-600">.jsx</span>
+                        <span className="text-gray-500">.jsx</span>
                     </span>
                     <span className="text-gray-500" aria-hidden="true">
                         {open ? "▾" : "▴"}

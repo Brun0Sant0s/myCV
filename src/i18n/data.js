@@ -3,7 +3,6 @@
 // Anything missing here simply shows in English.
 
 const STATUS = {
-    Live: "Disponível",
     Pilot: "Piloto",
     Completed: "Concluído",
     "Final testing": "Testes finais",
@@ -15,37 +14,37 @@ const ROLES = {
     pyro: { label: "Pirotecnia", role: "Técnico de Pirotecnia e SFX", period: "2024 – Presente" },
 };
 
-// Keyed by the English title of each moment
+// Keyed by the id of each moment in experience.json
 const EVENTS = {
-    "Joined ePharma": {
+    "epharma-join": {
         title: "Entrada na ePharma",
         text: "Entrei na empresa ePharma como Frontend Engineer, a construir interfaces de produção responsivas e acessíveis com componentes reutilizáveis.",
     },
-    "Angular at ePharma": { title: "Angular na ePharma", text: "Passei para um projeto em Angular." },
-    "Back to the original project": {
+    "epharma-angular": { title: "Angular na ePharma", text: "Passei para um projeto em Angular." },
+    "epharma-return": {
         title: "De volta ao projeto original",
         text: "Regressei ao produto original, com JavaScript, jQuery e Java, e com o trabalho gerido no Wrike, em Scrum.",
     },
-    "Left ePharma": { title: "Saída da ePharma", text: "Ao fim de quatro anos, saí da ePharma." },
-    "Started freelancing": {
+    "epharma-leave": { title: "Saída da ePharma", text: "Ao fim de quatro anos, saí da ePharma." },
+    "freelance-start": {
         title: "Início como freelancer",
         text: "Comecei a criar produtos próprios para vender e rentabilizar, a par de landing pages e websites para clientes.",
     },
-    SaveSpot: { text: "App de marcações para barbeiros, salões, clínicas e estúdios, levada do conceito ao lançamento." },
-    Kyuar: { text: "Plataforma de gestão para restaurantes: pedidos por QR Code, backoffice, faturação, reservas e gestão de stock e de funcionários." },
-    Mingle: {
+    savespot: { text: "App de marcações para barbeiros, salões, clínicas e estúdios, levada do conceito ao lançamento." },
+    kyuar: { text: "Plataforma de gestão para restaurantes: pedidos por QR Code, backoffice, faturação, reservas e gestão de stock e de funcionários." },
+    mingle: {
         text: "Plataforma para eventos com entrada por QR code: um rolo de fotos em estilo analógico revelado no fim da noite, mensagens dos convidados, pedidos de músicas, quizzes ao vivo e pulseiras LED.",
     },
-    "Live shows & SFX": {
+    "pyro-shows": {
         title: "Espetáculos ao vivo e SFX",
         text: "Parte da equipa em grandes espetáculos ao vivo, onde o timing é ao segundo e as regras de segurança são rigorosas.",
         tags: ["Creamfields", "Estádio do Dragão", "Supertaça", "Seleção Nacional", "Paredes de Coura"],
     },
-    "Pyro website": { title: "Website da Pyro", text: "Website e backoffice para a empresa: serviços, portefólio e três idiomas." },
-    "engi.studio": {
+    "pyro-website": { title: "Website da Pyro", text: "Website e backoffice para a empresa: serviços, portefólio e três idiomas." },
+    engi: {
         text: "App web de controlo de espetáculos para um cliente: luz, som e vídeo disparados ao segundo exato, num Raspberry Pi com hora GPS.",
     },
-    OurUber: {
+    ouruber: {
         text: "App de transporte que desenvolvi de ponta a ponta, com modo cliente e condutor, viagens em tempo real no mapa e avaliação dos condutores.",
     },
 };
@@ -165,16 +164,30 @@ const CERTIFICATIONS = {
     5: "Focado em UI/UX. Ensina a criar protótipos funcionais, testar a usabilidade, aplicar princípios de design de interação e usar ferramentas como Figma, Adobe Photoshop e Adobe Illustrator.",
 };
 
-const status = (s, lang) => (lang === "pt" && s ? STATUS[s] || s : s);
+// While developing, say which content has no Portuguese version yet (it falls back to English)
+const missing = (table, key, what) => {
+    if (import.meta.env.DEV && key !== undefined && !(key in table)) console.warn(`[i18n] No Portuguese for ${what} "${key}"`);
+};
+
+const status = (s, lang) => {
+    if (lang !== "pt" || !s) return s;
+    missing(STATUS, s, "status");
+    return STATUS[s] || s;
+};
+// Captions such as "Agenda", "Dashboard" or "Jukebox" stay the same in both languages, so no warning here
 const media = (s, lang) => (lang === "pt" ? MEDIA[s] || s : s);
 
 export const localizeRole = (role, lang) => (lang === "pt" ? { ...role, ...ROLES[role.id] } : role);
 
-export const localizeEvent = (ev, lang) =>
-    lang === "pt" ? { ...ev, ...EVENTS[ev.title], status: status(ev.status, lang) } : ev;
+export const localizeEvent = (ev, lang) => {
+    if (lang !== "pt") return ev;
+    missing(EVENTS, ev.id, "timeline moment");
+    return { ...ev, ...EVENTS[ev.id], status: status(ev.status, lang) };
+};
 
 export const localizeProject = (p, lang) => {
     if (lang !== "pt") return p;
+    missing(PROJECTS, p.id, "project");
     return {
         ...p,
         ...PROJECTS[p.id],
@@ -183,5 +196,8 @@ export const localizeProject = (p, lang) => {
     };
 };
 
-export const localizeCertification = (c, lang) =>
-    lang === "pt" && CERTIFICATIONS[c.id] ? { ...c, description: CERTIFICATIONS[c.id] } : c;
+export const localizeCertification = (c, lang) => {
+    if (lang !== "pt") return c;
+    missing(CERTIFICATIONS, c.id, "certificate");
+    return CERTIFICATIONS[c.id] ? { ...c, description: CERTIFICATIONS[c.id] } : c;
+};
