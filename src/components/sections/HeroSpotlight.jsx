@@ -1,85 +1,121 @@
 import { useEffect, useRef } from "react";
 
-// A hidden wall of code behind the name, revealed by a light that wanders around on its own.
-// The wall mixes snippets of everything I work with (React, React Native, Angular, Node, Firebase, CSS, SQL, Git…),
-// shuffled and indented at random on every visit, with the same syntax colours as the contact form.
+// A hidden wall behind the name with everything I have worked with, revealed by a light that wanders around on its own.
+// Every visit shuffles the list and writes each item in a random code style (<React />, "Figma", Node.js(), // Scrum…),
+// with the same syntax colours as the contact form.
 // The light position is written on the hero section (--x, --y).
 
-const SNIPPETS = [
-    'import { useState } from "react";',
-    "const [projects, setProjects] = useState([]);",
-    "useEffect(() => { load(); }, []);",
-    "export default function App() {",
-    'return <Portfolio owner="Bruno" />;',
-    '<Route path="/projects" element={<Projects />} />',
-    "<motion.div animate={{ opacity: 1, y: 0 }} />",
-    'className="flex items-center gap-4"',
-    "<View style={styles.card}>",
-    'navigation.navigate("Booking", { id });',
-    "const db = getFirestore(app);",
-    'await setDoc(doc(db, "orders", id), order);',
-    "onSnapshot(query(tables), (snap) => render(snap));",
-    'app.get("/api/services", auth, list);',
-    "res.status(200).json({ ok: true });",
-    "ng generate component timeline",
-    "@Input() event!: TimelineEvent;",
-    "this.form = this.fb.group({ email: [''] });",
-    "interface Project { id: string; year: number }",
-    'type Lang = "en" | "pt";',
-    "const total = items.reduce((s, i) => s + i.price, 0);",
-    '$(".menu").toggleClass("open");',
-    "public class Main { }",
-    "SELECT * FROM shows WHERE year = 2025;",
-    ".hero { color: #20C997; }",
-    "@media (max-width: 768px) { }",
-    "grid-template-columns: repeat(3, 1fr);",
-    'git commit -m "ship it"',
-    "git push origin main",
-    "npm run deploy",
-    "npx expo start",
-    "// TODO: more coffee",
-    "// it works on my machine",
-    "if (!user) return null;",
-    "for (const cue of cues) fire(cue);",
-    "setTimeout(reveal, 3000);",
-    'fetch("/api/rides").then((r) => r.json());',
-    "const fps = 60;",
-    '<Bruno role="frontend" />',
-    '{ "react": "^19.0.0" }',
-    "while (alive) build();",
-    "debugger;",
+// Languages, frameworks, tools and ways of working from my experience, projects and CV
+const STACK = [
+    "React",
+    "React Native",
+    "Expo",
+    "Angular",
+    "TypeScript",
+    "JavaScript",
+    "jQuery",
+    "HTML5",
+    "CSS3",
+    "Tailwind",
+    "Framer Motion",
+    "Vite",
+    "Node.js",
+    "Express",
+    "Firebase",
+    "Firestore",
+    "REST APIs",
+    "MySQL",
+    "SQL",
+    "Python",
+    "FastAPI",
+    "Java",
+    "Raspberry Pi",
+    "Google Maps",
+    "Vercel",
+    "GitHub Pages",
+    "EmailJS",
+    "Git",
+    "GitHub",
+    "npm",
+    "Figma",
+    "UI/UX",
+    "Responsive design",
+    "Accessibility",
+    "Prototyping",
+    "Photoshop",
+    "Illustrator",
+    "Scrum",
+    "Agile",
+    "Wrike",
+    "Requirements",
+    "Stakeholders",
+    "End-to-end delivery",
+    "Art-Net",
+    "MIDI",
+    "OSC",
+    "Reaper",
+    "Playwright",
+    "ESLint",
+    "Redux",
+    "Context API",
+    "Cybersecurity",
 ];
 
-const KEYWORDS = new Set(
-    "import from export default function return const let if for of while await async new public class interface type this null true false".split(" ")
-);
-const C = { kw: "#c792ea", tag: "#f07178", attr: "#ffcb6b", str: "#c3e88d", fn: "#82aaff", pn: "#89ddff", com: "#676e95", num: "#f78c6c", tx: "#d6deeb" };
+const C = { kw: "#c792ea", tag: "#f07178", attr: "#ffcb6b", str: "#c3e88d", fn: "#82aaff", pn: "#89ddff", com: "#676e95", tx: "#d6deeb" };
+const ident = (name) => name.replace(/[^A-Za-z0-9]/g, "");
 
-// Splits a snippet into coloured pieces: comments, strings, <Tags, attr=, keywords, calls(, numbers, punctuation
-const TOKEN =
-    /(\/\/.*?(?=\s{4}|$))|("[^"]*"|'[^']*')|(<\/?[A-Za-z.]+)|([A-Za-z-]+)(?==)|(\b\d+\b|#[0-9A-Fa-f]{3,6}\b)|([A-Za-z_$][\w$]*)(?=\()|([A-Za-z_$@][\w$!-]*)|([^\sA-Za-z0-9_$]+)|(\s+)/g;
-const tokenize = (code) =>
-    [...code.matchAll(TOKEN)].map((m) => {
-        const [text, com, str, tag, attr, num, fn, word] = m;
-        if (com) return [text, C.com];
-        if (str) return [text, C.str];
-        if (tag) return [text, C.tag];
-        if (attr) return [text, C.attr];
-        if (num) return [text, C.num];
-        if (fn) return [text, C.fn];
-        if (word) return [text, KEYWORDS.has(word) ? C.kw : C.tx];
-        return [text, m[8] ? C.pn : undefined];
+// The ways an item can be written; each returns coloured pieces
+const STYLES = [
+    (n) => [
+        ["<", C.pn],
+        [ident(n), C.tag],
+        [" />", C.pn],
+    ],
+    (n) => [[`"${n}"`, C.str]],
+    (n) => [
+        [ident(n), C.fn],
+        ["()", C.pn],
+    ],
+    (n) => [[`// ${n}`, C.com]],
+    (n) => [
+        ["import ", C.kw],
+        [ident(n), C.tx],
+    ],
+    (n) => [
+        [ident(n).charAt(0).toLowerCase() + ident(n).slice(1), C.attr],
+        ["={", C.pn],
+        ["true", C.kw],
+        ["}", C.pn],
+    ],
+    (n) => [[n, C.tx]],
+    (n) => [[n, C.tx]],
+];
+
+const rand = (n) => Math.floor(Math.random() * n);
+const shuffle = (list) => {
+    const a = [...list];
+    for (let i = a.length - 1; i > 0; i--) {
+        const k = rand(i + 1);
+        [a[i], a[k]] = [a[k], a[i]];
+    }
+    return a;
+};
+
+// A new wall on every visit: the whole list shuffled over and over, random styles, indents and gaps
+const makeWall = () => {
+    let pool = [];
+    return Array.from({ length: 90 }, () => {
+        const line = [[" ".repeat(rand(4) * 4)]];
+        let length = 0;
+        while (length < 320) {
+            if (!pool.length) pool = shuffle(STACK);
+            const pieces = STYLES[rand(STYLES.length)](pool.pop());
+            line.push(...pieces, [" ".repeat(3 + rand(9))]);
+            length += pieces.reduce((sum, [text]) => sum + text.length, 0) + 6;
+        }
+        return line;
     });
-
-const pick = (list) => list[Math.floor(Math.random() * list.length)];
-
-// A new wall on every visit: lines of 2 to 4 random snippets, random indents and gaps
-const makeWall = () =>
-    Array.from({ length: 90 }, () => {
-        let line = " ".repeat(Math.floor(Math.random() * 4) * 4);
-        while (line.length < 320) line += pick(SNIPPETS) + " ".repeat(4 + Math.floor(Math.random() * 10));
-        return tokenize(line);
-    });
+};
 const WALL = makeWall();
 
 // Next spot for the light, as a share of the hero. On wide screens my avatar fills the middle and hides the code,
