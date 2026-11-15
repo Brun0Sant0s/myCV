@@ -108,7 +108,7 @@ const PROJECTS = {
         description:
             "Uma plataforma interativa para eventos de todo o tipo, de festas a noites de empresa. Os convidados entram por QR code sem instalar nenhuma app, e os anfitriões controlam cada momento da noite a partir de um único painel. Está tudo feito; só falta testar as pulseiras LED num evento real.",
         features: [
-            "Pulse: uma pulseira LED em cada convidado que ilumina a sala ao ritmo da música e reage aos jogos",
+            "Pulse: uma pulseira LED em cada convidado que ilumina a sala ao ritmo da música e reage às atividades",
             "Roll: o telemóvel de cada convidado passa a ser uma máquina de rolo, as fotos aparecem na TV e são reveladas todas juntas no fim",
             "Cheers: os convidados deixam uma mensagem escrita ou gravada com uma foto, guardada num livro para os anfitriões",
             "Jukebox: os convidados pedem músicas no telemóvel e o DJ vê a lista num ecrã",
