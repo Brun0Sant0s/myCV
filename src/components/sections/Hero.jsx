@@ -5,8 +5,9 @@ import avatar from "../../assets/avatar-cut.webp";
 import { ACCENT } from "../../constants/theme";
 import { useLang } from "../../i18n/LanguageContext";
 
-// First screen: my avatar, dimmed, with the name above my head, what I do and the two next steps.
-// A light drifts slowly over a wall of the stack written as code (HeroSpotlight). Same on every screen.
+// First screen: my avatar, dimmed, the name, what I do and the two next steps.
+// Large screens: a big avatar with the name in the middle, over it. Phones and tablets: the name sits above my head.
+// A light drifts slowly over a wall of the stack written as code (HeroSpotlight).
 // Scrolling pushes the two words apart and fades the rest out.
 
 const Hero = () => {
@@ -18,7 +19,10 @@ const Hero = () => {
     const fade = useTransform(progress, (p) => Math.max(0, 1 - p * 1.5));
 
     return (
-        <section id="aboutMeText" className="relative w-full h-screen flex flex-col items-center justify-start pt-[14vh] sm:pt-[8vh] text-center text-white">
+        <section
+            id="aboutMeText"
+            className="relative w-full h-screen flex flex-col items-center justify-start pt-[14vh] sm:pt-[8vh] lg:justify-center lg:pt-0 text-center text-white"
+        >
             <HeroSpotlight />
 
             <motion.div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none" style={{ opacity: fade }}>
@@ -28,7 +32,7 @@ const Hero = () => {
                         alt=""
                         draggable={false}
                         fetchPriority="high"
-                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] lg:h-[60%] 2xl:h-[57%] [@media(max-height:640px)]:h-[50%] w-auto max-w-none"
+                        className="absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] max-lg:[@media(max-height:640px)]:h-[50%] lg:h-[92%] w-auto max-w-none"
                     />
                 </div>
             </motion.div>
