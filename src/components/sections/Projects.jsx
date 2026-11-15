@@ -256,10 +256,9 @@ const Project = ({ project: source, index }) => {
                             </span>
                         )
                     )}
-                    <h3 className="mt-6 font-montserrat font-semibold text-3xl sm:text-4xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white leading-tight">
-                        {project.name}
-                    </h3>
-                    <p className="mt-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
+                    {/* The logo already shows the name; the heading stays for screen readers */}
+                    <h3 className="sr-only">{project.name}</h3>
+                    <p className="mt-6 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                         {project.subtitle}
                     </p>
                     <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{project.description}</p>

@@ -5,7 +5,7 @@
     "year": "2026",
     "status": "Final testing",
     "subtitle": "Interactive platform for events",
-    "description": "An interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard. Everything is built; only the LED wristbands are left to test at a real event.",
+    "description": "Mingle is an interactive platform for events of any kind, from parties to corporate nights. Guests join through a QR code with no app to install, and the hosts control every moment of the night from one dashboard. Everything is built; only the LED wristbands are left to test at a real event.",
     "features": [
       "Pulse: an LED wristband on every guest that lights up the room to the beat of the music and reacts to the activities",
       "Roll: each guest's phone becomes a film camera, photos show live on the TV and are revealed together at the end",
@@ -85,7 +85,7 @@
     "year": "2024",
     "status": "Pilot",
     "subtitle": "QR ordering for bars and restaurants",
-    "description": "A QR ordering platform for bars and restaurants. Customers order and pay from the table without waiting, and the staff run the whole service from their own app.",
+    "description": "Kyuar is a QR ordering platform for bars and restaurants. Customers order and pay from the table without waiting, and the staff run the whole service from their own app.",
     "features": [
       "QR ordering: scan the table code, browse the menu, add notes and send the order, with nothing to install",
       "Staff app: live orders by status, tables by zone, payments by QR code and reservations",
@@ -214,7 +214,7 @@
     "name": "SaveSpot",
     "year": "2022",
     "subtitle": "Booking app for beauty businesses",
-    "description": "A booking app for barbers, salons, clinics and studios. Businesses manage their whole day from the phone, and clients find a place and book in a few taps, for free.",
+    "description": "SaveSpot is a booking app for barbers, salons, clinics and studios. Businesses manage their whole day from the phone, and clients find a place and book in a few taps, for free.",
     "features": [
       "Single agenda: bookings from the app, a web page, Instagram and WhatsApp land in the same calendar, with no double bookings",
       "Team and clients: roles and schedules per person, client history, notes and contact import",
@@ -289,7 +289,7 @@
     "year": "2025",
     "status": "Completed",
     "subtitle": "Client website with a backoffice",
-    "description": "Website for a pyrotechnics and special effects company, the one I work with on live shows. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
+    "description": "Pyro Entertainment & SFX is the website for a pyrotechnics and special effects company, the one I work with on live shows. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
     "features": [
       "Services in three levels: from pyrotechnics or special effects down to each effect, with its own gallery and highlights",
       "Backoffice: the team edits services, effects, photos and highlights behind a login with secure sessions",
@@ -340,7 +340,7 @@
     "year": "2025",
     "status": "Completed",
     "subtitle": "Client web app for show control",
-    "description": "A control panel built for engi.studio, a live show engineering company. Each unit runs on a Raspberry Pi with GPS time and fires lighting, audio and video cues at the exact second.",
+    "description": "engi.studio is a live show engineering company, and this is the control panel I built for them. Each unit runs on a Raspberry Pi with GPS time and fires lighting, audio and video cues at the exact second.",
     "features": [
       "Dashboard: GPS fix, satellites and signal quality, system tests and the next cues at a glance",
       "Events: every cue in a list or a week, month and year calendar, filtered by Art-Net, MIDI, OSC or Reaper",
@@ -397,7 +397,7 @@
     "year": "2026",
     "status": "Completed",
     "subtitle": "Ride-hailing app for clients and drivers",
-    "description": "A ride-hailing app I designed and built end to end, where the same account can request rides or drive. Each ride goes from request to rating in real time, with a map, pickup time and a short window to accept the driver's offer.",
+    "description": "OurUber is a ride-hailing app I designed and built end to end, where the same account can request rides or drive. Each ride goes from request to rating in real time, with a map, pickup time and a short window to accept the driver's offer.",
     "features": [
       "Request: origin and destination picked on the map, with the address filled in from the location",
       "Driver mode: open requests nearby with the pickup time, and one tap to offer the ride",

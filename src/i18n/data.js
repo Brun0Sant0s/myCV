@@ -53,7 +53,7 @@ const PROJECTS = {
     savespot: {
         subtitle: "App de marcações para negócios de beleza",
         description:
-            "Uma app de marcações para barbeiros, salões, clínicas e estúdios. Os negócios gerem o dia inteiro a partir do telemóvel, e os clientes encontram um espaço e marcam em poucos toques, de graça.",
+            "O SaveSpot é uma app de marcações para barbeiros, salões, clínicas e estúdios. Os negócios gerem o dia inteiro a partir do telemóvel, e os clientes encontram um espaço e marcam em poucos toques, de graça.",
         features: [
             "Agenda única: marcações da app, de uma página web, do Instagram e do WhatsApp caem no mesmo calendário, sem marcações duplicadas",
             "Equipa e clientes: funções e horários por pessoa, histórico de clientes, notas e importação de contactos",
@@ -63,7 +63,7 @@ const PROJECTS = {
     kyuar: {
         subtitle: "Pedidos por QR para bares e restaurantes",
         description:
-            "Uma plataforma de pedidos por QR para bares e restaurantes. Os clientes pedem e pagam a partir da mesa sem esperar, e a equipa gere o serviço inteiro na sua própria app.",
+            "O Kyuar é uma plataforma de pedidos por QR para bares e restaurantes. Os clientes pedem e pagam a partir da mesa sem esperar, e a equipa gere o serviço inteiro na sua própria app.",
         features: [
             "Pedidos por QR: ler o código da mesa, ver o menu, juntar notas e enviar o pedido, sem nada para instalar",
             "App da equipa: pedidos em tempo real por estado, mesas por zona, pagamentos por QR code e reservas",
@@ -73,7 +73,7 @@ const PROJECTS = {
     pyro: {
         subtitle: "Website para cliente com backoffice",
         description:
-            "Website para uma empresa de pirotecnia e efeitos especiais, a mesma com quem trabalho nos espetáculos ao vivo. Os visitantes vão de um serviço até cada efeito, e a equipa mantém tudo atualizado num backoffice, sem mexer em código.",
+            "Pyro Entertainment & SFX é o website de uma empresa de pirotecnia e efeitos especiais, a mesma com quem trabalho nos espetáculos ao vivo. Os visitantes vão de um serviço até cada efeito, e a equipa mantém tudo atualizado num backoffice, sem mexer em código.",
         features: [
             "Serviços em três níveis: da pirotecnia ou dos efeitos especiais até cada efeito, com galeria e destaques próprios",
             "Backoffice: a equipa edita serviços, efeitos, fotos e destaques depois de iniciar sessão, com sessões seguras",
@@ -84,7 +84,7 @@ const PROJECTS = {
     engi: {
         subtitle: "App web para cliente de controlo de espetáculos",
         description:
-            "Um painel de controlo feito para a engi.studio, uma empresa de engenharia de espetáculos ao vivo. Cada unidade corre num Raspberry Pi com hora GPS e dispara cues de luz, som e vídeo ao segundo exato.",
+            "A engi.studio é uma empresa de engenharia de espetáculos ao vivo, e este é o painel de controlo que fiz para ela. Cada unidade corre num Raspberry Pi com hora GPS e dispara cues de luz, som e vídeo ao segundo exato.",
         features: [
             "Dashboard: sinal GPS, satélites e qualidade do sinal, testes ao sistema e os próximos cues à vista",
             "Eventos: todos os cues numa lista ou num calendário semanal, mensal e anual, filtrados por Art-Net, MIDI, OSC ou Reaper",
@@ -95,7 +95,7 @@ const PROJECTS = {
     ouruber: {
         subtitle: "App de transporte para clientes e condutores",
         description:
-            "Uma app de transporte que desenhei e desenvolvi de ponta a ponta, em que a mesma conta pode pedir viagens ou conduzir. Cada viagem vai do pedido à avaliação em tempo real, com mapa, hora de recolha e um curto prazo para aceitar a proposta do condutor.",
+            "O OurUber é uma app de transporte que desenhei e desenvolvi de ponta a ponta, em que a mesma conta pode pedir viagens ou conduzir. Cada viagem vai do pedido à avaliação em tempo real, com mapa, hora de recolha e um curto prazo para aceitar a proposta do condutor.",
         features: [
             "Pedido: origem e destino escolhidos no mapa, com a morada preenchida a partir da localização",
             "Modo condutor: pedidos abertos por perto com a hora de recolha, e um toque para propor a viagem",
@@ -106,7 +106,7 @@ const PROJECTS = {
     mingle: {
         subtitle: "Plataforma interativa para eventos",
         description:
-            "Uma plataforma interativa para eventos de todo o tipo, de festas a noites de empresa. Os convidados entram por QR code sem instalar nenhuma app, e os anfitriões controlam cada momento da noite a partir de um único painel. Está tudo feito; só falta testar as pulseiras LED num evento real.",
+            "O Mingle é uma plataforma interativa para eventos de todo o tipo, de festas a noites de empresa. Os convidados entram por QR code sem instalar nenhuma app, e os anfitriões controlam cada momento da noite a partir de um único painel. Está tudo feito; só falta testar as pulseiras LED num evento real.",
         features: [
             "Pulse: uma pulseira LED em cada convidado que ilumina a sala ao ritmo da música e reage às atividades",
             "Roll: o telemóvel de cada convidado passa a ser uma máquina de rolo, as fotos aparecem na TV e são reveladas todas juntas no fim",
