@@ -28,7 +28,12 @@ export default [
         },
     },
     {
-        files: ["*.config.js", "tests/**/*.js"],
+        files: ["*.config.js"],
         languageOptions: { globals: globals.node, sourceType: "module" },
+    },
+    // Tests run in Node, but the callbacks passed to page.evaluate run in the browser
+    {
+        files: ["tests/**/*.js"],
+        languageOptions: { globals: { ...globals.node, ...globals.browser }, sourceType: "module" },
     },
 ];
