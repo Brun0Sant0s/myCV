@@ -2,8 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import strings from "./strings";
 
 // The site speaks English or Portuguese.
-// It always opens in English; only a language the visitor picks is remembered on this device.
-// (New key: the old "lang" one also held languages picked automatically from the browser.)
+// It opens in Portuguese when the browser is set to Portuguese, English otherwise.
+// A language the visitor picks with the switch is remembered on this device and wins from then on.
 const STORAGE_KEY = "site-lang";
 const LANGS = ["en", "pt"];
 
@@ -12,9 +12,9 @@ const initialLang = () => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (LANGS.includes(saved)) return saved;
     } catch {
-        // storage blocked: English
+        // storage blocked: fall back to the browser language
     }
-    return "en";
+    return navigator.language?.toLowerCase().startsWith("pt") ? "pt" : "en";
 };
 
 const LanguageContext = createContext({ lang: "en", setLang: () => {}, t: strings.en });
