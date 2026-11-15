@@ -1,10 +1,10 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import strings from "./strings";
 
 // The site speaks English or Portuguese.
-// First visit: Portuguese if the browser is set to Portuguese, English otherwise.
-// After that, the visitor's choice is remembered on this device.
-const STORAGE_KEY = "lang";
+// It always opens in English; only a language the visitor picks is remembered on this device.
+// (New key: the old "lang" one also held languages picked automatically from the browser.)
+const STORAGE_KEY = "site-lang";
 const LANGS = ["en", "pt"];
 
 const initialLang = () => {
@@ -12,27 +12,31 @@ const initialLang = () => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (LANGS.includes(saved)) return saved;
     } catch {
-        // storage blocked: fall back to the browser language
+        // storage blocked: English
     }
-    return navigator.language?.toLowerCase().startsWith("pt") ? "pt" : "en";
+    return "en";
 };
 
 const LanguageContext = createContext({ lang: "en", setLang: () => {}, t: strings.en });
 
 export const LanguageProvider = ({ children }) => {
-    const [lang, setLang] = useState(initialLang);
+    const [lang, setLangState] = useState(initialLang);
+
+    const setLang = useCallback((next) => {
+        setLangState(next);
+        try {
+            localStorage.setItem(STORAGE_KEY, next);
+        } catch {
+            // nothing to do, the choice just won't be remembered
+        }
+    }, []);
 
     useEffect(() => {
         document.documentElement.lang = lang === "pt" ? "pt-PT" : "en";
         document.title = strings[lang].meta.title;
-        try {
-            localStorage.setItem(STORAGE_KEY, lang);
-        } catch {
-            // nothing to do, the choice just won't be remembered
-        }
     }, [lang]);
 
-    const value = useMemo(() => ({ lang, setLang, t: strings[lang] }), [lang]);
+    const value = useMemo(() => ({ lang, setLang, t: strings[lang] }), [lang, setLang]);
     return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
 
