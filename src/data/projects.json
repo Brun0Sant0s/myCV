@@ -25,6 +25,13 @@
     "media": {
       "items": [
         {
+          "src": "mingle-splash",
+          "group": "Mingle",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#e5e5d9"
+        },
+        {
           "src": "mingle-guest-hub",
           "group": "Guest",
           "label": "Home",
@@ -68,13 +75,6 @@
           "bar": "#e5e5d9",
           "w": 462,
           "h": 1000
-        },
-        {
-          "src": "mingle-splash",
-          "group": "Mingle",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#e5e5d9"
         }
       ]
     }
@@ -102,6 +102,13 @@
     ],
     "media": {
       "items": [
+        {
+          "src": "kyuar-splash",
+          "group": "Kyuar",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
         {
           "src": "kyuar-client-scan",
           "group": "Customer",
@@ -198,13 +205,6 @@
           "bar": "#0a0a0a",
           "w": 462,
           "h": 1000
-        },
-        {
-          "src": "kyuar-splash",
-          "group": "Kyuar",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#0a0a0a"
         }
       ]
     }
@@ -225,6 +225,13 @@
     "brandColor": "#1FB6C9",
     "media": {
       "items": [
+        {
+          "src": "savespot-splash",
+          "group": "SaveSpot",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#1b1c1e"
+        },
         {
           "src": "savespot-agenda",
           "group": "Business app",
@@ -272,13 +279,6 @@
           "bar": "#1b1c1e",
           "w": 454,
           "h": 983
-        },
-        {
-          "src": "savespot-splash",
-          "group": "SaveSpot",
-          "label": "Launch",
-          "kind": "phone",
-          "bar": "#1b1c1e"
         }
       ]
     }
@@ -302,6 +302,12 @@
     "media": {
       "items": [
         {
+          "src": "pyro-splash",
+          "group": "Pyro Entertainment & SFX",
+          "label": "Launch",
+          "kind": "browser"
+        },
+        {
           "src": "pyro-service",
           "group": "Website",
           "label": "Service",
@@ -323,12 +329,6 @@
           "src": "pyro-backoffice",
           "group": "Backoffice",
           "label": "Editor",
-          "kind": "browser"
-        },
-        {
-          "src": "pyro-splash",
-          "group": "Pyro Entertainment & SFX",
-          "label": "Launch",
           "kind": "browser"
         }
       ]
@@ -352,6 +352,12 @@
     "brandColor": "#0AFD87",
     "media": {
       "items": [
+        {
+          "src": "engi-splash",
+          "group": "engi.studio",
+          "label": "Launch",
+          "kind": "browser"
+        },
         {
           "src": "engi-dashboard",
           "group": "Control panel",
@@ -381,12 +387,6 @@
           "group": "Control panel",
           "label": "Networks",
           "kind": "browser"
-        },
-        {
-          "src": "engi-splash",
-          "group": "engi.studio",
-          "label": "Launch",
-          "kind": "browser"
         }
       ]
     }
@@ -415,6 +415,13 @@
     ],
     "media": {
       "items": [
+        {
+          "src": "ouruber-splash",
+          "group": "OurUber",
+          "label": "Launch",
+          "kind": "phone",
+          "bar": "#0a0a0a"
+        },
         {
           "src": "ouruber-home",
           "group": "Client",
@@ -447,13 +454,6 @@
           "src": "ouruber-profile",
           "group": "Account",
           "label": "Profile",
-          "kind": "phone",
-          "bar": "#0a0a0a"
-        },
-        {
-          "src": "ouruber-splash",
-          "group": "OurUber",
-          "label": "Launch",
           "kind": "phone",
           "bar": "#0a0a0a"
         }
