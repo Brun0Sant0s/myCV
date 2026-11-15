@@ -2,6 +2,7 @@ import markKyuar from "./mark-kyuar.png";
 import markMingle from "./mark-mingle.png";
 import markSavespot from "./mark-savespot.png";
 import markEngi from "./mark-engi.png";
+import logoEngi from "./logo-engi.png";
 import markPyro from "./mark-pyro.png";
 import markOurUber from "./mark-ouruber.png";
 
@@ -14,4 +15,9 @@ export const projectMarks = {
     engi: markEngi,
     pyro: markPyro,
     ouruber: markOurUber,
+};
+
+// Full wordmark for projects whose logo is wider than a square; shown on the project card instead of the mark
+export const projectLogos = {
+    engi: logoEngi,
 };

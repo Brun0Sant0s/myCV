@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FiArrowUpRight, FiChevronDown } from "react-icons/fi";
 import projects from "../../data/projects.json";
-import { projectMarks } from "../../assets/projects";
+import { projectLogos, projectMarks } from "../../assets/projects";
 import { ACCENT, EASE } from "../../constants/theme";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
@@ -216,6 +216,7 @@ const Project = ({ project: source, index }) => {
     const project = localizeProject(source, lang);
     const [showFeatures, setShowFeatures] = useState(false);
     const featuresId = `${project.id}-features`;
+    const wordmark = project.logo && projectLogos[project.logo];
     const mark = project.logo && projectMarks[project.logo];
     // Web projects get a wider stage so their screens stay readable
     const isWeb = project.media.items[0]?.kind === "browser";
@@ -244,10 +245,16 @@ const Project = ({ project: source, index }) => {
             <div className={`grid grid-cols-1 ${columns} gap-y-12 items-center`}>
                 {/* Left: what the product is */}
                 <motion.div className="text-left lg:text-right flex flex-col lg:items-end" {...reveal(0.05)}>
-                    {mark && (
-                        <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 shrink-0">
-                            <img src={mark} alt={`${t.projects.logo} ${project.name}`} loading="lazy" className="max-w-full max-h-full object-contain" />
+                    {wordmark ? (
+                        <span className="flex items-center h-20 sm:h-24 shrink-0">
+                            <img src={wordmark} alt={`${t.projects.logo} ${project.name}`} loading="lazy" className="h-9 sm:h-11 w-auto max-w-full" />
                         </span>
+                    ) : (
+                        mark && (
+                            <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 shrink-0">
+                                <img src={mark} alt={`${t.projects.logo} ${project.name}`} loading="lazy" className="max-w-full max-h-full object-contain" />
+                            </span>
+                        )
                     )}
                     <h3 className="mt-6 font-montserrat font-semibold text-3xl sm:text-4xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white leading-tight">
                         {project.name}
