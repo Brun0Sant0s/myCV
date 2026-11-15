@@ -11,7 +11,7 @@ const SECTIONS = [
     { file: "about", id: "aboutMeContent" },
     { file: "experience", id: "professionalExperienceText", title: true },
     { file: "projects", id: "projectsText", title: true },
-    { file: "certifications", id: "certificationsContent" },
+    { file: "certifications", id: "certificationsText", title: true },
     { file: "contact", id: "contactsText", title: true },
 ];
 

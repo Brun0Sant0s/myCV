@@ -29,9 +29,9 @@ const SectionTitle = ({ id, words: [first, second], number, subtitle, contentId 
         <section
             ref={ref}
             id={id}
-            className="relative w-full h-[40vh] min-h-[300px] flex flex-col items-center justify-center gap-6 md:gap-8 text-center text-white"
+            className="relative w-full h-[30vh] min-h-[240px] flex flex-col items-center justify-center gap-4 md:gap-6 text-center text-white"
         >
-            <h2 className="flex flex-col items-center font-syncopate font-normal text-[7vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[8rem]">
+            <h2 className="flex flex-col items-center font-syncopate font-normal text-[7vw] sm:text-5xl md:text-[3.5rem] lg:text-[4rem] xl:text-[4.75rem] 2xl:text-[6rem]">
                 <motion.span style={{ x: leftX }}>{first}</motion.span>
                 <motion.span style={{ x: rightX }}>{second}</motion.span>
             </h2>

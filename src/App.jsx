@@ -8,7 +8,7 @@ import Certifications from "./components/sections/Certifications";
 import Contacts from "./components/sections/Contacts";
 import { useLang } from "./i18n/LanguageContext";
 
-// The page, top to bottom. The main sections are introduced by a big two-word title.
+// The page, top to bottom. Each section is introduced by a big two-word title.
 // Section ids are used by the tab bar (EditorNav) to scroll and to highlight the current tab.
 const App = () => {
     const { t } = useLang();
@@ -33,7 +33,13 @@ const App = () => {
             <SectionTitle id="projectsText" words={s.projects.words} number="02" subtitle={s.projects.subtitle} contentId="projectsContent" />
             <Projects />
 
-            {/* Courses: a compact list with its own small heading, no big title */}
+            <SectionTitle
+                id="certificationsText"
+                words={s.certifications.words}
+                number="03"
+                subtitle={s.certifications.subtitle}
+                contentId="certificationsContent"
+            />
             <Certifications />
 
             <SectionTitle id="contactsText" words={s.contacts.words} number="04" subtitle={s.contacts.subtitle} contentId="contactsContent" />

@@ -21,6 +21,7 @@ const en = {
     sections: {
         experience: { words: ["Professional", "Experience"], subtitle: "Four years at the company ePharma, my own products and live shows, year by year." },
         projects: { words: ["My", "Projects"], subtitle: "Products and client work I designed and built, from idea to launch." },
+        certifications: { words: ["My", "Certifications"], subtitle: "Courses I completed to keep growing as a developer." },
         contacts: { words: ["My", "Contacts"], subtitle: "Email, phone or a quick message, whichever suits you." },
     },
     carousel: { previous: "Previous", next: "Next" },
@@ -74,9 +75,12 @@ const en = {
         nextScreen: "Next screen",
     },
     certifications: {
-        title: "Certifications",
-        subtitle: "Courses I completed to keep growing as a developer.",
         viewCertificate: "View certificate",
+        allCourses: "All courses",
+        carouselLabel: "Certificates",
+        certificate: "certificate",
+        prevCertificate: "Previous certificate",
+        nextCertificate: "Next certificate",
     },
     contacts: {
         title: "Let's talk",
@@ -126,6 +130,7 @@ const pt = {
             subtitle: "Quatro anos na empresa ePharma, os meus produtos e os espetáculos ao vivo, ano a ano.",
         },
         projects: { words: ["Os Meus", "Projetos"], subtitle: "Produtos e trabalhos para clientes que desenhei e desenvolvi, da ideia ao lançamento." },
+        certifications: { words: ["As Minhas", "Certificações"], subtitle: "Cursos que concluí para continuar a crescer como programador." },
         contacts: { words: ["Os Meus", "Contactos"], subtitle: "Email, telefone ou uma mensagem rápida, como preferires." },
     },
     carousel: { previous: "Anterior", next: "Seguinte" },
@@ -192,9 +197,12 @@ const pt = {
         nextScreen: "Ecrã seguinte",
     },
     certifications: {
-        title: "Certificações",
-        subtitle: "Cursos que concluí para continuar a crescer como programador.",
         viewCertificate: "Ver certificado",
+        allCourses: "Todos os cursos",
+        carouselLabel: "Certificados",
+        certificate: "certificado",
+        prevCertificate: "Certificado anterior",
+        nextCertificate: "Certificado seguinte",
     },
     contacts: {
         title: "Vamos falar",

@@ -31,7 +31,7 @@ test("desktop: loads in English and every tab reaches its section", async ({ pag
     }
 
     await expect(page.locator("#projectsContent article")).toHaveCount(6);
-    await expect(page.locator("#certificationsContent a[href$='.pdf']")).toHaveCount(5);
+    await expect(page.locator("#certificationsContent [role='tab']")).toHaveCount(5);
     expect(errors).toEqual([]);
 });
 

@@ -3,35 +3,40 @@
     "id": 1,
     "title": "Learn Complete Front-End Web Development",
     "description": "From scratch to advanced HTML, CSS, and JavaScript. Includes responsive design, DOM manipulation, and an intro to frameworks. Solid course to kickstart a front-end dev career.",
-    "downloadLink": "documents/Learn Complete Front-End Web Development.pdf",
-    "issuer": "Udemy"
+    "issuer": "Udemy",
+    "imageKey": "frontEnd",
+    "downloadLink": "documents/Learn Complete Front-End Web Development.pdf"
   },
   {
     "id": 2,
     "title": "React Native: Advanced Concepts",
     "description": "Meant for those who already know the basics. Teaches advanced navigation, API integration, state management (Redux, Context), animations, and performance tweaks.",
-    "downloadLink": "documents/React Native - Advanced Concepts.pdf",
-    "issuer": "Udemy"
+    "issuer": "Udemy",
+    "imageKey": "reactNative",
+    "downloadLink": "documents/React Native - Advanced Concepts.pdf"
   },
   {
     "id": 3,
     "title": "Complete Cyber Security Course",
     "description": "Covers key areas like encryption, firewalls, vulnerability analysis, social engineering, and protection against DDoS, phishing, etc. Good for beginners or anyone looking to level up in cybersecurity.",
-    "downloadLink": "documents/Curso completo em Cyber Security.pdf",
-    "issuer": "Information Security"
+    "issuer": "Information Security",
+    "imageKey": "cybersecurity",
+    "downloadLink": "documents/Curso completo em Cyber Security.pdf"
   },
   {
     "id": 4,
     "title": "Angular - The Complete Guide (2025 Edition)",
     "description": "Covers everything from basics (components, data binding) to advanced stuff like routing, reactive forms, lazy loading, and deployment. Perfect if you're planning to build serious Angular apps.",
-    "downloadLink": "documents/Angular - The Complete Guide (2025 Edition).pdf",
-    "issuer": "Udemy"
+    "issuer": "Udemy",
+    "imageKey": "angular",
+    "downloadLink": "documents/Angular - The Complete Guide (2025 Edition).pdf"
   },
   {
     "id": 5,
     "title": "UI/UX Design",
     "description": "UI/UX focused. Teaches how to create functional prototypes, test usability, apply interaction design principles, and use tools like Figma, Adobe Photoshop, Adobe Illustrator.",
-    "downloadLink": "documents/Prototipagem para Web & Design de Interação.pdf",
-    "issuer": "Cesae Digital"
+    "issuer": "Cesae Digital",
+    "imageKey": "uiux",
+    "downloadLink": "documents/Prototipagem para Web & Design de Interação.pdf"
   }
 ]
