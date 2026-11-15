@@ -16,7 +16,6 @@ const en = {
     hero: {
         hint: "Move the cursor",
         role: "Frontend Engineer · Porto, Portugal",
-        available: "Open to frontend roles · Porto or remote",
         projects: "See my projects",
     },
     sections: {
@@ -119,7 +118,6 @@ const pt = {
     hero: {
         hint: "Mexe o cursor",
         role: "Frontend Engineer · Porto, Portugal",
-        available: "Disponível para funções de frontend · Porto ou remoto",
         projects: "Ver os meus projetos",
     },
     sections: {

@@ -21,7 +21,7 @@ test("desktop: loads in English and every tab reaches its section", async ({ pag
     await page.goto("./");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await expect(page.locator("h1")).toContainText("BRUNO");
-    await expect(page.getByText("Open to frontend roles")).toBeVisible();
+    await expect(page.getByRole("link", { name: "See my projects" })).toBeVisible();
 
     const nav = page.getByRole("navigation", { name: "Sections" });
     for (const tab of ["About", "Experience", "Projects", "Certifications", "Contact"]) {
@@ -41,7 +41,7 @@ test("Portuguese browser: opens in Portuguese, and the switch goes back to Engli
     const errors = watchErrors(page);
     await page.goto("./");
     await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
-    await expect(page.getByText("Disponível para funções de frontend")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Ver os meus projetos" })).toBeVisible();
     await page.getByRole("button", { name: /^Idioma/ }).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     expect(errors).toEqual([]);

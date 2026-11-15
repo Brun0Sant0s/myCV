@@ -5,7 +5,7 @@ import avatar from "../../assets/avatar-cut.webp";
 import { ACCENT } from "../../constants/theme";
 import { useLang } from "../../i18n/LanguageContext";
 
-// First screen: the name over the spotlight wall, what I do, that I'm available, and the two next steps.
+// First screen: the name over the spotlight wall, what I do and the two next steps.
 // With a mouse, the cursor torch also reveals my avatar behind the name (see .hero-avatar in global.css).
 // On touch screens the whole avatar shows, dimmed, and the name sits above my head instead of over my face.
 // Scrolling pushes the two words apart and fades the rest out.
@@ -46,7 +46,7 @@ const Hero = () => {
                 {t.hero.role}
             </motion.p>
 
-            {/* Bottom: availability and the two next steps, above the tab bar */}
+            {/* Bottom: the two next steps, above the tab bar */}
             <motion.div
                 style={{ opacity: fade }}
                 className="absolute inset-x-0 bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
@@ -54,13 +54,6 @@ const Hero = () => {
                 {/* Only where there is a mouse: phones get a light that wanders on its own */}
                 <p className="hidden [@media(pointer:fine)]:block font-montserrat text-[11px] font-medium uppercase tracking-[0.25em] text-white/50">
                     {t.hero.hint}
-                </p>
-                <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-black/60 backdrop-blur-sm px-4 py-1.5 font-montserrat text-xs sm:text-sm text-gray-200">
-                    <span className="relative flex w-2 h-2">
-                        <span className="absolute inset-0 rounded-full animate-ping motion-reduce:animate-none opacity-60" style={{ background: ACCENT }} />
-                        <span className="relative w-2 h-2 rounded-full" style={{ background: ACCENT }} />
-                    </span>
-                    {t.hero.available}
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                     <a
