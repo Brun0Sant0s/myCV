@@ -289,7 +289,7 @@
     "year": "2025",
     "status": "Completed",
     "subtitle": "Client website with a backoffice",
-    "description": "Pyro Entertainment & SFX is the website for a pyrotechnics and special effects company, the one I work with on live shows. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
+    "description": "Pyro Entertainment & SFX is a pyrotechnics and special effects company, the one I work with on live shows, and this is the website I built for them. Visitors go from a service down to each effect, and the team keeps everything up to date in a backoffice, without touching code.",
     "features": [
       "Services in three levels: from pyrotechnics or special effects down to each effect, with its own gallery and highlights",
       "Backoffice: the team edits services, effects, photos and highlights behind a login with secure sessions",
