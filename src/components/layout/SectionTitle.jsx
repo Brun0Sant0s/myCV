@@ -24,7 +24,7 @@ const SectionTitle = ({ id, words: [first, second], number, subtitle, contentId 
     });
     // The words follow the scroll with a little inertia instead of sticking to the mouse wheel,
     // and slow down as they reach the centre (and speed up gently as they leave).
-    const smooth = useSpring(progress, { stiffness: 140, damping: 30, mass: 0.6, restDelta: 0.0005 });
+    const smooth = useSpring(progress, { stiffness: 400, damping: 40, mass: 0.4, restDelta: 0.0005 });
     const shift = useTransform(smooth, (p) => (p <= 1 ? -Math.pow(1 - clamp(p), 3) : Math.pow(clamp(p - 1), 3)));
     const leftX = useTransform(shift, (s) => `${s * 100}vw`);
     const rightX = useTransform(shift, (s) => `${-s * 100}vw`);
