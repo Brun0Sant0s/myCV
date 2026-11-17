@@ -42,7 +42,7 @@ const en = {
                 label: "Languages",
                 items: [
                     { v: "Portuguese", n: "Native" },
-                    { v: "English", n: "Fluent" },
+                    { v: "English", n: "Intermediate" },
                     { v: "Spanish", n: "Basic" },
                 ],
             },
@@ -150,7 +150,7 @@ const pt = {
                 label: "Línguas",
                 items: [
                     { v: "Português", n: "Nativo" },
-                    { v: "Inglês", n: "Fluente" },
+                    { v: "Inglês", n: "Intermédio" },
                     { v: "Espanhol", n: "Básico" },
                 ],
             },
