@@ -199,7 +199,7 @@ const About = () => {
                             ))}
                         </div>
                         <a
-                            href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
+                            href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"

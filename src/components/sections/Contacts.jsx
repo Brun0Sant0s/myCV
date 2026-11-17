@@ -156,7 +156,7 @@ const Contacts = () => {
                     </p>
                     <p className="mt-5 max-w-sm font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{c.intro}</p>
                     <a
-                        href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
+                        href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"

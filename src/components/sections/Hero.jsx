@@ -65,7 +65,7 @@ const Hero = () => {
                         <FiArrowDown className="w-4 h-4" aria-hidden="true" />
                     </a>
                     <a
-                        href={`${import.meta.env.BASE_URL}documents/${t.about.cv}`}
+                        href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 px-5 py-2.5 font-montserrat text-sm font-medium text-white transition-colors duration-300 hover:border-white/60"
