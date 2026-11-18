@@ -29,11 +29,11 @@ const statusClass = {
 // Syntax colours of the editor (Material-style palette on the dark site)
 const C = { kw: "#c792ea", tag: "#f07178", attr: "#ffcb6b", str: "#c3e88d", fn: "#82aaff", pn: "#89ddff", com: "#5d636b" };
 
-// A line of the editor with its number
-const Line = ({ n, children }) => (
+// A line of the editor with its number. `fill` lets an input on the line take the rest of the width.
+const Line = ({ n, fill = false, children }) => (
     <div className="flex whitespace-pre">
         <span className="w-7 sm:w-9 shrink-0 pr-3 sm:pr-4 text-right text-[#3a3d42] select-none">{n}</span>
-        <span className="min-w-0">{children}</span>
+        <span className={fill ? "flex flex-1 min-w-0 items-baseline pr-4 sm:flex-none sm:pr-0" : "min-w-0"}>{children}</span>
     </div>
 );
 
@@ -59,6 +59,8 @@ const Contacts = () => {
     const c = t.contacts;
     const reveal = useReveal({ y: 24, amount: 0.3 });
     const hasMouse = useMediaQuery("(pointer: fine)");
+    // Phones: the message value goes on its own line (message={ … }), so the whole placeholder fits
+    const roomy = useMediaQuery("(min-width: 640px)");
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState(null);
     const [errors, setErrors] = useState({ name: "", email: "", message: "" });
@@ -115,12 +117,10 @@ const Contacts = () => {
             .finally(() => setSending(false));
     };
 
-    // A prop whose value is an input the visitor fills in
-    const inputProp = ({ n, name, prop, type = "text", placeholder, autoComplete, wide, enterKeyHint = "next" }) => (
-        <Line n={n}>
-            {"      "}
-            <span style={{ color: C.attr }}>{prop}</span>
-            <span style={{ color: C.pn }}>=</span>
+    // A prop whose value is an input the visitor fills in.
+    // On phones the input takes the rest of the line; `ownLine` puts the value on the next line instead.
+    const field = ({ name, type = "text", placeholder, autoComplete, wide, enterKeyHint = "next", label }) => (
+        <>
             <span style={{ color: C.str }}>"</span>
             <input
                 id={`contact-${name}`}
@@ -131,18 +131,47 @@ const Contacts = () => {
                 autoCapitalize={type === "email" ? "none" : undefined}
                 autoCorrect={type === "email" ? "off" : undefined}
                 spellCheck={type === "email" ? false : undefined}
-                aria-label={prop}
+                aria-label={label}
                 placeholder={placeholder}
                 value={formData[name]}
                 onChange={handleChange}
-                className={`bg-transparent outline-none border-b border-dashed placeholder-[#5d636b] font-mono text-base sm:text-[13px] ${
-                    wide ? "w-[165px] sm:w-[280px]" : "w-[150px] sm:w-[210px]"
+                className={`flex-1 min-w-0 w-0 sm:flex-none bg-transparent outline-none border-b border-dashed placeholder-[#5d636b] font-mono text-base sm:text-[13px] ${
+                    wide ? "sm:w-[280px]" : "sm:w-[210px]"
                 } ${errors[name] ? "border-red-400/80" : "border-white/20 focus:border-[#c3e88d]"}`}
                 style={{ color: C.str }}
             />
             <span style={{ color: C.str }}>"</span>
-        </Line>
+        </>
     );
+
+    const inputProp = ({ n, prop, ownLine = false, ...rest }) =>
+        ownLine ? (
+            <>
+                <Line n={n}>
+                    {"      "}
+                    <span style={{ color: C.attr }}>{prop}</span>
+                    <span style={{ color: C.pn }}>={"{"}</span>
+                </Line>
+                <Line n={n + 1} fill>
+                    <span>{"        "}</span>
+                    {field({ ...rest, label: prop })}
+                </Line>
+                <Line n={n + 2}>
+                    {"      "}
+                    <span style={{ color: C.pn }}>{"}"}</span>
+                </Line>
+            </>
+        ) : (
+            <Line n={n} fill>
+                {/* In a flex line a bare run of spaces would be dropped, so the indent is its own span */}
+                <span>{"      "}</span>
+                <span style={{ color: C.attr }}>{prop}</span>
+                <span style={{ color: C.pn }}>=</span>
+                {field({ ...rest, label: prop })}
+            </Line>
+        );
+    // Line numbers after the message move down by two when it takes three lines
+    const after = roomy ? 12 : 14;
 
     const byLabel = Object.fromEntries(links.map((l) => [l.label, l]));
 
@@ -163,7 +192,7 @@ const Contacts = () => {
                         href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="tap mt-7 w-full md:w-auto md:self-start lg:self-end inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 lg:py-2.5 font-montserrat text-sm font-medium text-black hover:opacity-85"
+                        className="tap mt-7 hidden md:inline-flex md:self-start lg:self-end items-center justify-center gap-2 rounded-full bg-white px-5 py-3 lg:py-2.5 font-montserrat text-sm font-medium text-black hover:opacity-85"
                     >
                         <FiDownload className="w-4 h-4" />
                         {t.about.downloadCv}
@@ -177,7 +206,7 @@ const Contacts = () => {
                         if ((e.metaKey || e.ctrlKey) && e.key === "Enter") handleSubmit(e);
                     }}
                     noValidate
-                    className="order-3 lg:order-2 md:col-span-2 lg:col-span-1 min-w-0 rounded-2xl border border-white/20 bg-[#0b0b0d] overflow-hidden lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)] font-mono text-[11px] sm:text-[13px]"
+                    className="order-2 md:order-3 lg:order-2 md:col-span-2 lg:col-span-1 min-w-0 rounded-2xl border border-white/20 bg-[#0b0b0d] overflow-hidden lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)] font-mono text-[11px] sm:text-[13px]"
                     {...reveal(0.1)}
                 >
                     <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
@@ -212,16 +241,24 @@ const Contacts = () => {
                         </Line>
                         {inputProp({ n: 9, name: "name", prop: "from", placeholder: c.placeholders.name, autoComplete: "name" })}
                         {inputProp({ n: 10, name: "email", prop: "replyTo", type: "email", placeholder: c.placeholders.email, autoComplete: "email" })}
-                        {inputProp({ n: 11, name: "message", prop: "message", placeholder: c.placeholders.message, wide: true, enterKeyHint: "send" })}
-                        <Line n={12}>
+                        {inputProp({
+                            n: 11,
+                            name: "message",
+                            prop: "message",
+                            placeholder: c.placeholders.message,
+                            wide: true,
+                            enterKeyHint: "send",
+                            ownLine: !roomy,
+                        })}
+                        <Line n={after}>
                             {"    "}
                             <span style={{ color: C.pn }}>/&gt;</span>
                         </Line>
-                        <Line n={13}>
+                        <Line n={after + 1}>
                             {"  "}
                             <span style={{ color: C.pn }}>);</span>
                         </Line>
-                        <Line n={14}>
+                        <Line n={after + 2}>
                             <span style={{ color: C.pn }}>{"}"}</span>
                         </Line>
                     </div>
@@ -242,7 +279,7 @@ const Contacts = () => {
                 </motion.form>
 
                 {/* Right: channels */}
-                <motion.div className="order-2 lg:order-3" {...reveal(0.15)}>
+                <motion.div className="order-3 md:order-2 lg:order-3" {...reveal(0.15)}>
                     <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{c.channelsTitle}</p>
                     <ul className="space-y-4">
                         {Object.entries(c.channels).map(([k, [name, note]]) => (
@@ -260,6 +297,17 @@ const Contacts = () => {
                         ))}
                     </ul>
                 </motion.div>
+
+                {/* Phones: the CV comes last, after the ways to get in touch */}
+                <a
+                    href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tap order-4 md:hidden w-full inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-montserrat text-sm font-medium text-black hover:opacity-85"
+                >
+                    <FiDownload className="w-4 h-4" />
+                    {t.about.downloadCv}
+                </a>
             </div>
         </div>
     );
