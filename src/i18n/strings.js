@@ -61,8 +61,7 @@ const en = {
     },
     experience: {
         goTo: "Go to",
-        all: "All",
-        filter: "Show",
+        milestone: ["milestone", "milestones"],
         present: "Present",
         months: {},
     },
@@ -171,8 +170,7 @@ const pt = {
     },
     experience: {
         goTo: "Ir para",
-        all: "Tudo",
-        filter: "Mostrar",
+        milestone: ["marco", "marcos"],
         present: "Presente",
         months: {
             Jan: "Jan",

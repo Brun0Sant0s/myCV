@@ -78,7 +78,7 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     await context.close();
 });
 
-test("phone: file explorer, language and timeline filter", async ({ browser }) => {
+test("phone: file explorer, language and timeline years", async ({ browser }) => {
     const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const errors = watchErrors(page);
@@ -102,10 +102,15 @@ test("phone: file explorer, language and timeline filter", async ({ browser }) =
     await page.getByRole("button", { name: /^Idioma/ }).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
 
-    // Filtering the timeline to one lane hides the others
-    const all = await page.locator("#professionalExperienceContent ol > li").count();
-    await page.getByRole("group", { name: "Show" }).getByRole("button", { name: "ePharma" }).click();
-    await expect.poll(() => page.locator("#professionalExperienceContent ol > li").count()).toBeLessThan(all);
+    // Timeline: the latest year starts open; opening another year closes it
+    const years = page.locator("#professionalExperienceContent button[aria-expanded]");
+    await expect(years.first()).toHaveAttribute("aria-expanded", "true");
+    const first = years.last();
+    await first.scrollIntoViewIfNeeded();
+    await first.click();
+    await expect(first).toHaveAttribute("aria-expanded", "true");
+    await expect(years.first()).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByText("Joined ePharma")).toBeVisible();
 
     expect(errors).toEqual([]);
     await context.close();
