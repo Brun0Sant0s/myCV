@@ -12,9 +12,10 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 // A light drifts slowly over a wall of the stack written as code (HeroSpotlight).
 // Scrolling fades it out; on phones and tablets it also pushes the two words apart.
 
-// Size and place of the avatar (and of its black outline underneath)
+// Size and place of the avatar (and of its black outline underneath).
+// Large screens: never wider than about 45% of the screen, so on tall or narrow windows it stays clear of the name
 const AVATAR =
-    "absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] max-lg:[@media(max-height:640px)]:h-[50%] lg:left-auto lg:right-[5vw] lg:translate-x-0 lg:h-[92%] w-auto max-w-none";
+    "absolute left-1/2 bottom-0 -translate-x-1/2 h-[68%] sm:h-[64%] max-lg:[@media(max-height:640px)]:h-[50%] lg:left-auto lg:right-[5vw] lg:translate-x-0 lg:h-[min(92%,58vw)] w-auto max-w-none";
 // Large screens: the bottom of the avatar fades out; the black outline fades a little later so no code shows through the shirt
 const FADE_OUTLINE = "lg:[mask-image:linear-gradient(#000_70%,transparent_96%)]";
 const FADE = "lg:[mask-image:linear-gradient(#000_62%,transparent_94%)]";
