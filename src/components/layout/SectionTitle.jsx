@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const clamp = (v) => Math.max(0, Math.min(1, v));
 
@@ -22,8 +23,12 @@ const SectionTitle = ({ id, words: [first, second], number, subtitle, contentId 
         if (exit > 0) return 1 + exit;
         return clamp((y - title.offsetTop + vh) / title.offsetHeight);
     });
-    const leftX = useTransform(progress, (p) => `${(p - 1) * 100}vw`);
-    const rightX = useTransform(progress, (p) => `${(1 - p) * 100}vw`);
+    // Phones and tablets: the words travel a third of the way and fade, so the title reads sooner and for longer
+    const isDesktop = useMediaQuery("(min-width: 1024px)");
+    const travel = isDesktop ? 100 : 35;
+    const leftX = useTransform(progress, (p) => `${(p - 1) * travel}vw`);
+    const rightX = useTransform(progress, (p) => `${(1 - p) * travel}vw`);
+    const opacity = useTransform(progress, (p) => (isDesktop ? 1 : Math.max(0, 1 - Math.abs(p - 1) * 1.6)));
 
     return (
         <section
@@ -32,8 +37,8 @@ const SectionTitle = ({ id, words: [first, second], number, subtitle, contentId 
             className="relative w-full h-[30vh] min-h-[240px] flex flex-col items-center justify-center gap-4 md:gap-6 text-center text-white"
         >
             <h2 className="flex flex-col items-center font-syncopate font-normal text-[7vw] sm:text-5xl md:text-[3.5rem] lg:text-[4rem] xl:text-[4.75rem] 2xl:text-[6rem]">
-                <motion.span style={{ x: leftX }}>{first}</motion.span>
-                <motion.span style={{ x: rightX }}>{second}</motion.span>
+                <motion.span style={{ x: leftX, opacity }}>{first}</motion.span>
+                <motion.span style={{ x: rightX, opacity }}>{second}</motion.span>
             </h2>
             <p className="flex items-center justify-center gap-3 px-6 font-montserrat font-light text-sm md:text-base text-gray-400">
                 <span className="font-syncopate text-xs md:text-sm text-[#20C997]">{number}</span>

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { FiDownload, FiFilm, FiMic } from "react-icons/fi";
+import { FiChevronDown, FiDownload, FiFilm, FiMic } from "react-icons/fi";
 import { GiWeightLiftingUp, GiRunningShoe, GiTennisRacket, GiSoccerBall } from "react-icons/gi";
 import profilePic from "../../assets/profilePic.jpg";
 import { projectMarks } from "../../assets/projects";
@@ -9,6 +9,7 @@ import useReveal from "../../hooks/useReveal";
 import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { useLang } from "../../i18n/LanguageContext";
 
 // Core stack shown as icons, like the technologies on each project
@@ -178,9 +179,36 @@ const Deck = () => {
 };
 
 // Same layout as each project: who on the left, the photo on the centre stage, the details on the right.
+// Phones: the cards come right after the bio (they are the most visual part), and the details table stays folded until asked for.
 const About = () => {
     const { t } = useLang();
     const reveal = useReveal();
+    const isPhone = !useMediaQuery("(min-width: 768px)");
+    const [more, setMore] = useState(false);
+
+    const facts = (
+        <dl className="mt-10 md:mt-0 lg:mt-10 border-t border-white/10">
+            {t.about.facts.map((f) => (
+                <div key={f.label} className="grid grid-cols-[96px_1fr] sm:grid-cols-[110px_1fr] gap-4 py-4 border-b border-white/10 items-start">
+                    <dt className="pt-[2px] font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
+                        {f.label}
+                    </dt>
+                    <dd className="m-0 flex flex-col gap-1.5">
+                        {f.items.some((it) => it.n) ? (
+                            f.items.map((it) => (
+                                <span key={it.v} className="flex flex-wrap justify-between gap-x-4 gap-y-0.5 font-montserrat text-sm text-white">
+                                    {it.v}
+                                    <span className="font-light text-gray-400 whitespace-nowrap">{it.n}</span>
+                                </span>
+                            ))
+                        ) : (
+                            <span className="font-montserrat text-sm text-white">{f.items.map((it) => it.v).join(", ")}</span>
+                        )}
+                    </dd>
+                </div>
+            ))}
+        </dl>
+    );
 
     return (
         <div id="aboutMeContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-16 sm:py-24">
@@ -193,6 +221,11 @@ const About = () => {
                             {t.about.tagline}
                         </p>
                         <p className="mt-5 max-w-md font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{t.about.bio}</p>
+                        {isPhone && (
+                            <div className="mt-10">
+                                <Deck />
+                            </div>
+                        )}
                         <div className="mt-6 flex flex-wrap lg:justify-end items-center gap-1.5">
                             {STACK.map((t) => (
                                 <TechBadge key={t} name={t} size="lg" />
@@ -210,9 +243,11 @@ const About = () => {
                     </motion.div>
 
                     {/* Centre: deck of cards */}
-                    <motion.div className="min-w-0" {...reveal(0.1)}>
-                        <Deck />
-                    </motion.div>
+                    {!isPhone && (
+                        <motion.div className="min-w-0" {...reveal(0.1)}>
+                            <Deck />
+                        </motion.div>
+                    )}
 
                     {/* Right: skills and details */}
                     <motion.div className="md:col-span-2 lg:col-span-1 md:grid md:grid-cols-2 md:gap-x-12 lg:block" {...reveal(0.15)}>
@@ -224,33 +259,31 @@ const About = () => {
                                 ))}
                             </ul>
                         </div>
-                        <dl className="mt-10 md:mt-0 lg:mt-10 border-t border-white/10">
-                            {t.about.facts.map((f) => (
-                                <div
-                                    key={f.label}
-                                    className="grid grid-cols-[96px_1fr] sm:grid-cols-[110px_1fr] gap-4 py-4 border-b border-white/10 items-start"
+                        {isPhone ? (
+                            <div className="mt-8">
+                                <button
+                                    type="button"
+                                    onClick={() => setMore((v) => !v)}
+                                    aria-expanded={more}
+                                    aria-controls="about-facts"
+                                    className="tap inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 font-montserrat text-sm text-white"
                                 >
-                                    <dt className="pt-[2px] font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
-                                        {f.label}
-                                    </dt>
-                                    <dd className="m-0 flex flex-col gap-1.5">
-                                        {f.items.some((it) => it.n) ? (
-                                            f.items.map((it) => (
-                                                <span
-                                                    key={it.v}
-                                                    className="flex flex-wrap justify-between gap-x-4 gap-y-0.5 font-montserrat text-sm text-white"
-                                                >
-                                                    {it.v}
-                                                    <span className="font-light text-gray-400 whitespace-nowrap">{it.n}</span>
-                                                </span>
-                                            ))
-                                        ) : (
-                                            <span className="font-montserrat text-sm text-white">{f.items.map((it) => it.v).join(", ")}</span>
-                                        )}
-                                    </dd>
+                                    {more ? t.about.less : t.about.more}
+                                    <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${more ? "rotate-180" : ""}`} aria-hidden="true" />
+                                </button>
+                                <div
+                                    id="about-facts"
+                                    className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                                        more ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                                    }`}
+                                    inert={!more}
+                                >
+                                    <div className="overflow-hidden">{facts}</div>
                                 </div>
-                            ))}
-                        </dl>
+                            </div>
+                        ) : (
+                            facts
+                        )}
                     </motion.div>
                 </div>
             </div>

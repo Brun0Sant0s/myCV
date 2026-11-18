@@ -50,6 +50,8 @@ const en = {
             { label: "Also into", items: [{ v: "Films" }, { v: "Podcasts" }] },
         ],
         deckLabel: "About me",
+        more: "Show more",
+        less: "Show less",
         cards: {
             epharma: { title: "Years at ePharma", text: "Frontend Engineer at the company ePharma, in a Scrum team, from Figma to pixel-perfect." },
             products: { title: "Own products", text: "SaveSpot, Kyuar and Mingle, taken from idea to launch." },
@@ -159,6 +161,8 @@ const pt = {
             { label: "Também gosto", items: [{ v: "Cinema" }, { v: "Podcasts" }] },
         ],
         deckLabel: "Sobre mim",
+        more: "Ver mais",
+        less: "Ver menos",
         cards: {
             epharma: { title: "Anos na ePharma", text: "Frontend Engineer na empresa ePharma, numa equipa Scrum, do Figma ao pixel-perfect." },
             products: { title: "Produtos próprios", text: "SaveSpot, Kyuar e Mingle, levados da ideia ao lançamento." },

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
     SiReact,
     SiTypescript,
@@ -44,20 +45,36 @@ const techIcons = {
     "Google Maps": { Icon: SiGooglemaps, color: "#4285F4" },
 };
 
+// Hovering with the mouse shows the name. Touch screens have no hover, so a tap shows it for a moment instead.
 const TechBadge = ({ name, size = "sm" }) => {
     const icon = techIcons[name];
+    const [shown, setShown] = useState(false);
+    const timer = useRef(null);
+    useEffect(() => () => clearTimeout(timer.current), []);
     if (!icon) return null;
+    const onTap = (e) => {
+        if (e.pointerType === "mouse") return;
+        clearTimeout(timer.current);
+        setShown(true);
+        timer.current = setTimeout(() => setShown(false), 1600);
+    };
     const label = name === "JQuery" ? "jQuery" : name;
     const box = size === "lg" ? "w-8 h-8" : "w-7 h-7";
     const glyph = size === "lg" ? "w-4 h-4" : "w-3.5 h-3.5";
     return (
-        <span title={label} className={`group/tech relative flex items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] ${box}`}>
+        <span
+            title={label}
+            onPointerUp={onTap}
+            className={`group/tech relative flex items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] ${box}`}
+        >
             {typeof icon === "string" ? (
                 <img src={icon} alt={label} className={`${glyph} object-contain`} />
             ) : (
                 <icon.Icon aria-label={label} className={glyph} style={{ color: icon.color }} />
             )}
-            <span className="pointer-events-none absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white px-1.5 py-0.5 font-montserrat text-[10px] text-black opacity-0 transition-opacity duration-200 group-hover/tech:opacity-100">
+            <span
+                className={`pointer-events-none z-10 absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white px-1.5 py-0.5 font-montserrat text-[10px] text-black transition-opacity duration-200 group-hover/tech:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`}
+            >
                 {label}
             </span>
         </span>
