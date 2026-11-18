@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FiArrowUpRight, FiChevronDown } from "react-icons/fi";
 import projects from "../../data/projects.json";
@@ -8,6 +8,7 @@ import TechBadge from "../ui/TechBadge";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
 import useReveal from "../../hooks/useReveal";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { useLang } from "../../i18n/LanguageContext";
 import { localizeProject } from "../../i18n/data";
 
@@ -223,8 +224,8 @@ const Project = ({ project: source, index }) => {
     // Web projects get a wider stage so their screens stay readable
     const isWeb = project.media.items[0]?.kind === "browser";
     const columns = isWeb
-        ? "md:grid-cols-2 md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-x-16"
-        : "md:grid-cols-2 md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] lg:gap-x-28";
+        ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-x-16"
+        : "lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] lg:gap-x-28";
     const reveal = useReveal();
 
     return (
@@ -269,22 +270,7 @@ const Project = ({ project: source, index }) => {
                             <TechBadge key={tech} name={tech} size="lg" />
                         ))}
                     </div>
-                    <div className="mt-6 flex flex-wrap lg:justify-end gap-3">
-                        {project.links?.map((l, i) => (
-                            <a
-                                key={l.url}
-                                href={l.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`tap inline-flex items-center gap-1 rounded-full px-4 py-2.5 lg:py-2 font-montserrat text-sm ${
-                                    i === 0 ? "bg-white text-black hover:bg-white/85" : "border border-white/20 text-white hover:border-white/50"
-                                }`}
-                            >
-                                {l.label}
-                                <FiArrowUpRight className="w-4 h-4" />
-                            </a>
-                        ))}
-                    </div>
+                    <ProjectLinks links={project.links} className="mt-6 lg:justify-end" />
                 </motion.div>
 
                 {/* Centre: the stage */}
@@ -293,7 +279,7 @@ const Project = ({ project: source, index }) => {
                 </motion.div>
 
                 {/* Right: what it does. On phones and tablets it stays folded until asked for, to keep each project short. */}
-                <motion.div className="md:col-span-2 lg:col-span-1" {...reveal(0.15)}>
+                <motion.div {...reveal(0.15)}>
                     <p className="hidden lg:block mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">
                         {t.projects.features}
                     </p>
@@ -321,14 +307,174 @@ const Project = ({ project: source, index }) => {
     );
 };
 
-const Projects = () => (
-    <div id="projectsContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-12 sm:py-20">
-        <div className="mx-auto w-full max-w-[1400px]">
-            {projects.map((project, index) => (
-                <Project key={project.id} project={project} index={index} />
+/* ---------- Phones and tablets: one row per project, opened on tap (like the timeline) ---------- */
+
+// The links of a project: the first one solid white, the rest outlined
+const ProjectLinks = ({ links, className = "" }) =>
+    links?.length ? (
+        <div className={`flex flex-wrap gap-3 ${className}`}>
+            {links.map((l, i) => (
+                <a
+                    key={l.url}
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`tap inline-flex items-center gap-1 rounded-full px-4 py-2.5 lg:py-2 font-montserrat text-sm ${
+                        i === 0 ? "bg-white text-black hover:bg-white/85" : "border border-white/20 text-white hover:border-white/50"
+                    }`}
+                >
+                    {l.label}
+                    <FiArrowUpRight className="w-4 h-4" />
+                </a>
             ))}
         </div>
-    </div>
-);
+    ) : null;
+
+// Same order as the Certificates section on a phone: the screens first, then what the product is, then what it does.
+const ProjectRow = ({ project: source, index, open, onToggle }) => {
+    const { lang, t } = useLang();
+    const project = localizeProject(source, lang);
+    const [showFeatures, setShowFeatures] = useState(false);
+    const featuresId = `${project.id}-features`;
+    const bodyId = `${project.id}-project`;
+    const mark = project.logo && projectMarks[project.logo];
+    const headRef = useRef(null);
+
+    // When a project above closes, this one slides up: once it has settled, bring its row back into view if it went off the top
+    useEffect(() => {
+        if (!open) return undefined;
+        const id = setTimeout(() => {
+            const head = headRef.current;
+            if (head && head.getBoundingClientRect().top < 0) head.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 520);
+        return () => clearTimeout(id);
+    }, [open]);
+
+    return (
+        <article className="border-t border-white/10 last:border-b">
+            <button
+                ref={headRef}
+                type="button"
+                onClick={onToggle}
+                aria-expanded={open}
+                aria-controls={bodyId}
+                className="w-full flex items-center gap-4 py-5 text-left active:bg-white/[0.03]"
+            >
+                <span
+                    className={`w-[72px] shrink-0 font-syncopate text-3xl leading-none transition-colors duration-300 ${open ? "text-white" : "text-transparent"}`}
+                    style={{ WebkitTextStroke: `1px ${open ? "#fff" : "rgba(255,255,255,0.35)"}` }}
+                >
+                    {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="flex items-center gap-3 min-w-0 flex-1">
+                    {mark && (
+                        <span className="flex items-center justify-center w-9 h-9 shrink-0">
+                            <img src={mark} alt="" loading="lazy" className="max-w-full max-h-full object-contain" />
+                        </span>
+                    )}
+                    <h3 className="font-montserrat font-semibold text-base text-white leading-snug truncate">{project.name}</h3>
+                </span>
+                <span className="flex items-center gap-3 shrink-0 font-montserrat text-xs text-gray-400">
+                    {project.year}
+                    <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                </span>
+            </button>
+
+            {/* Opens to its own height (0fr → 1fr), so nothing is cut and nothing jumps */}
+            <div
+                id={bodyId}
+                className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                    open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+                inert={!open}
+            >
+                <div className="overflow-hidden">
+                    <div className="pt-2 pb-10 flex flex-col gap-6">
+                        <Slider project={project} />
+
+                        <div className="flex flex-col">
+                            <div className="flex items-center gap-3">
+                                <p className="font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
+                                    {project.subtitle}
+                                </p>
+                                {project.status && (
+                                    <span className="shrink-0 font-montserrat text-[10px] text-gray-300 bg-white/[0.07] rounded-full px-2.5 py-0.5">
+                                        {project.status}
+                                    </span>
+                                )}
+                            </div>
+                            <p className="mt-4 max-w-xl font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{project.description}</p>
+                            <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                    {project.technologies.map((tech) => (
+                                        <TechBadge key={tech} name={tech} size="lg" />
+                                    ))}
+                                </div>
+                                <ProjectLinks links={project.links} />
+                            </div>
+                        </div>
+
+                        <div>
+                            <button
+                                type="button"
+                                onClick={() => setShowFeatures((v) => !v)}
+                                aria-expanded={showFeatures}
+                                aria-controls={featuresId}
+                                className="tap inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 font-montserrat text-sm text-white"
+                            >
+                                {showFeatures ? t.projects.hideFeatures : `${t.projects.showFeatures} (${project.features.length})`}
+                                <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${showFeatures ? "rotate-180" : ""}`} aria-hidden="true" />
+                            </button>
+                            <ul
+                                id={featuresId}
+                                className={`[&>li]:mb-4 mt-6 px-1 md:columns-2 md:gap-x-12 [&>li]:break-inside-avoid ${showFeatures ? "block" : "hidden"}`}
+                            >
+                                {project.features.map((f) => (
+                                    <Feature key={f} text={f} />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
+};
+
+const ProjectList = () => {
+    // One project open at a time: opening one closes the other. The first starts open.
+    const [open, setOpen] = useState(projects[0].id);
+    return (
+        <div className="mx-auto w-full max-w-2xl">
+            {projects.map((project, index) => (
+                <ProjectRow
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    open={open === project.id}
+                    onToggle={() => setOpen((cur) => (cur === project.id ? null : project.id))}
+                />
+            ))}
+        </div>
+    );
+};
+
+// Desktop: every project in full, three columns each. Phones and tablets: the list above.
+const Projects = () => {
+    const isDesktop = useMediaQuery("(min-width: 1024px)");
+    return (
+        <div id="projectsContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-12 sm:py-20">
+            {isDesktop ? (
+                <div className="mx-auto w-full max-w-[1400px]">
+                    {projects.map((project, index) => (
+                        <Project key={project.id} project={project} index={index} />
+                    ))}
+                </div>
+            ) : (
+                <ProjectList />
+            )}
+        </div>
+    );
+};
 
 export default Projects;

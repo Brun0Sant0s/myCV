@@ -78,7 +78,7 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     await context.close();
 });
 
-test("phone: file explorer, language and timeline years", async ({ browser }) => {
+test("phone: file explorer, language, timeline years and projects", async ({ browser }) => {
     const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const errors = watchErrors(page);
@@ -101,6 +101,15 @@ test("phone: file explorer, language and timeline years", async ({ browser }) =>
     await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
     await page.getByRole("button", { name: /^Idioma/ }).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
+
+    // Projects: the first starts open; opening another one closes it
+    const projects = page.locator("#projectsContent article > button[aria-expanded]");
+    await expect(projects).toHaveCount(6);
+    await expect(projects.first()).toHaveAttribute("aria-expanded", "true");
+    await projects.nth(1).scrollIntoViewIfNeeded();
+    await projects.nth(1).click();
+    await expect(projects.nth(1)).toHaveAttribute("aria-expanded", "true");
+    await expect(projects.first()).toHaveAttribute("aria-expanded", "false");
 
     // Timeline: the latest year starts open; opening another year closes it
     const years = page.locator("#professionalExperienceContent button[aria-expanded]");
