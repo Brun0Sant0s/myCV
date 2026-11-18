@@ -11,6 +11,8 @@ import { ACCENT, EASE } from "../../constants/theme";
 import CarouselControls from "../ui/CarouselControls";
 import useAutoplay from "../../hooks/useAutoplay";
 import useReveal from "../../hooks/useReveal";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import AccordionRow from "../ui/AccordionRow";
 import { useLang } from "../../i18n/LanguageContext";
 import { localizeCertification } from "../../i18n/data";
 
@@ -39,7 +41,8 @@ const Certificate = ({ cert, className = "", style }) => {
     );
 };
 
-const Certifications = () => {
+// Desktop: the stage in the middle, the selected course on the left, every course on the right
+const CertificationsStage = () => {
     const { lang, t } = useLang();
     const reduceMotion = useReducedMotion();
     const [[active, dir], setState] = useState([0, 0]);
@@ -187,5 +190,55 @@ const Certifications = () => {
         </div>
     );
 };
+
+/* ---------- Phones and tablets: one row per course, opened on tap (like the timeline and the projects) ---------- */
+
+const CertificationsList = () => {
+    const { lang, t } = useLang();
+    // One course open at a time: opening one closes the other. The first starts open.
+    const [open, setOpen] = useState(certifications[0].id);
+
+    return (
+        <div id="certificationsContent" className="relative w-full bg-black text-white px-5 sm:px-8 pt-6 pb-16">
+            <ul className="mx-auto w-full max-w-2xl">
+                {certifications.map((source, i) => {
+                    const cert = localizeCertification(source, lang);
+                    return (
+                        <AccordionRow
+                            key={cert.id}
+                            id={`certificate-${cert.id}`}
+                            label={num(i)}
+                            labelClassName="w-[72px]"
+                            open={open === cert.id}
+                            onToggle={() => setOpen((cur) => (cur === cert.id ? null : cert.id))}
+                            title={
+                                <span className="min-w-0">
+                                    <h3 className="font-montserrat font-semibold text-[15px] text-white leading-snug line-clamp-2">{cert.title}</h3>
+                                    <span className="block mt-1 font-montserrat text-xs text-gray-400">{cert.issuer}</span>
+                                </span>
+                            }
+                        >
+                            <div className="pt-2 pb-10 flex flex-col items-start gap-6">
+                                <Certificate cert={cert} className="w-full" />
+                                <p className="max-w-xl font-montserrat font-light text-[15px] text-gray-400 leading-relaxed">{cert.description}</p>
+                                <a
+                                    href={`${import.meta.env.BASE_URL}${cert.downloadLink}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="tap inline-flex items-center gap-1 rounded-full bg-white px-5 py-3 font-montserrat text-sm font-medium text-black hover:bg-white/85"
+                                >
+                                    {t.certifications.viewCertificate}
+                                    <FiArrowUpRight className="w-4 h-4" />
+                                </a>
+                            </div>
+                        </AccordionRow>
+                    );
+                })}
+            </ul>
+        </div>
+    );
+};
+
+const Certifications = () => (useMediaQuery("(min-width: 1024px)") ? <CertificationsStage /> : <CertificationsList />);
 
 export default Certifications;

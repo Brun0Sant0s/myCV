@@ -78,7 +78,7 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     await context.close();
 });
 
-test("phone: file explorer, language, timeline years and projects", async ({ browser }) => {
+test("phone: file explorer, language, timeline years, projects and certificates", async ({ browser }) => {
     const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const errors = watchErrors(page);
@@ -110,6 +110,14 @@ test("phone: file explorer, language, timeline years and projects", async ({ bro
     await projects.nth(1).click();
     await expect(projects.nth(1)).toHaveAttribute("aria-expanded", "true");
     await expect(projects.first()).toHaveAttribute("aria-expanded", "false");
+
+    // Certificates: same list, the first starts open
+    const courses = page.locator("#certificationsContent button[aria-expanded]");
+    await expect(courses).toHaveCount(5);
+    await expect(courses.first()).toHaveAttribute("aria-expanded", "true");
+    await courses.nth(2).scrollIntoViewIfNeeded();
+    await courses.nth(2).click();
+    await expect(courses.first()).toHaveAttribute("aria-expanded", "false");
 
     // Timeline: the latest year starts open; opening another year closes it
     const years = page.locator("#professionalExperienceContent button[aria-expanded]");
