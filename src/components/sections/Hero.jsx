@@ -4,12 +4,13 @@ import HeroSpotlight from "./HeroSpotlight";
 import avatar from "../../assets/avatar-cut.webp";
 import { ACCENT } from "../../constants/theme";
 import { useLang } from "../../i18n/LanguageContext";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 // First screen: my avatar, dimmed, the name, what I do and the two next steps.
 // Large screens: the name, the line and the buttons on the left, my avatar on the right fading into the code.
 // Phones and tablets: the name sits above my head.
 // A light drifts slowly over a wall of the stack written as code (HeroSpotlight).
-// Scrolling pushes the two words apart and fades the rest out.
+// Scrolling fades it out; on phones and tablets it also pushes the two words apart.
 
 // Size and place of the avatar (and of its black outline underneath)
 const AVATAR =
@@ -20,6 +21,8 @@ const FADE = "lg:[mask-image:linear-gradient(#000_62%,transparent_94%)]";
 
 const Hero = () => {
     const { t } = useLang();
+    // On large screens the name stays put; on phones and tablets the two words still slide apart on scroll
+    const desktop = useMediaQuery("(min-width: 1024px)");
     const { scrollY } = useScroll();
     const progress = useTransform(scrollY, (y) => Math.min(y / window.innerHeight, 1));
     const leftX = useTransform(progress, (p) => `${-p * 100}vw`);
@@ -42,8 +45,8 @@ const Hero = () => {
             </motion.div>
 
             <h1 className="relative z-10 flex flex-col items-center lg:items-start font-syncopate font-normal text-[7vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[8rem]">
-                <motion.span style={{ x: leftX }}>BRUNO</motion.span>
-                <motion.span style={{ x: rightX }}>SANTOS</motion.span>
+                <motion.span style={desktop ? undefined : { x: leftX }}>BRUNO</motion.span>
+                <motion.span style={desktop ? undefined : { x: rightX }}>SANTOS</motion.span>
             </h1>
             <motion.p
                 style={{ opacity: fade, color: ACCENT }}
