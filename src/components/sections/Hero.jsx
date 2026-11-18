@@ -24,7 +24,7 @@ const Hero = () => {
     return (
         <section
             id="aboutMeText"
-            className="relative w-full h-screen flex flex-col items-center justify-start pt-[14vh] sm:pt-[8vh] lg:justify-center lg:pt-0 text-center text-white"
+            className="relative w-full h-[100svh] min-h-[560px] flex flex-col items-center justify-start pt-[calc(env(safe-area-inset-top)+12vh)] sm:pt-[calc(env(safe-area-inset-top)+9vh)] lg:justify-center lg:pt-0 text-center text-white"
         >
             <HeroSpotlight />
 
@@ -47,10 +47,10 @@ const Hero = () => {
                 {t.hero.role}
             </motion.p>
 
-            {/* Bottom: the two next steps, above the tab bar */}
+            {/* Bottom: the two next steps, above the tab bar (taller on phones and tablets) */}
             <motion.div
                 style={{ opacity: fade }}
-                className="absolute inset-x-0 bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
+                className="absolute inset-x-0 bottom-[calc(max(12px,env(safe-area-inset-bottom))+92px)] lg:bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
             >
                 <div className="flex flex-wrap justify-center gap-3">
                     <a
@@ -59,7 +59,7 @@ const Hero = () => {
                             e.preventDefault();
                             document.getElementById("projectsText")?.scrollIntoView({ behavior: "smooth", block: "center" });
                         }}
-                        className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
+                        className="tap inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
                     >
                         {t.hero.projects}
                         <FiArrowDown className="w-4 h-4" aria-hidden="true" />
@@ -68,7 +68,7 @@ const Hero = () => {
                         href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 px-5 py-2.5 font-montserrat text-sm font-medium text-white transition-colors duration-300 hover:border-white/60"
+                        className="tap inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 px-5 py-2.5 font-montserrat text-sm font-medium text-white transition-colors duration-300 hover:border-white/60"
                     >
                         <FiDownload className="w-4 h-4" aria-hidden="true" />
                         {t.about.downloadCv}

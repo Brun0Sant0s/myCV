@@ -77,3 +77,32 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     expect(errors).toEqual([]);
     await context.close();
 });
+
+test("phone: app bar, bottom tabs and timeline filter", async ({ browser }) => {
+    const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const page = await context.newPage();
+    const errors = watchErrors(page);
+    await page.goto("./");
+
+    // Every tab of the bottom bar reaches its section
+    const tabs = page.getByRole("navigation", { name: "Sections" });
+    for (const tab of ["About", "Experience", "Projects", "Certificates", "Contact"]) {
+        const button = tabs.getByRole("button", { name: tab, exact: true });
+        await button.click();
+        await expect(button).toHaveAttribute("aria-current", "page", { timeout: 10_000 });
+    }
+
+    // The language switch in the app bar
+    await page.getByRole("button", { name: "Português" }).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
+    await page.getByRole("button", { name: "English" }).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+
+    // Filtering the timeline to one lane hides the others
+    const all = await page.locator("#professionalExperienceContent ol > li").count();
+    await page.getByRole("group", { name: "Show" }).getByRole("button", { name: "ePharma" }).click();
+    await expect.poll(() => page.locator("#professionalExperienceContent ol > li").count()).toBeLessThan(all);
+
+    expect(errors).toEqual([]);
+    await context.close();
+});

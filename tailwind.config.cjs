@@ -1,4 +1,6 @@
 module.exports = {
+  // :hover styles only on devices that can really hover, so a tap never leaves a button stuck in its hover look
+  future: { hoverOnlyWhenSupported: true },
   content: [
     "./src/**/*.{html,js,jsx,ts,tsx}",
   ],

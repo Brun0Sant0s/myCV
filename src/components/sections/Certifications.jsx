@@ -70,9 +70,9 @@ const Certifications = () => {
     return (
         <div
             id="certificationsContent"
-            className="relative w-full min-h-screen flex items-center justify-center bg-black text-white px-5 sm:px-8 py-20 sm:py-28"
+            className="relative w-full lg:min-h-screen flex items-center justify-center bg-black text-white px-5 sm:px-8 py-14 sm:py-24 lg:py-28"
         >
-            <div className="mx-auto w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)_minmax(0,1fr)] gap-y-12 lg:gap-x-20 items-center">
+            <div className="mx-auto w-full max-w-[1400px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)_minmax(0,1fr)] gap-y-10 md:gap-y-12 md:gap-x-10 lg:gap-x-20 items-center">
                 {/* Left: the selected course */}
                 <motion.div className="text-left lg:text-right flex flex-col lg:items-end" {...reveal(0.05)}>
                     <AnimatePresence mode="wait" initial={false}>
@@ -85,7 +85,7 @@ const Certifications = () => {
                             transition={{ duration: 0.35, ease: EASE }}
                         >
                             <span
-                                className="font-syncopate text-6xl sm:text-7xl leading-none text-transparent"
+                                className="font-syncopate text-5xl sm:text-7xl leading-none text-transparent"
                                 style={{ WebkitTextStroke: "1px rgba(255,255,255,0.22)" }}
                             >
                                 {num(active)}
@@ -99,7 +99,7 @@ const Certifications = () => {
                                 href={`${import.meta.env.BASE_URL}${cert.downloadLink}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="mt-7 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-montserrat text-sm text-black transition-colors duration-300 hover:bg-white/85"
+                                className="tap mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-1 rounded-full bg-white px-5 py-3 lg:px-4 lg:py-2 font-montserrat text-sm font-medium text-black hover:bg-white/85"
                             >
                                 {t.certifications.viewCertificate}
                                 <FiArrowUpRight className="w-4 h-4" />
@@ -109,9 +109,9 @@ const Certifications = () => {
                 </motion.div>
 
                 {/* Centre: the stage */}
-                <motion.div ref={stageRef} className="min-w-0 flex flex-col gap-6" {...reveal(0.1)}>
+                <motion.div ref={stageRef} className="min-w-0 flex flex-col gap-4 sm:gap-6 order-first md:order-none" {...reveal(0.1)}>
                     <div
-                        className="relative h-[300px] sm:h-[420px] outline-none"
+                        className="relative h-[clamp(220px,62vw,300px)] sm:h-[360px] lg:h-[420px] outline-none"
                         tabIndex={0}
                         role="region"
                         aria-roledescription="carousel"
@@ -157,9 +157,9 @@ const Certifications = () => {
                 </motion.div>
 
                 {/* Right: every course */}
-                <motion.div {...reveal(0.15)}>
+                <motion.div className="md:col-span-2 lg:col-span-1" {...reveal(0.15)}>
                     <p className="mb-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{t.certifications.allCourses}</p>
-                    <ul className="border-t border-white/10" role="tablist">
+                    <ul className="border-t border-white/10 md:grid md:grid-cols-2 md:gap-x-10 lg:block" role="tablist">
                         {certifications.map((c, i) => {
                             const on = i === active;
                             return (
@@ -169,7 +169,7 @@ const Certifications = () => {
                                         role="tab"
                                         aria-selected={on}
                                         onClick={() => pick(i)}
-                                        className={`w-full flex items-baseline gap-4 py-3.5 border-b border-white/10 text-left font-montserrat text-sm transition-colors duration-300 ${
+                                        className={`w-full flex items-baseline gap-4 py-4 active:bg-white/[0.04] lg:py-3.5 border-b border-white/10 text-left font-montserrat text-sm transition-colors duration-300 ${
                                             on ? "text-white" : "text-gray-400 hover:text-gray-200"
                                         }`}
                                     >

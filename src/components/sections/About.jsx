@@ -136,7 +136,7 @@ const Deck = () => {
                 if (e.key === "ArrowLeft") go(-1);
             }}
         >
-            <div className="relative h-[400px] sm:h-[460px] flex items-center justify-center">
+            <div className="relative h-[380px] sm:h-[460px] md:max-lg:[mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)] flex items-center justify-center">
                 {CARDS.map((c, i) => {
                     const p = place(i);
                     const front = i === active;
@@ -185,7 +185,7 @@ const About = () => {
     return (
         <div id="aboutMeContent" className="relative w-full bg-black text-white px-5 sm:px-8 py-16 sm:py-24">
             <div className="mx-auto w-full max-w-[1400px]">
-                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] gap-y-12 lg:gap-x-28 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] gap-y-12 md:gap-x-10 lg:gap-x-28 items-center">
                     {/* Left: who I am */}
                     <motion.div className="text-left lg:text-right flex flex-col lg:items-end" {...reveal(0.05)}>
                         <h3 className="font-montserrat font-semibold text-3xl sm:text-4xl text-white leading-tight">Bruno Santos</h3>
@@ -202,7 +202,7 @@ const About = () => {
                             href={`${import.meta.env.BASE_URL}documents/${t.about.cv}?v=${import.meta.env.VITE_CV_VERSION}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-montserrat text-sm font-medium text-black transition-opacity duration-300 hover:opacity-85"
+                            className="tap mt-7 lg:mt-6 w-full md:w-auto md:self-start lg:self-end inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 lg:px-4 lg:py-2 font-montserrat text-sm font-medium text-black hover:opacity-85"
                         >
                             <FiDownload className="w-4 h-4" />
                             {t.about.downloadCv}
@@ -215,23 +215,31 @@ const About = () => {
                     </motion.div>
 
                     {/* Right: skills and details */}
-                    <motion.div {...reveal(0.15)}>
-                        <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{t.about.skillsTitle}</p>
-                        <ul className="space-y-4">
-                            {t.about.skills.map((s) => (
-                                <Point key={s} text={s} />
-                            ))}
-                        </ul>
-                        <dl className="mt-10 border-t border-white/10">
+                    <motion.div className="md:col-span-2 lg:col-span-1 md:grid md:grid-cols-2 md:gap-x-12 lg:block" {...reveal(0.15)}>
+                        <div>
+                            <p className="mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">{t.about.skillsTitle}</p>
+                            <ul className="space-y-4">
+                                {t.about.skills.map((s) => (
+                                    <Point key={s} text={s} />
+                                ))}
+                            </ul>
+                        </div>
+                        <dl className="mt-10 md:mt-0 lg:mt-10 border-t border-white/10">
                             {t.about.facts.map((f) => (
-                                <div key={f.label} className="grid grid-cols-[110px_1fr] gap-4 py-4 border-b border-white/10 items-start">
+                                <div
+                                    key={f.label}
+                                    className="grid grid-cols-[96px_1fr] sm:grid-cols-[110px_1fr] gap-4 py-4 border-b border-white/10 items-start"
+                                >
                                     <dt className="pt-[2px] font-montserrat text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                                         {f.label}
                                     </dt>
                                     <dd className="m-0 flex flex-col gap-1.5">
                                         {f.items.some((it) => it.n) ? (
                                             f.items.map((it) => (
-                                                <span key={it.v} className="flex justify-between gap-4 font-montserrat text-sm text-white">
+                                                <span
+                                                    key={it.v}
+                                                    className="flex flex-wrap justify-between gap-x-4 gap-y-0.5 font-montserrat text-sm text-white"
+                                                >
                                                     {it.v}
                                                     <span className="font-light text-gray-400 whitespace-nowrap">{it.n}</span>
                                                 </span>

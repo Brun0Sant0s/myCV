@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { FiAward, FiClock, FiLayers, FiMessageCircle, FiUser } from "react-icons/fi";
 import { useLang } from "../../i18n/LanguageContext";
 
 // Navigation styled as a code editor, fixed at the bottom of the screen.
 // Large screens: the tab bar, one .jsx file per section (the open tab is where you are),
 // followed by the language as a JSX prop: <Site lang="pt" />.
-// Small screens: only the open file shows; tapping it opens the file explorer with every section.
+// Phones and tablets: a native app shell instead, a frosted top bar (section title + language) and a bottom tab bar.
 // `file` is the key of the section name in the translations (nav.*).
 const SECTIONS = [
     { file: "home", top: true },
@@ -65,11 +67,12 @@ const goTo = (i) => {
     else document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: s.title ? "center" : "start" });
 };
 
+const SPRING = { type: "spring", stiffness: 500, damping: 38 };
+
 const Divider = () => <span className="w-px my-1.5 bg-white/[0.18] shrink-0" aria-hidden="true" />;
 
 // The language as a JSX prop; clicking the value swaps English and Portuguese.
-// `short` keeps only the value, for small screens.
-const LangProp = ({ short = false }) => {
+const LangProp = () => {
     const { lang, setLang, t } = useLang();
     const value = (
         <button
@@ -82,7 +85,6 @@ const LangProp = ({ short = false }) => {
             "{lang}"
         </button>
     );
-    if (short) return <span className="flex items-center px-3">{value}</span>;
     return (
         <span className="flex items-center px-3 whitespace-nowrap">
             <span style={{ color: C.pn }}>&lt;</span>
@@ -138,81 +140,130 @@ const TabBar = ({ current }) => {
     );
 };
 
-/* ---------- Small screens: the open file and the explorer ---------- */
+/* ---------- Phones and tablets: native app chrome ---------- */
 
-const Explorer = ({ current }) => {
+// Tab bar icons, one per section (the hero has none: the app bar takes you back there)
+const TAB_ICONS = { about: FiUser, experience: FiClock, projects: FiLayers, certifications: FiAward, contact: FiMessageCircle };
+
+// Language as an iOS-style segmented control; the pill slides to the chosen language
+const LangSwitch = () => {
+    const { lang, setLang, t } = useLang();
+    return (
+        <div role="group" aria-label={t.nav.language} className="relative flex p-0.5 rounded-full bg-white/[0.08] border border-white/10">
+            {["pt", "en"].map((l) => {
+                const on = l === lang;
+                return (
+                    <button
+                        key={l}
+                        type="button"
+                        onClick={() => setLang(l)}
+                        aria-pressed={on}
+                        aria-label={l === "en" ? "English" : "Português"}
+                        className={`tap relative z-10 h-8 min-w-[40px] px-2.5 rounded-full font-montserrat text-[11px] font-semibold uppercase tracking-wider ${
+                            on ? "text-black" : "text-gray-400"
+                        }`}
+                    >
+                        {on && <motion.span layoutId="lang-pill" className="absolute inset-0 -z-10 rounded-full bg-white" transition={SPRING} />}
+                        {l}
+                    </button>
+                );
+            })}
+        </div>
+    );
+};
+
+// Top app bar. Over the hero it is see-through and shows only the language;
+// once the hero scrolls away it turns to frosted glass and names the section you are in,
+// like an iOS large title collapsing into the bar. Tapping the name goes back to the top.
+const AppBar = ({ current }) => {
     const { t } = useLang();
-    const [open, setOpen] = useState(false);
-    const boxRef = useRef(null);
-
-    // Close on Escape or a tap outside
-    useEffect(() => {
-        if (!open) return undefined;
-        const onKey = (e) => e.key === "Escape" && setOpen(false);
-        const onDown = (e) => !boxRef.current?.contains(e.target) && setOpen(false);
-        document.addEventListener("keydown", onKey);
-        document.addEventListener("pointerdown", onDown);
-        return () => {
-            document.removeEventListener("keydown", onKey);
-            document.removeEventListener("pointerdown", onDown);
-        };
-    }, [open]);
+    const { scrollY } = useScroll();
+    const [solid, setSolid] = useState(false);
+    useMotionValueEvent(scrollY, "change", (y) => setSolid(y > window.innerHeight * 0.55));
+    const title = current === 0 ? "Bruno Santos" : t.nav[SECTIONS[current].file];
 
     return (
-        <div ref={boxRef} className="lg:hidden">
-            {open && (
-                <div
-                    id="nav-explorer"
-                    className={`${panel} bottom-[calc(max(16px,env(safe-area-inset-bottom))+52px)] w-[min(320px,calc(100vw-32px))] py-2 text-[13px] text-gray-400`}
-                >
-                    <p className="px-4 py-1.5 text-gray-500">▾ src / sections</p>
-                    <nav aria-label={t.nav.label}>
-                        {SECTIONS.map((s, i) => {
-                            const on = i === current;
-                            return (
-                                <button
-                                    key={s.file}
-                                    type="button"
-                                    onClick={() => {
-                                        setOpen(false);
-                                        goTo(i);
-                                    }}
-                                    aria-current={on ? "page" : undefined}
-                                    className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-left ${
-                                        on ? "bg-white/[0.06] text-white" : "hover:bg-white/[0.03] hover:text-gray-200"
-                                    }`}
-                                >
-                                    <ReactIcon />
-                                    {t.nav[s.file]}.jsx
-                                </button>
-                            );
-                        })}
-                    </nav>
-                </div>
-            )}
-
-            <div className={`${shell} flex overflow-hidden text-[13px]`}>
+        <header
+            className={`lg:hidden fixed inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top)] border-b transition-colors duration-300 ${
+                solid ? "bg-black/70 backdrop-blur-xl backdrop-saturate-150 border-white/[0.08]" : "bg-transparent border-transparent"
+            }`}
+        >
+            <div className="h-14 flex items-center justify-between gap-3 pl-[max(16px,env(safe-area-inset-left))] pr-[max(16px,env(safe-area-inset-right))]">
                 <button
                     type="button"
-                    onClick={() => setOpen((o) => !o)}
-                    aria-expanded={open}
-                    aria-controls="nav-explorer"
-                    className="relative flex items-center gap-2 px-4 py-2.5 whitespace-nowrap text-white"
+                    onClick={() => goTo(0)}
+                    aria-label={t.nav.backToTop}
+                    tabIndex={solid ? 0 : -1}
+                    aria-hidden={!solid}
+                    className={`tap flex items-center gap-2.5 min-w-0 h-11 -ml-1 pl-1 pr-3 rounded-full transition-opacity duration-300 ${
+                        solid ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
                 >
-                    <span className="absolute top-0 left-0 right-0 h-[2px] bg-[#20C997]" />
-                    <ReactIcon />
-                    <span>
-                        {t.nav[SECTIONS[current].file]}
-                        <span className="text-gray-500">.jsx</span>
-                    </span>
-                    <span className="text-gray-500" aria-hidden="true">
-                        {open ? "▾" : "▴"}
+                    <img
+                        src={`${import.meta.env.BASE_URL}icon-192.png`}
+                        alt=""
+                        width="32"
+                        height="32"
+                        loading="lazy"
+                        className="w-8 h-8 rounded-full shrink-0 ring-1 ring-white/15"
+                    />
+                    <span className="relative h-5 min-w-0 overflow-hidden text-left">
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            <motion.span
+                                key={title}
+                                className="block font-montserrat font-semibold text-[15px] leading-5 text-white truncate"
+                                initial={{ y: 14, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -14, opacity: 0 }}
+                                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                {title}
+                            </motion.span>
+                        </AnimatePresence>
                     </span>
                 </button>
-                <Divider />
-                <LangProp short />
+                <LangSwitch />
             </div>
-        </div>
+        </header>
+    );
+};
+
+// Bottom tab bar: floating frosted glass, an icon and a short label per section.
+// The active tab turns green and a soft pill slides under it.
+const AppTabBar = ({ current }) => {
+    const { t } = useLang();
+    return (
+        <nav
+            aria-label={t.nav.label}
+            className="lg:hidden fixed z-40 left-1/2 -translate-x-1/2 bottom-[max(12px,env(safe-area-inset-bottom))] w-[min(460px,calc(100vw-24px))] rounded-[28px] border border-white/[0.12] bg-[#0d0d10]/75 backdrop-blur-xl backdrop-saturate-150 shadow-[0_12px_40px_rgba(0,0,0,0.6)] p-1.5"
+        >
+            <ul className="grid grid-cols-5">
+                {SECTIONS.map((s, i) => {
+                    if (s.top) return null;
+                    const Icon = TAB_ICONS[s.file];
+                    const on = i === current;
+                    return (
+                        <li key={s.file}>
+                            <button
+                                type="button"
+                                onClick={() => goTo(i)}
+                                aria-current={on ? "page" : undefined}
+                                aria-label={t.nav[s.file]}
+                                className={`tap relative w-full h-[52px] flex flex-col items-center justify-center gap-1 rounded-[22px] ${
+                                    on ? "text-[#20C997]" : "text-gray-400"
+                                }`}
+                            >
+                                {on && <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-[22px] bg-white/[0.08]" transition={SPRING} />}
+                                <Icon className="relative w-5 h-5" strokeWidth={on ? 2.2 : 1.8} aria-hidden="true" />
+                                <span className={`relative font-montserrat text-[10px] leading-none ${on ? "font-semibold" : "font-medium"}`}>
+                                    {t.nav.tabs[s.file]}
+                                </span>
+                            </button>
+                        </li>
+                    );
+                })}
+            </ul>
+        </nav>
     );
 };
 
@@ -221,7 +272,8 @@ const EditorNav = () => {
     return (
         <>
             <TabBar current={current} />
-            <Explorer current={current} />
+            <AppBar current={current} />
+            <AppTabBar current={current} />
         </>
     );
 };

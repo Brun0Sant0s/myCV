@@ -149,7 +149,9 @@ const Slider = ({ project }) => {
                 if (e.key === "ArrowLeft") go(-1);
             }}
         >
-            <div className={`relative flex items-center justify-center ${isPhone ? "h-[460px] sm:h-[540px]" : "w-full aspect-[16/9.5]"}`}>
+            <div
+                className={`relative flex items-center justify-center md:max-lg:[mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)] ${isPhone ? "h-[min(460px,60svh)] sm:h-[520px] lg:h-[540px]" : "w-full aspect-[16/9.5]"}`}
+            >
                 {side(prev, -1)}
                 {side(next, 1)}
                 <AnimatePresence mode="popLayout" initial={false}>
@@ -221,14 +223,14 @@ const Project = ({ project: source, index }) => {
     // Web projects get a wider stage so their screens stay readable
     const isWeb = project.media.items[0]?.kind === "browser";
     const columns = isWeb
-        ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-x-16"
-        : "lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] lg:gap-x-28";
+        ? "md:grid-cols-2 md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-x-16"
+        : "md:grid-cols-2 md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] lg:gap-x-28";
     const reveal = useReveal();
 
     return (
-        <article className="py-16 sm:py-24 border-t border-white/[0.08] first:border-t-0">
+        <article className="py-14 sm:py-24 border-t border-white/[0.08] first:border-t-0">
             {/* Outlined number, year and status */}
-            <motion.div className="flex items-end gap-5 mb-10" {...reveal()}>
+            <motion.div className="flex items-end gap-5 mb-8 lg:mb-10" {...reveal()}>
                 <span className="font-syncopate text-6xl sm:text-7xl leading-none text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.22)" }}>
                     {String(index + 1).padStart(2, "0")}
                 </span>
@@ -274,7 +276,7 @@ const Project = ({ project: source, index }) => {
                                 href={l.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`inline-flex items-center gap-1 rounded-full px-4 py-2 font-montserrat text-sm transition-colors duration-300 ${
+                                className={`tap inline-flex items-center gap-1 rounded-full px-4 py-2.5 lg:py-2 font-montserrat text-sm ${
                                     i === 0 ? "bg-white text-black hover:bg-white/85" : "border border-white/20 text-white hover:border-white/50"
                                 }`}
                             >
@@ -291,7 +293,7 @@ const Project = ({ project: source, index }) => {
                 </motion.div>
 
                 {/* Right: what it does. On phones and tablets it stays folded until asked for, to keep each project short. */}
-                <motion.div {...reveal(0.15)}>
+                <motion.div className="md:col-span-2 lg:col-span-1" {...reveal(0.15)}>
                     <p className="hidden lg:block mb-5 font-montserrat text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400">
                         {t.projects.features}
                     </p>
@@ -300,12 +302,15 @@ const Project = ({ project: source, index }) => {
                         onClick={() => setShowFeatures((v) => !v)}
                         aria-expanded={showFeatures}
                         aria-controls={featuresId}
-                        className="lg:hidden inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 font-montserrat text-sm text-white"
+                        className="tap lg:hidden w-full flex items-center justify-between gap-3 rounded-2xl border border-white/[0.12] bg-white/[0.03] px-5 h-14 font-montserrat text-sm font-medium text-white active:bg-white/[0.07]"
                     >
                         {showFeatures ? t.projects.hideFeatures : `${t.projects.showFeatures} (${project.features.length})`}
                         <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${showFeatures ? "rotate-180" : ""}`} aria-hidden="true" />
                     </button>
-                    <ul id={featuresId} className={`space-y-4 mt-6 lg:mt-0 lg:block ${showFeatures ? "block" : "hidden"}`}>
+                    <ul
+                        id={featuresId}
+                        className={`[&>li]:mb-4 mt-6 px-1 lg:px-0 lg:mt-0 lg:block md:columns-2 md:gap-x-12 lg:columns-1 [&>li]:break-inside-avoid ${showFeatures ? "block" : "hidden"}`}
+                    >
                         {project.features.map((f) => (
                             <Feature key={f} text={f} />
                         ))}

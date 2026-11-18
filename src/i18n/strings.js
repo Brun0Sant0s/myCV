@@ -12,6 +12,9 @@ const en = {
         certifications: "Certificates",
         contact: "Contact",
         language: "Language",
+        // Short names for the tab bar on phones and tablets
+        tabs: { about: "About", experience: "Career", projects: "Projects", certifications: "Courses", contact: "Contact" },
+        backToTop: "Back to top",
     },
     hero: {
         role: "Frontend Engineer · Porto, Portugal",
@@ -61,6 +64,8 @@ const en = {
     },
     experience: {
         goTo: "Go to",
+        all: "All",
+        filter: "Show",
         present: "Present",
         months: {},
     },
@@ -117,6 +122,8 @@ const pt = {
         certifications: "Certificados",
         contact: "Contacto",
         language: "Idioma",
+        tabs: { about: "Sobre", experience: "Percurso", projects: "Projetos", certifications: "Cursos", contact: "Contacto" },
+        backToTop: "Voltar ao início",
     },
     hero: {
         role: "Frontend Engineer · Porto, Portugal",
@@ -169,6 +176,8 @@ const pt = {
     },
     experience: {
         goTo: "Ir para",
+        all: "Tudo",
+        filter: "Mostrar",
         present: "Presente",
         months: {
             Jan: "Jan",
