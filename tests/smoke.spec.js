@@ -78,18 +78,22 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     await context.close();
 });
 
-test("phone: editor tabs, language and timeline filter", async ({ browser }) => {
+test("phone: file explorer, language and timeline filter", async ({ browser }) => {
     const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const errors = watchErrors(page);
     await page.goto("./");
 
-    // Every tab of the bar reaches its section, even the ones that start scrolled out of view
-    const tabs = page.getByRole("navigation", { name: "Sections" });
-    for (const tab of ["About", "Experience", "Projects", "Certificates", "Contact"]) {
-        const button = tabs.getByRole("button", { name: new RegExp(tab) });
+    // The open file opens the explorer, and every file in it reaches its section
+    for (const file of ["About", "Experience", "Projects", "Certificates", "Contact"]) {
+        await page.locator("[aria-controls='nav-explorer']").click();
+        const button = page.locator("#nav-explorer").getByRole("button", { name: new RegExp(file) });
         await button.click();
-        await expect(button).toHaveAttribute("aria-current", "page", { timeout: 10_000 });
+        await page.locator("[aria-controls='nav-explorer']").click();
+        await expect(page.locator("#nav-explorer").getByRole("button", { name: new RegExp(file) })).toHaveAttribute("aria-current", "page", {
+            timeout: 10_000,
+        });
+        await page.keyboard.press("Escape");
     }
 
     // The language prop
