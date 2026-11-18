@@ -10,7 +10,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 // Large screens: the name, the line and the buttons on the left, my avatar on the right fading into the code.
 // Phones and tablets: the name sits above my head.
 // A light drifts slowly over a wall of the stack written as code (HeroSpotlight).
-// Scrolling fades it out; on phones and tablets it also pushes the two words apart.
+// Scrolling fades it out; the name spreads and blurs away on large screens, its two words slide apart on phones and tablets.
 
 // Size and place of the avatar (and of its black outline underneath)
 const AVATAR =
@@ -21,13 +21,17 @@ const FADE = "lg:[mask-image:linear-gradient(#000_62%,transparent_94%)]";
 
 const Hero = () => {
     const { t } = useLang();
-    // On large screens the name stays put; on phones and tablets the two words still slide apart on scroll
+    // Phones and tablets: the two words slide apart on scroll. Large screens: the letters spread out and blur away.
     const desktop = useMediaQuery("(min-width: 1024px)");
     const { scrollY } = useScroll();
     const progress = useTransform(scrollY, (y) => Math.min(y / window.innerHeight, 1));
     const leftX = useTransform(progress, (p) => `${-p * 100}vw`);
     const rightX = useTransform(progress, (p) => `${p * 100}vw`);
     const fade = useTransform(progress, (p) => Math.max(0, 1 - p * 1.5));
+    const spread = useTransform(progress, (p) => 1 - Math.pow(1 - Math.min(p * 1.4, 1), 3));
+    const spacing = useTransform(spread, (s) => `${s * 0.5}em`);
+    const blur = useTransform(spread, (s) => `blur(${s * 10}px)`);
+    const nameOpacity = useTransform(spread, (s) => 1 - s);
 
     return (
         <section
@@ -44,10 +48,12 @@ const Hero = () => {
                 </div>
             </motion.div>
 
-            <h1 className="relative z-10 flex flex-col items-center lg:items-start font-syncopate font-normal text-[7vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[8rem]">
+            <motion.h1
+                style={desktop ? { letterSpacing: spacing, filter: blur, opacity: nameOpacity } : undefined}
+                className="relative z-10 flex flex-col items-center lg:items-start font-syncopate font-normal text-[7vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[8rem]">
                 <motion.span style={desktop ? undefined : { x: leftX }}>BRUNO</motion.span>
                 <motion.span style={desktop ? undefined : { x: rightX }}>SANTOS</motion.span>
-            </h1>
+            </motion.h1>
             <motion.p
                 style={{ opacity: fade, color: ACCENT }}
                 className="relative z-10 mt-5 sm:mt-7 px-6 lg:px-0 font-montserrat text-[11px] sm:text-xs font-medium uppercase tracking-[0.25em]"
