@@ -78,6 +78,13 @@ a {
     opacity: 0.32;
 }
 
+/* Large screens: the avatar sits beside the name, not under it, so it can be brighter */
+@media (min-width: 1024px) {
+    .hero-avatar {
+        opacity: 0.55;
+    }
+}
+
 /* Slim scrollbar in the site colours, still wide enough to grab with the mouse */
 html {
     scrollbar-width: thin;

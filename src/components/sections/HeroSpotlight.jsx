@@ -94,13 +94,12 @@ const makeWall = () => {
     });
 };
 
-// Next spot for the light, as a share of the hero. On wide screens my avatar fills the middle and hides the code,
-// so the light mostly heads for the free space on either side (it still crosses behind me on the way).
+// Next spot for the light, as a share of the hero. On wide screens my avatar fills the right side and hides the code,
+// so the light stays on the left half, behind the name.
 const nextTarget = (host) => {
     const y = 0.1 + Math.random() * 0.8;
     if (host.clientWidth < 1024) return { x: 0.08 + Math.random() * 0.84, y };
-    const side = Math.random() < 0.5 ? 0 : 1;
-    return { x: side ? 0.7 + Math.random() * 0.25 : 0.05 + Math.random() * 0.25, y };
+    return { x: 0.05 + Math.random() * 0.5, y };
 };
 
 // The light is a black veil with a soft round hole, twice the size of the hero, moved with a transform.
