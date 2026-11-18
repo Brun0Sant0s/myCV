@@ -78,24 +78,24 @@ test("phone: no sideways scroll, readable form fields, folded features", async (
     await context.close();
 });
 
-test("phone: app bar, bottom tabs and timeline filter", async ({ browser }) => {
+test("phone: editor tabs, language and timeline filter", async ({ browser }) => {
     const context = await browser.newContext({ locale: "en-US", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const errors = watchErrors(page);
     await page.goto("./");
 
-    // Every tab of the bottom bar reaches its section
+    // Every tab of the bar reaches its section, even the ones that start scrolled out of view
     const tabs = page.getByRole("navigation", { name: "Sections" });
     for (const tab of ["About", "Experience", "Projects", "Certificates", "Contact"]) {
-        const button = tabs.getByRole("button", { name: tab, exact: true });
+        const button = tabs.getByRole("button", { name: new RegExp(tab) });
         await button.click();
         await expect(button).toHaveAttribute("aria-current", "page", { timeout: 10_000 });
     }
 
-    // The language switch in the app bar
-    await page.getByRole("button", { name: "Português" }).click();
+    // The language prop
+    await page.getByRole("button", { name: /^Language/ }).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "pt-PT");
-    await page.getByRole("button", { name: "English" }).click();
+    await page.getByRole("button", { name: /^Idioma/ }).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
 
     // Filtering the timeline to one lane hides the others

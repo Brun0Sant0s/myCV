@@ -30,7 +30,7 @@ const Point = ({ text }) => {
 const ICON_TILE = "flex items-center justify-center w-11 h-11 rounded-xl bg-white/[0.05] border border-white/[0.08]";
 
 const CardShell = ({ children }) => (
-    <div className="w-full h-full rounded-[28px] bg-[#0c0c0c] border border-white/15 p-6 flex flex-col justify-between text-left shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+    <div className="w-full h-full rounded-[28px] bg-[#0c0c0c] border border-white/15 p-6 flex flex-col justify-between text-left lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
         {children}
     </div>
 );
@@ -55,7 +55,7 @@ const CARDS = [
                 draggable={false}
                 loading="lazy"
                 decoding="async"
-                className="block w-full h-full rounded-[28px] object-cover object-top select-none shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+                className="block w-full h-full rounded-[28px] object-cover object-top select-none lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
             />
         ),
     },

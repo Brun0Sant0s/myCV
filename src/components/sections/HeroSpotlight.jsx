@@ -1,9 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // A hidden wall behind the name with everything I have worked with, revealed by a light that wanders around on its own.
 // Every visit shuffles the list and writes each item in a random code style (<React />, "Figma", Node.js(), // Scrum…),
 // with the same syntax colours as the contact form.
-// The light position is written on the hero section (--x, --y).
 
 // The languages, frameworks, tools and ways of working I use most
 const STACK = [
@@ -76,13 +75,16 @@ const shuffle = (list) => {
     return a;
 };
 
-// A new wall on every visit: the whole list shuffled over and over, random styles, indents and gaps
+// A new wall on every visit: the whole list shuffled over and over, random styles, indents and gaps.
+// Only as many lines and characters as the screen can show (13px text, 1.9 line height), so phones get a light page.
 const makeWall = () => {
+    const rows = Math.ceil(Math.max(window.innerHeight, 560) / 24) + 2;
+    const cols = Math.ceil(window.innerWidth / 7.5) + 20;
     let pool = [];
-    return Array.from({ length: 90 }, () => {
+    return Array.from({ length: rows }, () => {
         const line = [[" ".repeat(rand(4) * 4)]];
         let length = 0;
-        while (length < 320) {
+        while (length < cols) {
             if (!pool.length) pool = shuffle(STACK);
             const pieces = STYLES[rand(STYLES.length)](pool.pop());
             line.push(...pieces, [" ".repeat(3 + rand(9))]);
@@ -91,7 +93,6 @@ const makeWall = () => {
         return line;
     });
 };
-const WALL = makeWall();
 
 // Next spot for the light, as a share of the hero. On wide screens my avatar fills the middle and hides the code,
 // so the light mostly heads for the free space on either side (it still crosses behind me on the way).
@@ -102,32 +103,47 @@ const nextTarget = (host) => {
     return { x: side ? 0.7 + Math.random() * 0.25 : 0.05 + Math.random() * 0.25, y };
 };
 
+// The light is a black veil with a soft round hole, twice the size of the hero, moved with a transform.
+// Moving it never repaints the code (a moving mask would, every frame), so it stays smooth on phones.
+// It only runs while the hero is on screen and the tab is visible.
+const VEIL = "radial-gradient(240px circle at 50% 50%, transparent 0%, #000 72%)";
+
 const HeroSpotlight = () => {
-    const ref = useRef(null);
+    const hostRef = useRef(null);
+    const veilRef = useRef(null);
+    const [wall] = useState(makeWall);
 
     useEffect(() => {
-        const el = ref.current;
-        const host = el?.parentElement;
-        if (!el || !host) return undefined;
-        const set = (x, y) => {
-            host.style.setProperty("--x", `${x}px`);
-            host.style.setProperty("--y", `${y}px`);
-        };
-        const r0 = host.getBoundingClientRect();
-        set(r0.width / 2, r0.height / 2);
+        const host = hostRef.current;
+        const veil = veilRef.current;
+        if (!host || !veil) return undefined;
 
-        // The light wanders on its own: it glides towards a random spot, and picks a new one before it gets there.
-        // It stays in the middle if the visitor prefers less motion.
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
-        let raf;
+        let w = host.clientWidth;
+        let h = host.clientHeight;
         let x = 0.5;
         let y = 0.5;
+        const place = () => {
+            veil.style.transform = `translate3d(${(x - 0.5) * w}px, ${(y - 0.5) * h}px, 0)`;
+        };
+        const resize = new ResizeObserver(() => {
+            w = host.clientWidth;
+            h = host.clientHeight;
+            place();
+        });
+        resize.observe(host);
+        place();
+
+        // It stays in the middle if the visitor prefers less motion.
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => resize.disconnect();
+
+        // The light wanders on its own: it glides towards a random spot, and picks a new one before it gets there.
+        let raf = null;
         let vx = 0;
         let vy = 0;
         let target = nextTarget(host);
-        let last = performance.now();
+        let last = 0;
         const loop = (t) => {
-            const dt = Math.min(0.05, (t - last) / 1000);
+            const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
             last = t;
             if (Math.hypot(target.x - x, target.y - y) < 0.12) target = nextTarget(host);
             // A soft spring towards the target, with some drag, so the path curves instead of going straight
@@ -135,32 +151,51 @@ const HeroSpotlight = () => {
             vy = (vy + (target.y - y) * 1.1 * dt) * (1 - 1.4 * dt);
             x += vx * dt * 0.6;
             y += vy * dt * 0.6;
-            const r = host.getBoundingClientRect();
-            set(r.width * x, r.height * y);
+            place();
             raf = requestAnimationFrame(loop);
         };
-        raf = requestAnimationFrame(loop);
-        return () => cancelAnimationFrame(raf);
+        const start = () => {
+            if (raf === null) {
+                last = 0;
+                raf = requestAnimationFrame(loop);
+            }
+        };
+        const stop = () => {
+            if (raf !== null) cancelAnimationFrame(raf);
+            raf = null;
+        };
+
+        let onScreen = false;
+        const sync = () => (onScreen && !document.hidden ? start() : stop());
+        const seen = new IntersectionObserver(([entry]) => {
+            onScreen = entry.isIntersecting;
+            sync();
+        });
+        seen.observe(host);
+        document.addEventListener("visibilitychange", sync);
+
+        return () => {
+            stop();
+            seen.disconnect();
+            resize.disconnect();
+            document.removeEventListener("visibilitychange", sync);
+        };
     }, []);
 
-    const mask = "radial-gradient(240px circle at var(--x, 50%) var(--y, 50%), #000 0%, transparent 72%)";
-
     return (
-        <div
-            ref={ref}
-            aria-hidden="true"
-            className="absolute inset-0 overflow-hidden pointer-events-none select-none font-mono text-[13px] leading-[1.9] p-6 text-left whitespace-pre opacity-60"
-            style={{ WebkitMaskImage: mask, maskImage: mask }}
-        >
-            {WALL.map((line, i) => (
-                <div key={i}>
-                    {line.map(([text, color], j) => (
-                        <span key={j} style={color ? { color } : undefined}>
-                            {text}
-                        </span>
-                    ))}
-                </div>
-            ))}
+        <div ref={hostRef} aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+            <div className="absolute inset-0 font-mono text-[13px] leading-[1.9] p-6 text-left whitespace-pre opacity-60">
+                {wall.map((line, i) => (
+                    <div key={i}>
+                        {line.map(([text, color], j) => (
+                            <span key={j} style={color ? { color } : undefined}>
+                                {text}
+                            </span>
+                        ))}
+                    </div>
+                ))}
+            </div>
+            <div ref={veilRef} className="absolute -inset-full will-change-transform" style={{ background: VEIL }} />
         </div>
     );
 };

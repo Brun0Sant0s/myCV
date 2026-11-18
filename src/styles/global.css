@@ -2,11 +2,10 @@
 
 html {
     scroll-behavior: smooth;
-    /* Phones: no grey flash on tap, no font inflation in landscape, no pull-to-refresh tugging the page */
+    /* Phones: no grey flash on tap, no font inflation in landscape */
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    overscroll-behavior-y: none;
 }
 
 body {
@@ -62,13 +61,6 @@ a {
     textarea,
     select {
         font-size: 16px !important;
-    }
-}
-
-/* Phones and tablets: the fixed app bar sits on top, so jumps to a section land below it */
-@media (max-width: 1023.98px) {
-    [id] {
-        scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px);
     }
 }
 

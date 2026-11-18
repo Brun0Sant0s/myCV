@@ -33,7 +33,7 @@ const Certificate = ({ cert, className = "", style }) => {
             draggable={false}
             loading="lazy"
             decoding="async"
-            className={`block max-w-full max-h-full w-auto h-auto rounded-lg border border-white/20 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.6)] select-none ${className}`}
+            className={`block max-w-full max-h-full w-auto h-auto rounded-lg border border-white/20 bg-white lg:shadow-[0_24px_60px_rgba(0,0,0,0.6)] select-none ${className}`}
             style={style}
         />
     );

@@ -9,7 +9,7 @@ import { roles, roleById, events } from "./timeline";
 /* ---------- Mobile / tablet: vertical, chronological ---------- */
 
 // Filter chips, like a native segmented filter: all moments, or one lane only.
-// They stick under the app bar while you scroll through the list.
+// They stick to the top of the screen while you scroll through the list.
 const Filters = ({ value, onChange }) => {
     const { lang, t } = useLang();
     const options = [{ id: null, label: t.experience.all, color: "#ffffff" }, ...roles.map((r) => localizeRole(r, lang))];
@@ -17,7 +17,7 @@ const Filters = ({ value, onChange }) => {
         <div
             role="group"
             aria-label={t.experience.filter}
-            className="sticky z-20 top-[calc(env(safe-area-inset-top)+56px)] self-stretch -mx-5 sm:-mx-8 mb-10 px-5 sm:px-8 py-3 bg-black/80 backdrop-blur-xl"
+            className="sticky z-20 top-0 pt-[env(safe-area-inset-top)] self-stretch -mx-5 sm:-mx-8 mb-10 px-5 sm:px-8 py-3 bg-black/95"
         >
             <div className="mx-auto max-w-xl flex gap-2 overflow-x-auto no-scrollbar">
                 {options.map((o) => {
@@ -65,7 +65,7 @@ const VerticalTimeline = () => {
 
     return (
         <div className="w-full flex flex-col items-center px-5 sm:px-8 pt-6 pb-16 text-left">
-            <span ref={topRef} aria-hidden="true" className="block h-0 scroll-mt-[calc(env(safe-area-inset-top)+56px)]" />
+            <span ref={topRef} aria-hidden="true" className="block h-0 scroll-mt-[env(safe-area-inset-top)]" />
             <Filters value={lane} onChange={pick} />
 
             <ol className="relative w-full max-w-xl border-l border-white/10 flex flex-col gap-10">

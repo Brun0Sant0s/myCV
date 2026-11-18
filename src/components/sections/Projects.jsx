@@ -34,7 +34,7 @@ const SCREEN_H = 844 * (1 + STATUS_BAR_RATIO);
 const IPhone = ({ src, alt, bar, hasStatusBar }) => {
     const ink = isLight(bar) ? "#111" : "#fff";
     return (
-        <div className="h-full inline-flex rounded-[46px] bg-[#0c0c0c] p-[9px] border border-white/15 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+        <div className="h-full inline-flex rounded-[46px] bg-[#0c0c0c] p-[9px] border border-white/15 lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
             <div
                 className="relative h-full rounded-[38px] overflow-hidden flex flex-col"
                 style={{ aspectRatio: `${SCREEN_W} / ${SCREEN_H}`, background: bar || "#0b0b0b" }}
@@ -72,7 +72,7 @@ const IPhone = ({ src, alt, bar, hasStatusBar }) => {
 };
 
 const Browser = ({ src, alt, url }) => (
-    <div className="w-full rounded-xl overflow-hidden border border-white/15 bg-[#0c0c0c] shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+    <div className="w-full rounded-xl overflow-hidden border border-white/15 bg-[#0c0c0c] lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
         <div className="flex items-center gap-1.5 px-4 h-8 border-b border-white/10">
             <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
             <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
@@ -302,7 +302,7 @@ const Project = ({ project: source, index }) => {
                         onClick={() => setShowFeatures((v) => !v)}
                         aria-expanded={showFeatures}
                         aria-controls={featuresId}
-                        className="tap lg:hidden w-full flex items-center justify-between gap-3 rounded-2xl border border-white/[0.12] bg-white/[0.03] px-5 h-14 font-montserrat text-sm font-medium text-white active:bg-white/[0.07]"
+                        className="tap lg:hidden inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 font-montserrat text-sm text-white"
                     >
                         {showFeatures ? t.projects.hideFeatures : `${t.projects.showFeatures} (${project.features.length})`}
                         <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${showFeatures ? "rotate-180" : ""}`} aria-hidden="true" />

@@ -24,7 +24,7 @@ const Hero = () => {
     return (
         <section
             id="aboutMeText"
-            className="relative w-full h-[100svh] min-h-[560px] flex flex-col items-center justify-start pt-[calc(env(safe-area-inset-top)+12vh)] sm:pt-[calc(env(safe-area-inset-top)+9vh)] lg:justify-center lg:pt-0 text-center text-white"
+            className="relative w-full h-[100svh] min-h-[560px] flex flex-col items-center justify-start pt-[14vh] sm:pt-[8vh] lg:justify-center lg:pt-0 text-center text-white"
         >
             <HeroSpotlight />
 
@@ -47,10 +47,10 @@ const Hero = () => {
                 {t.hero.role}
             </motion.p>
 
-            {/* Bottom: the two next steps, above the tab bar (taller on phones and tablets) */}
+            {/* Bottom: the two next steps, above the tab bar */}
             <motion.div
                 style={{ opacity: fade }}
-                className="absolute inset-x-0 bottom-[calc(max(12px,env(safe-area-inset-bottom))+92px)] lg:bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
+                className="absolute inset-x-0 bottom-[calc(max(16px,env(safe-area-inset-bottom))+72px)] z-10 flex flex-col items-center gap-5 px-5"
             >
                 <div className="flex flex-wrap justify-center gap-3">
                     <a
